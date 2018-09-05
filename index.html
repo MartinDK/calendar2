@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Calendar 2</title>
+    <link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen">
+</head>
+
+<body>
+    <script src="js/calendar2.js"></script>
+    <!-- <script src="js/event.js"></script> -->
+    <script type="text/javascript">
+
+        // TODO: Add date range selection
+        // TODO: Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
+        // TODO: Highlight today
+        // TODO: Create month Object that contains each day of the month
+        // TODO: Use the array.map function
+        var cal = new Calendar();
+        document.write(cal.calendarHTML());
+
+        var x = document.querySelectorAll("#day");
+        addEvent(x);
+
+    </script>
+
+</body>
+
+</html>
