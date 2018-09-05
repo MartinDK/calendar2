@@ -1,0 +1,82 @@
+body {
+    color: #444;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+table {
+    background-color: #f9fcff;
+    border-radius: 3px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+th {
+    background-color: #ddeeff;
+    padding: 5px;
+    font-weight: 600;
+}
+
+td {
+    text-align: center;
+    width: 30px;
+}
+
+tr>td:nth-child(1n +6) {
+    color: #eb0808;
+}
+
+tr>td:nth-child(1n +6).selected {
+    background-color: #c51515;
+    color: #ecb6b6;
+}
+
+h1 {
+    font-size: 1.5em;
+    font-weight: 400;
+}
+.calendar2 {
+    position: relative;
+    top: 100px;
+}
+
+.calendar-header-day {
+    background-color: #fff;
+    padding: 5px;
+}
+
+.calendar-day {
+    font-family: sans-serif;
+    padding: 5px;
+    background-color: #e4f2ff;
+}
+
+.calendar-day:hover {
+    background-color: #d1e8fd;
+}
+
+.calendar-day.today {
+    background-color: #ffdd00;
+    font-weight: 600;
+    border-radius: 10%;
+}
+
+.calendar-day.today:hover {
+    background-color: #ccb103;
+}
+
+.calendar-day.today.selected {
+    background-color: #c01616;
+}
+
+.selected {
+    background-color: #ad1313;
+    color: #fdebeb;
+}
+
+.selected:hover {
+    background-color: #c71212;
+}

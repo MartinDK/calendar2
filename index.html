@@ -8,20 +8,31 @@
 </head>
 
 <body>
+    <script src="js/calendar.js"></script>
     <script src="js/calendar2.js"></script>
-    <!-- <script src="js/event.js"></script> -->
+    <script src="js/events.js"></script>
     <script type="text/javascript">
 
-        // TODO: Add date range selection
-        // TODO: Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
-        // TODO: Highlight today
-        // TODO: Create month Object that contains each day of the month
-        // TODO: Use the array.map function
-        var cal = new Calendar();
-        document.write(cal.calendarHTML());
+    // TODO: Add date range selection
+    // TODO: Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
+    // TODO: Highlight today
+    // TODO: Create month Object that contains each day of the month
+    // TODO: Use the array.map function
+    
+    let cal2 = new Calendar2();
+    
+    const january = 30;
+    const startDay = 5;
+    
+    let month = cal2.createMonth(january);
+    document.write(cal2.htmlMonth(month, startDay));
 
-        var x = document.querySelectorAll("#day");
-        addEvent(x);
+    
+    let cal = new Calendar();
+    document.write(cal.calendarHTML());
+    var x = document.querySelectorAll("#day");
+    addEvents(x);
+
 
     </script>
 
