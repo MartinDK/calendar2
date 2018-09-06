@@ -63,11 +63,11 @@ Calendar2.prototype.createMonthHTML = function(month, startWeekday) {
         let cell = blanks + day;
  
         if ( cell == 1 ) {
-            html += `<td class="calendar-day">${day}</td>`;
+            html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
         } else if ( cell % 7){
-            html += `<td class="calendar-day">${day}</td>`;
+            html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
         } else {
-            html += `<td class="calendar-day">${day}</td></tr><tr>`;
+            html += `<td class="calendar-day" id="id-${day}">${day}</td></tr><tr>`;
         }
         
     }

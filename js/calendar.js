@@ -105,14 +105,14 @@ Calendar.prototype.tableHeader = function (dateStr) {
         html += this.daysOfWeek[i];
         html += '</td>';
     }
-    html += '</tr><tr>';
+    html += '</tr>';
 
     return html;
 }
 // one week
 Calendar.prototype.calendarRow = function (today, monthDetails, week) {
 
-    let html = "</tr><tr>";
+    let html = "<tr>";
 
     if (this.dayCounter > monthDetails.lengthOfMonth) {
         return html;
