@@ -26,13 +26,17 @@
     
     let cal2 = new Calendar2();
     
-    const date = cal2.getToday();
+    const today = cal2.getToday();
     const startDay = 5;
 
-    let monthArray = cal2.createMonthArray(date.monthIndex);    
+    let monthArray = cal2.createMonthArray(today.monthIndex);    
     let monthHTML2 = cal2.createMonthHTML(monthArray, startDay);
     document.getElementById('calendar2').insertAdjacentHTML("beforeend", monthHTML2);
-    let x = document.querySelectorAll("#day2");
+    let x = document.querySelectorAll(".calendar-day");
+    let e = document.querySelectorAll(`#id-${today.date}`);
+    console.log(e);
+    cal2.highlightToday(e);
+
     addEvents(x);
 
     
