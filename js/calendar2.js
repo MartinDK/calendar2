@@ -17,25 +17,15 @@ Calendar2.prototype.getToday = function() {
     const date = today.getDate();
     const day = this.daysOfWeek[today.getDay()];
     const ordinal = this.dateOrdinal(date);
+    const monthIndex = today.getMonth();
     const month = this.monthsName[today.getMonth()];
     const year = today.getFullYear();
-    return { date:date, day:day, ordinal:ordinal, month:month, year:year };
+    return { date:date, day:day, ordinal:ordinal, monthIndex:monthIndex, month:month, year:year };
 }
 Calendar2.prototype.dateOrdinal = function (date) {
 
     // number ordinal labels
-    numberOrdinal = {
-        0: 'th',
-        1: 'st',
-        2: 'nd',
-        3: 'rd',
-        4: 'th',
-        5: 'th',
-        6: 'th',
-        7: 'th',
-        8: 'th',
-        9: 'th'
-    };
+    numberOrdinal = { 0: 'th', 1: 'st', 2: 'nd', 3: 'rd', 4: 'th', 5: 'th', 6: 'th', 7: 'th', 8: 'th', 9: 'th'};
 
     let i;
     if (date >= 30) {
@@ -49,11 +39,14 @@ Calendar2.prototype.dateOrdinal = function (date) {
     }
     return numberOrdinal[i];
 }
-Calendar2.prototype.createMonthArray = (daysInMonth) => {
+Calendar2.prototype.createMonthArray = function(month) {
     // TODO: The month array will be used to store events
-    let month = Array.apply(null, {length: daysInMonth}).map(Number.call, Number);
-    month = month.map((x) => { return x+1 });
-    return month
+    console.log(this.daysInMonth[month])
+    monthLength = this.daysInMonth[month];
+    let monthArray = Array.apply(null, {length: monthLength}).map(Number.call, Number);
+    // first day 0=>1
+    monthArray = monthArray.map((x) => { return x+1 });
+    return monthArray
 }
 Calendar2.prototype.createMonthHTML = function(month, startWeekday) {
     

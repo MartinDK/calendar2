@@ -22,13 +22,15 @@
     // TODO: Highlight today
     // TODO: Create month Object that contains each day of the month
     // TODO: Use the array.map function
-    
-    
-    const month = 30;
-    const startDay = 5;
+     
     
     let cal2 = new Calendar2();
-    let monthArray = cal2.createMonthArray(month);    
+    
+    const date = cal2.getToday();
+    console.log(date);
+    const startDay = 5;
+
+    let monthArray = cal2.createMonthArray(date.monthIndex);    
     let monthHTML2 = cal2.createMonthHTML(monthArray, startDay);
     document.getElementById('calendar2').insertAdjacentHTML("beforeend", monthHTML2);
 
