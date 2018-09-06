@@ -21,10 +21,13 @@ th {
 }
 
 td {
+    font-family: sans-serif;
     text-align: center;
     width: 30px;
+    padding: 5px;
 }
 
+/* weekend */
 tr>td:nth-child(1n +6) {
     color: #eb0808;
 }
@@ -52,8 +55,6 @@ h1 {
     top: 50%;
     background-color: blue;
 }
-.calendar2 {
-}
 
 .calendar-header-day {
     background-color: #fff;
@@ -61,8 +62,6 @@ h1 {
 }
 
 .calendar-day {
-    font-family: sans-serif;
-    padding: 5px;
     background-color: #e4f2ff;
 }
 
