@@ -17,10 +17,12 @@ Calendar2.prototype.getToday = function() {
     const date = today.getDate();
     const day = this.daysOfWeek[today.getDay()];
     const ordinal = this.dateOrdinal(date);
-    const monthIndex = today.getMonth();
+    const monthLength = this.daysInMonth[today.getMonth()];
     const month = this.monthsName[today.getMonth()];
     const year = today.getFullYear();
-    return { date:date, day:day, ordinal:ordinal, monthIndex:monthIndex, month:month, year:year };
+    const firstOfMonth = new Date(year, today.getMonth(), 1);
+    const firstDay = firstOfMonth.getDay()-1;
+    return { date:date, day:day, ordinal:ordinal, firstDay:firstDay, monthLength:monthLength, month:month, year:year };
 }
 Calendar2.prototype.dateOrdinal = function (date) {
 
@@ -39,16 +41,20 @@ Calendar2.prototype.dateOrdinal = function (date) {
     }
     return numberOrdinal[i];
 }
-Calendar2.prototype.createMonthArray = function(month) {
-    // TODO: The month array will be used to store events
-    monthLength = this.daysInMonth[month];
+Calendar2.prototype.createMonthArray = function() {
+    
+    const monthLength = this.getToday().monthLength;
     let monthArray = Array.apply(null, {length: monthLength}).map(Number.call, Number);
-    // first day 0=>1
+    
+    // Adjust first day 0=>1
     monthArray = monthArray.map((x) => { return x+1 });
     return monthArray
 }
-Calendar2.prototype.createMonthHTML = function(month, startWeekday) {
+Calendar2.prototype.createMonthHTML = function() {
     
+    const month = this.createMonthArray();
+    const startWeekday = this.getToday().firstDay;
+    console.log(startWeekday);
     let html = `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" > ${this.getToday().day} &nbsp;${this.getToday().date}<sup>th</sup>&nbsp;${this.getToday().month}&nbsp;${this.getToday().year}</th ></tr>`;
     html += `<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>`;
     
@@ -73,8 +79,7 @@ Calendar2.prototype.createMonthHTML = function(month, startWeekday) {
 
     return html += "</table>";
 }
-Calendar2.prototype.highlightToday = function(e) {
-    // console.log(`#id-${today}`);
-    e[0].classList.add("today");
+Calendar2.prototype.highlightToday = function(el) {
+    el[0].classList.add("today");
 }
 

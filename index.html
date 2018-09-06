@@ -27,19 +27,16 @@
     let cal2 = new Calendar2();
     
     const today = cal2.getToday();
-    const startDay = 5;
 
-    let monthArray = cal2.createMonthArray(today.monthIndex);    
-    let monthHTML2 = cal2.createMonthHTML(monthArray, startDay);
+    // let monthArray = cal2.createMonthArray();    
+    let monthHTML2 = cal2.createMonthHTML();
     document.getElementById('calendar2').insertAdjacentHTML("beforeend", monthHTML2);
     let x = document.querySelectorAll(".calendar-day");
     let e = document.querySelectorAll(`#id-${today.date}`);
-    console.log(e);
-    cal2.highlightToday(e);
 
+    cal2.highlightToday(e);
     addEvents(x);
 
-    
     let cal = new Calendar();
     let monthHTML = cal.calendarHTML();
     document.getElementById('calendar').insertAdjacentHTML('beforeend', monthHTML);
@@ -47,7 +44,5 @@
     addEvents(y);
 
     </script>
-
 </body>
-
 </html>
