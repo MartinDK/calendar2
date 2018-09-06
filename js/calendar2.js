@@ -41,7 +41,6 @@ Calendar2.prototype.dateOrdinal = function (date) {
 }
 Calendar2.prototype.createMonthArray = function(month) {
     // TODO: The month array will be used to store events
-    console.log(this.daysInMonth[month])
     monthLength = this.daysInMonth[month];
     let monthArray = Array.apply(null, {length: monthLength}).map(Number.call, Number);
     // first day 0=>1
@@ -63,11 +62,11 @@ Calendar2.prototype.createMonthHTML = function(month, startWeekday) {
         let cell = blanks + day;
  
         if ( cell == 1 ) {
-            html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
+            html += `<td class="calendar-day" id="day2">${day}</td>`;
         } else if ( cell % 7){
-            html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
+            html += `<td class="calendar-day" id="day2">${day}</td>`;
         } else {
-            html += `<td class="calendar-day" id="id-${day}">${day}</td></tr><tr>`;
+            html += `<td class="calendar-day" id="day2">${day}</td></tr><tr>`;
         }
         
     }

@@ -27,19 +27,20 @@
     let cal2 = new Calendar2();
     
     const date = cal2.getToday();
-    console.log(date);
     const startDay = 5;
 
     let monthArray = cal2.createMonthArray(date.monthIndex);    
     let monthHTML2 = cal2.createMonthHTML(monthArray, startDay);
     document.getElementById('calendar2').insertAdjacentHTML("beforeend", monthHTML2);
+    let x = document.querySelectorAll("#day2");
+    addEvents(x);
 
     
     let cal = new Calendar();
     let monthHTML = cal.calendarHTML();
     document.getElementById('calendar').insertAdjacentHTML('beforeend', monthHTML);
-    let x = document.querySelectorAll("#day");
-    addEvents(x);
+    let y = document.querySelectorAll("#day");
+    addEvents(y);
 
     </script>
 
