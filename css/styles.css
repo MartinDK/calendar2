@@ -2,11 +2,11 @@ body {
     color: #444;
     font-family: sans-serif;
     font-weight: 100;
+    background-color: pink;
 }
 
 table {
     background-color: #f9fcff;
-    border-radius: 3px;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -38,9 +38,21 @@ h1 {
     font-size: 1.5em;
     font-weight: 400;
 }
+.left {
+    position: absolute;
+    width: 50%;
+    right: 50%;
+    top: 50%;
+    background-color: red;
+}
+.right {
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    top: 50%;
+    background-color: blue;
+}
 .calendar2 {
-    position: relative;
-    top: 100px;
 }
 
 .calendar-header-day {
@@ -58,17 +70,17 @@ h1 {
     background-color: #d1e8fd;
 }
 
-.calendar-day.today {
+.today {
     background-color: #ffdd00;
     font-weight: 600;
     border-radius: 10%;
 }
 
-.calendar-day.today:hover {
+.today:hover {
     background-color: #ccb103;
 }
 
-.calendar-day.today.selected {
+.today.selected {
     background-color: #c01616;
 }
 
