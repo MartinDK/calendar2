@@ -16,33 +16,26 @@
     <script src="js/calendar2.js"></script>
     <script src="js/events.js"></script>
     <script type="text/javascript">
+        // TODO: Add date range selection
+        // TODO: Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
+        // TODO: Highlight today
+        // TODO: Create month Object that contains each day of the month
+        // TODO: Use the array.map function
 
-    // TODO: Add date range selection
-    // TODO: Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
-    // TODO: Highlight today
-    // TODO: Create month Object that contains each day of the month
-    // TODO: Use the array.map function
-     
-    
-    let cal2 = new Calendar2();
-    
-    const today = cal2.getToday();
+        let calendar2 = createCalendar();
+        calendar2.highlightToday();
 
-    // let monthArray = cal2.createMonthArray();    
-    let monthHTML2 = cal2.createMonthHTML();
-    document.getElementById('calendar2').insertAdjacentHTML("beforeend", monthHTML2);
-    let x = document.querySelectorAll(".calendar-day");
-    let e = document.querySelectorAll(`#id-${today.date}`);
 
-    cal2.highlightToday(e);
-    addEvents(x);
+        let cal = new Calendar();
+        let monthHTML = cal.calendarHTML();
+        document.getElementById('calendar').insertAdjacentHTML('beforeend', monthHTML);
 
-    let cal = new Calendar();
-    let monthHTML = cal.calendarHTML();
-    document.getElementById('calendar').insertAdjacentHTML('beforeend', monthHTML);
-    let y = document.querySelectorAll("#day");
-    addEvents(y);
+        let x = document.querySelectorAll(".calendar-day");
+        addEvents(x);
 
+        let y = document.querySelectorAll("#day");
+        addEvents(y);
     </script>
 </body>
+
 </html>
