@@ -1,4 +1,4 @@
-// Learn how to create an ES16 list
+// Create a new calendar
 function createCalendar() {
     let calendar2 = new Calendar2();
     let monthHTML2 = calendar2.createMonthHTML();
@@ -6,6 +6,7 @@ function createCalendar() {
     return calendar2;
 }
 
+// Calender 2 object
 function Calendar2() {
     // labels for the days of the week
     this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

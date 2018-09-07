@@ -2,33 +2,34 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <title>Calendar 2</title>
-    <link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Calendar 2</title>
+	<link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen">
 </head>
 
 <body>
-    <div id="calendar" class="left"></div>
-    <div id="calendar2" class="right"></div>
+	<div id="calendar" class="left"></div>
+	<div id="calendar2" class="right"></div>
 
-    <script src="js/calendar.js"></script>
-    <script src="js/calendar2.js"></script>
-    <script src="js/events.js"></script>
-    <script type="text/javascript">
-
+	<script src="js/calendar.js"></script>
+	<script src="js/calendar2.js"></script>
+	<script src="js/events.js"></script>
+	<script type="text/javascript">
+        
+        // Calendar 2
         let calendar2 = createCalendar();
-        calendar2.highlightToday();
+		calendar2.highlightToday();
 
-        let cal = new Calendar();
-        let monthHTML = cal.calendarHTML();
-        document.getElementById('calendar').insertAdjacentHTML('beforeend', monthHTML);
+        // Calendar 1
+		let cal = new Calendar();
+		let monthHTML = cal.calendarHTML();
+		document.getElementById('calendar').insertAdjacentHTML('beforeend', monthHTML);
 
-        let x = document.querySelectorAll(".calendar-day");
-        addEvents(x);
+        // Add
+		addEvents(".calendar2 td.calendar-day");
+		addEvents("#day");
 
-        let y = document.querySelectorAll("#day");
-        addEvents(y);
-    </script>
+	</script>
 </body>
 
 </html>
