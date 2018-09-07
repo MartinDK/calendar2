@@ -1,5 +1,6 @@
 - [ ] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
 - [ ] Add date range selection
+- [ ] Add buttons to change month
 - [ ] 
 - [x] Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
 - [x] Highlight today
