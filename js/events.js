@@ -1,13 +1,13 @@
 function addEvents(selector) {
-	let el = document.querySelectorAll(selector);
+  const el = document.querySelectorAll(selector);
 
-	for (let i = 0; i < el.length; i++) {
-		el[i].addEventListener('click', function () {
-			if (this.classList.contains('selected')) {
-				this.classList.remove('selected');
-			} else {
-				this.classList.add('selected');
-			}
-		});
-	}
+  for (let i = 0; i < el.length; i += 1) {
+    el[i].addEventListener('click', function () {
+      if (this.classList.contains('selected')) {
+        this.classList.remove('selected');
+      } else {
+        this.classList.add('selected');
+      }
+    });
+  }
 }
