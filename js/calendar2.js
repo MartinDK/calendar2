@@ -11,10 +11,7 @@ function Calendar2() {
     this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     // months array in order
-    this.monthsName = ['January', 'February', 'March', 'April',
-        'May', 'June', 'July', 'August', 'September',
-        'October', 'November', 'December'
-    ];
+    this.monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     // the days of the week for each month, in order
     this.daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -111,6 +108,5 @@ Calendar2.prototype.createMonthHTML = function () {
 }
 Calendar2.prototype.highlightToday = function () {
     let e = document.querySelectorAll(`#id-${this.getToday().date}`);
-    console.log(e)
     e[0].classList.add("today");
 }
