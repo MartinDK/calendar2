@@ -1,8 +1,8 @@
-- [ ] 
 - [ ] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
-- [ ] Calendar1 selection not working
 - [ ] Add date range selection
-- [ ] Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
-- [ ] Highlight today
-- [ ] Create month Object that contains each day of the month
-- [ ] Use the array.map function
+- [ ] 
+- [x] Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
+- [x] Highlight today
+- [x] Create month Object that contains each day of the month
+- [x] Use the array.map function
+- [x] Calendar1 selection not working
