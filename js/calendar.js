@@ -16,7 +16,7 @@ function Calendar() {
 // add ordinal i.e 1st, 2nd, 3rd and 4th
 Calendar.prototype.dateOrdinal = function (date) {
   // number ordinal labels
-  numberOrdinal = {
+  const numberOrdinal = {
     0: 'th',
     1: 'st',
     2: 'nd',
@@ -59,7 +59,7 @@ Calendar.prototype.getToday = function () {
 // Tue 4th September 2018
 Calendar.prototype.readableDate = function (date) {
   const todaysName = this.daysOfWeek[this.startMonday(date.weekday)];
-  const readableDate = `${todaysName  }&nbsp;${  date.today  }<sup>${  this.dateOrdinal(date.today)  }</sup>` + `&nbsp;${  this.monthsName[date.month]  }&nbsp;${  date.year}`;
+  const readableDate = `${todaysName}&nbsp;${date.today}<sup>${this.dateOrdinal(date.today)}</sup>&nbsp;${this.monthsName[date.month]}&nbsp;${date.year}`;
   return readableDate;
 };
 // make Monday start of the week
