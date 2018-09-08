@@ -15,20 +15,18 @@
 	<script src="js/calendar2.js"></script>
 	<script src="js/events.js"></script>
 	<script type="text/javascript">
-        
-        // Calendar 2
-        let calendar2 = createCalendar();
+		// Calendar 2
+		let calendar2 = createCalendar();
 		calendar2.highlightToday();
 
-        // Calendar 1
+		// Calendar 1
 		let cal = new Calendar();
 		let calendarHTML = cal.calendarHTML();
 		document.getElementById('calendar').insertAdjacentHTML('beforeend', calendarHTML);
 
-        // Add
+		// Add
 		addEvents(".calendar2 td.calendar-day");
 		addEvents("#day");
-
 	</script>
 </body>
 

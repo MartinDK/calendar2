@@ -10,12 +10,14 @@ function Calendar2() {
   // the days of the week for each month, in order
   this.daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 }
+
 function createCalendar() {
   const calendar2 = new Calendar2();
   const monthHTML2 = calendar2.createMonthHTML();
   document.getElementById('calendar2').insertAdjacentHTML('beforeend', monthHTML2);
   return calendar2;
 }
+
 function today() {
   return function () {
     const today = new Date();
@@ -38,10 +40,11 @@ function today() {
     };
   };
 }
+
 function monthArray() {
   return function () {
     const monthLength = this.getToday().monthLength;
-    let monthArray = Array.apply(null, {
+    let monthArray = Array(...{
       length: monthLength,
     }).map(Number.call, Number);
     // Adjust first day 0=>1
@@ -49,6 +52,7 @@ function monthArray() {
     return monthArray;
   };
 }
+
 function monthHTML() {
   return function () {
     const month = this.createMonthArray();
@@ -74,12 +78,14 @@ function monthHTML() {
     return html;
   };
 }
+
 function highlight() {
   return function () {
     const e = document.querySelectorAll(`#id-${this.getToday().date}`);
     e[0].classList.add('today');
   };
 }
+
 function ordinal() {
   return function (date) {
     // number ordinal labels

@@ -1,93 +1,95 @@
 body {
-    color: #444;
-    font-family: sans-serif;
-    font-weight: 100;
-    background-color: pink;
+  color: #444;
+  font-family: sans-serif;
+  font-weight: 100;
+  background-color: pink;
 }
 
 table {
-    background-color: #f9fcff;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  background-color: #f9fcff;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 th {
-    background-color: #ddeeff;
-    padding: 5px;
-    font-weight: 600;
+  background-color: #ddeeff;
+  padding: 5px;
+  font-weight: 600;
 }
 
 td {
-    font-family: sans-serif;
-    text-align: center;
-    width: 30px;
-    padding: 5px;
+  font-family: sans-serif;
+  text-align: center;
+  width: 30px;
+  padding: 5px;
 }
 
 /* weekend */
 tr>td:nth-child(1n +6) {
-    color: #eb0808;
+  color: #eb0808;
 }
 
 tr>td:nth-child(1n +6).selected {
-    background-color: #c51515;
-    color: #ecb6b6;
+  background-color: #c51515;
+  color: #ecb6b6;
 }
 
 h1 {
-    font-size: 1.5em;
-    font-weight: 400;
+  font-size: 1.5em;
+  font-weight: 400;
 }
+
 .left {
-    position: absolute;
-    width: 50%;
-    right: 50%;
-    top: 50%;
-    background-color: red;
+  position: absolute;
+  width: 50%;
+  right: 50%;
+  top: 50%;
+  background-color: red;
 }
+
 .right {
-    position: absolute;
-    width: 50%;
-    left: 50%;
-    top: 50%;
-    background-color: blue;
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  top: 50%;
+  background-color: blue;
 }
 
 .calendar-header-day {
-    background-color: #fff;
-    padding: 5px;
+  background-color: #fff;
+  padding: 5px;
 }
 
 .calendar-day {
-    background-color: #e4f2ff;
+  background-color: #e4f2ff;
 }
 
 .calendar-day:hover {
-    background-color: #d1e8fd;
+  background-color: #d1e8fd;
 }
 
 .today {
-    background-color: #ffdd00;
-    font-weight: 600;
-    border-radius: 10%;
+  background-color: #ffdd00;
+  font-weight: 600;
+  border-radius: 10%;
 }
 
 .today:hover {
-    background-color: #ccb103;
+  background-color: #ccb103;
 }
 
 .today.selected {
-    background-color: #c01616;
+  background-color: #c01616;
 }
 
 .selected {
-    background-color: #ad1313;
-    color: #fdebeb;
+  background-color: #ad1313;
+  color: #fdebeb;
 }
 
 .selected:hover {
-    background-color: #c71212;
+  background-color: #c71212;
 }
