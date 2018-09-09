@@ -11,13 +11,11 @@ function addEvents(selector) {
 
 // Event handler
 let eventHandler = (el) => {
-
-  let eventList = el.classlist;
-
-  el = eventList.contains('today') ? todaySelected(el) : el;
-  el = eventList.contains('selected') ? toggleSelection(el) : toggleSelection(el);
+  let elementState;
+  elementState = el.classList.contains('today') ? todaySelected(el) : el;
+  elementState = el.classList.contains('selected') ? toggleSelection(el) : toggleSelection(el);
   
-  return el;
+  return elementState;
 }
 
 // Events
