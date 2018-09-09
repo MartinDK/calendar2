@@ -16,18 +16,14 @@ class Events {
   }
 
   // Event handler
-  eventFilter(e, el){ return el.classList.contains(e); }
+  trigger(e, el){ return el.classList.contains(e); } // true if (el)ement contains e
 
   eventHandler(el){
-    let eState;
-    eState = this.eventFilter('today', el) ? this.togglToday(el) : el;
-    eState = this.eventFilter('selected', el) ? this.togglSelect(el) : this.togglSelect(el);
-
-    return eState;
+    this.trigger('today', el) ? this.togglToday(el) : el;
+    this.trigger('selected', el) ? this.togglSelect(el) : this.togglSelect(el);
   }
 
   // Events
-  togglToday(el){ return this.eventFilter("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
-  togglSelect(el){ return this.eventFilter("selected", el) ? el.classList.remove('selected') : el.classList.add('selected') };
-
+  togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
+  togglSelect(el){ return this.trigger("selected", el) ? el.classList.remove('selected') : el.classList.add('selected') };
 }
