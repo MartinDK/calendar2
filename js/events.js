@@ -11,32 +11,14 @@ function addEvents(selector) {
 
 // Event handler
 let eventHandler = (el) => {
-
-  if (el.classList.contains('today')) { return selectToday(el);
+  let elementState;
+  elementState = el.classList.contains('today') ? todaySelected(el) : el;
+  elementState = el.classList.contains('selected') ? toggleSelection(el) : toggleSelection(el);
   
-  }
-  if (el.classList.contains('selected')) {
-
-    return el.classList.remove('selected');
-
-  } else {
-
-    return el.classList.add('selected');
-
-  };
+  return elementState;
 }
 
 // Events
-let toggleSelection = el => {
 
-}
-let selectToday = el => { 
-  if (el.classList.contains('selected')) {
-    console.log(`goodbye`);
-    return el.classList.remove('selected')
-  } else {
-    console.log(`hello`);
-    return el.classList.add('selected')
-    
-  }
-}
+let todaySelected = el => { return el.classList.contains("selected") ? console.log(`goodbye`) : console.log(`hello`) };
+let toggleSelection = el => { return el.classList.contains("selected") ? el.classList.remove('selected') : el.classList.add('selected') };
