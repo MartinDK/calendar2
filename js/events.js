@@ -1,5 +1,5 @@
 // Create Events
-function addEvents(selector) {
+let addEvents = selector => {
   const el = document.querySelectorAll(selector);
 
   for (let i = 0; i < el.length; i += 1) {
@@ -8,20 +8,16 @@ function addEvents(selector) {
 }
 
 // Event handler
-let eventContains = (e, el) => el.classList.contains(e);
+let eventAct = (e, el) => el.classList.contains(e);
 
 let eventHandler = el => {
   let eState;
-  eState = eventContains('today', el) ? togglToday(el) : el;
-  eState = eventContains('selected', el) ? togglSelect(el) : togglSelect(el);
+  eState = eventAct('today', el) ? togglToday(el) : el;
+  eState = eventAct('selected', el) ? togglSelect(el) : togglSelect(el);
 
   return eState;
 }
 
 // Events
-let togglToday = el => {
-  return eventContains("selected", el) ? console.log(`goodbye`) : console.log(`hello`)
-};
-let togglSelect = el => {
-  return eventContains("selected", el) ? el.classList.remove('selected') : el.classList.add('selected')
-};
+let togglToday = el => { return eventAct("selected", el) ? console.log(`goodbye`) : console.log(`hello`)} ;
+let togglSelect = el => { return eventAct("selected", el) ? el.classList.remove('selected') : el.classList.add('selected')};
