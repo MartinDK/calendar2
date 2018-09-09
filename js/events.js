@@ -1,23 +1,33 @@
-// Create Events
-let addEvents = selector => {
-  const el = document.querySelectorAll(selector);
 
-  for (let i = 0; i < el.length; i += 1) {
-    el[i].addEventListener('click', () => eventHandler(el[i]));
-  };
+class Events {
+
+  static createEvents() {
+    let ev = new Events;
+    ev.addEvents('.calendar2 td.calendar-day');
+  }
+
+  // Create Events
+  addEvents(selector) {
+    const el = document.querySelectorAll(selector);
+
+    for (let i = 0; i < el.length; i += 1) {
+      el[i].addEventListener('click', () => this.eventHandler(el[i]));
+    };
+  }
+
+  // Event handler
+  eventFilter(e, el){ return el.classList.contains(e); }
+
+  eventHandler(el){
+    let eState;
+    eState = this.eventFilter('today', el) ? this.togglToday(el) : el;
+    eState = this.eventFilter('selected', el) ? this.togglSelect(el) : this.togglSelect(el);
+
+    return eState;
+  }
+
+  // Events
+  togglToday(el){ return this.eventFilter("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
+  togglSelect(el){ return this.eventFilter("selected", el) ? el.classList.remove('selected') : el.classList.add('selected') };
+
 }
-
-// Event handler
-let eventAct = (e, el) => el.classList.contains(e);
-
-let eventHandler = el => {
-  let eState;
-  eState = eventAct('today', el) ? togglToday(el) : el;
-  eState = eventAct('selected', el) ? togglSelect(el) : togglSelect(el);
-
-  return eState;
-}
-
-// Events
-let togglToday = el => { return eventAct("selected", el) ? console.log(`goodbye`) : console.log(`hello`)} ;
-let togglSelect = el => { return eventAct("selected", el) ? el.classList.remove('selected') : el.classList.add('selected')};
