@@ -1,9 +1,12 @@
 
 class Events {
+  constructor() {
+    this.e = '';
+  }
 
-  static createEvents() {
-    let ev = new Events;
-    ev.addEvents('.calendar2 td.calendar-day');
+  static createEvents(selector) {
+    this.e = new Events;
+    this.e.addEvents(selector);
   }
 
   // Create Events

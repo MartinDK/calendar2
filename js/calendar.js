@@ -93,7 +93,7 @@ Calendar.prototype.monthProps = function (dateObj) {
 // table header
 Calendar.prototype.tableHeader = function (dateStr) {
   let html = '';
-  html += '<table class="calendar-table">';
+  html += '<table class="calendar calendar-table">';
   html += '<tr><th colspan="7">';
   html += dateStr;
   html += '</th></tr>';

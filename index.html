@@ -13,19 +13,21 @@
 
 	<script src="js/calendar.js"></script>
 	<script src="js/calendar2.js"></script>
-	<script src="js/events.js"></script>
+	<script src="js/events2.js"></script>
 	<script type="text/javascript">
 		// Calendar 2
-		Calendar2.createCalendar();
+		Calendar2.createCalendar('calendar2');
 
 		// Calendar 1
-		let cal = new Calendar();
-		let calendarHTML = cal.calendarHTML();
-		document.getElementById('calendar').insertAdjacentHTML('beforeend', calendarHTML);
+		Calendar2.createCalendar('calendar');
+		// let cal = new Calendar();
+		// let calendarHTML = cal.calendarHTML();
+		// document.getElementById('calendar').insertAdjacentHTML('beforeend', calendarHTML);
 
 		// Add
 		Events.createEvents(".calendar2 td.calendar-day");
-		// addEvents("#day");
+		Events.createEvents(".calendar #day");
+
 	</script>
 </body>
 

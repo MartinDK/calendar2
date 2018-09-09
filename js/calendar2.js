@@ -20,11 +20,11 @@ class Calendar2 {
       return monthArray;
     }
   }
-  static createCalendar() { 
+  static createCalendar(id) { 
 
     const calendar2 = new Calendar2();
     const monthHTML2 = calendar2.createMonthHTML();
-    document.getElementById('calendar2').insertAdjacentHTML('beforeend', monthHTML2);
+    document.getElementById(id).insertAdjacentHTML('beforeend', monthHTML2);
     calendar2.highlightToday();
 
     return calendar2;
