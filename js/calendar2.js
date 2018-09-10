@@ -36,18 +36,17 @@ class Calendar2 {
   createMonthHTML() {
     // Intialise month array
     this.initMonthArray(this.today.getMonth());
+    const emptyCells = this.monthArray[0].firstOfMonth - 1;
 
-    const startWeekday = this.monthArray[0].firstOfMonth;
-    let html = `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" > ${this.getToday().day} &nbsp;${this.getToday().date}<sup>th</sup>&nbsp;${this.getToday().month}&nbsp;${this.getToday().year}</th ></tr>`;
+    let html = `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${this.today.getDate()}<sup>th</sup>&nbsp;${this.monthsName[this.today.getMonth()]}&nbsp;${this.today.getFullYear()}</th ></tr>`;
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
     
-    const emptyCell = startWeekday;
-    for (let i = 1; i < emptyCell; i += 1) {
+    for (let i = 0; i < emptyCells; i += 1) {
       html += '<td></td>';
     }
     for (let i = 0; i < this.monthArray.length; i += 1) {
       const day = this.monthArray[i].day;
-      const cell = emptyCell + day;
+      const cell = emptyCells + day;
       if (cell === 1) {
         html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
       } else if (cell % 7) {
@@ -95,23 +94,4 @@ class Calendar2 {
       return numberOrdinal[i];
     };
   }
-  getToday() {
-    const today = this.today
-    const date = today.getDate();
-    const day = this.daysOfWeek[today.getDay()];
-    const ordinal = this.dateOrdinal(date);
-    const month = this.monthsName[today.getMonth()];
-    const year = today.getFullYear();
-    const firstOfMonth = new Date(year, today.getMonth(), 1);
-    const firstDay = firstOfMonth.getDay() - 1;
-    
-    return {
-      date,
-      day,
-      ordinal,
-      firstDay,
-      month,
-      year,
-    };
-  };
 }
