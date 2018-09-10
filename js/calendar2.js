@@ -2,45 +2,44 @@
 
 class Calendar2 {
   constructor() {
+
+    this.today = new Date();
     // labels for the days of the week
     this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
     // months array in order
     this.monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
     // the days of the week for each month, in order
     this.daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    this.createMonthArray = function() {
-      const monthLength = this.getToday().monthLength;
-      let monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
-      // Adjust first day 0=>1
-      monthArray = monthArray.map(x => x + 1);
-
-      return monthArray;
-    }
+    this.month = [];
   }
   static createCalendar(id) { 
 
     const calendar2 = new Calendar2();
-    const monthHTML2 = calendar2.createMonthHTML();
-    document.getElementById(id).insertAdjacentHTML('beforeend', monthHTML2);
+    const html = calendar2.createMonthHTML();
+    // Output
+    calendar2.writeHTML(id, html);
     calendar2.highlightToday();
-
-    return calendar2;
+  }
+  initMonthArray(month) {
+    const monthLength = this.daysInMonth[month];
+    let monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
+    this.month = monthArray.map(x => x + 1); // Adjust first day 0=>1
   }
   createMonthHTML() {
-    const month = this.createMonthArray();
+
+    this.initMonthArray(this.today.getMonth());
     const startWeekday = this.getToday().firstDay;
     let html = `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" > ${this.getToday().day} &nbsp;${this.getToday().date}<sup>th</sup>&nbsp;${this.getToday().month}&nbsp;${this.getToday().year}</th ></tr>`;
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
-    const blanks = startWeekday;
-    for (let i = 0; i < blanks; i += 1) {
+    
+    const emptyCell = startWeekday;
+    for (let i = 0; i < emptyCell; i += 1) {
       html += '<td></td>';
     }
-    for (let i = 0; i < month.length; i += 1) {
-      const day = month[i];
-      const cell = blanks + day;
+    for (let i = 0; i < this.month.length; i += 1) {
+      const day = this.month[i];
+      const cell = emptyCell + day;
       if (cell === 1) {
         html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
       } else if (cell % 7) {
@@ -52,6 +51,9 @@ class Calendar2 {
     html += '</table>';
 
     return html;
+  }
+  writeHTML(id, html) {
+    document.getElementById(id).insertAdjacentHTML('beforeend', html);
   }
   highlightToday() {
     const e = document.querySelectorAll(`#id-${this.getToday().date}`);
@@ -86,11 +88,10 @@ class Calendar2 {
     };
   }
   getToday() {
-    const today = new Date();
+    const today = this.today
     const date = today.getDate();
     const day = this.daysOfWeek[today.getDay()];
     const ordinal = this.dateOrdinal(date);
-    const monthLength = this.daysInMonth[today.getMonth()];
     const month = this.monthsName[today.getMonth()];
     const year = today.getFullYear();
     const firstOfMonth = new Date(year, today.getMonth(), 1);
@@ -101,7 +102,6 @@ class Calendar2 {
       day,
       ordinal,
       firstDay,
-      monthLength,
       month,
       year,
     };
