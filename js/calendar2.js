@@ -17,12 +17,11 @@ class Calendar2 {
     this.monthArray = [];
   }
   static createCalendar(id) { 
-
     const calendar2 = new Calendar2();
-    const html = calendar2.createMonthHTML();
+    const html = calendar2.createMonthHTML(calendar2.today);
     // Output
     calendar2.writeHTML(id, html);
-    calendar2.highlightToday();
+    calendar2.highlightToday(calendar2.date);
   }
   initMonthArray(month) {
     // initial values
@@ -33,12 +32,13 @@ class Calendar2 {
     this.monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
     this.monthArray[0].firstOfMonth = firstOfMonth.getDay();
   }
-  createMonthHTML() {
+  createMonthHTML(dateObj) {
     // Intialise month array
-    this.initMonthArray(this.today.getMonth());
+    console.log(dateObj)
+    this.initMonthArray(dateObj.getMonth());
     const emptyCells = this.monthArray[0].firstOfMonth - 1;
 
-    let html = `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${this.today.getDate()}<sup>th</sup>&nbsp;${this.monthsName[this.today.getMonth()]}&nbsp;${this.today.getFullYear()}</th ></tr>`;
+    let html = `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${dateObj.getDate()}<sup>th</sup>&nbsp;${this.monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
     
     for (let i = 0; i < emptyCells; i += 1) {
@@ -62,8 +62,8 @@ class Calendar2 {
   writeHTML(id, html) {
     document.getElementById(id).insertAdjacentHTML('beforeend', html);
   }
-  highlightToday() {
-    const e = document.querySelectorAll(`#id-${this.date}`);
+  highlightToday(date) {
+    const e = document.querySelectorAll(`#id-${date}`);
     e[0].classList.add('today');
   }
   dateOrdinal() {
