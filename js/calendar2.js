@@ -9,8 +9,8 @@ class Calendar2 {
     this.date = this.todayObj.getDate();
     this.month = this.todayObj.getMonth();
     this.year = this.todayObj.getFullYear();
-    this.monthArray = []; // make Private
-    this.calendarHTML = ""; // make Private
+    this.monthArray = []; // access with getter setter
+    this.calendarHTML = ""; // access with getter setter
   }
   static createCalendar(id) { 
     const calendar2 = new Calendar2();
