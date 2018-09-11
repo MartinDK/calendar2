@@ -33,9 +33,12 @@ class Calendar2 {
   }
   initMonthArray(monthLength, firstOfMonth) {
 
-    let monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
+    let monthArray;
+
+    monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
     monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
     monthArray[0].firstOfMonth = firstOfMonth.getDay();
+
     return monthArray;
   }
   createReadableDate(dateObj, dateOrdinal, monthName) {
@@ -74,18 +77,7 @@ class Calendar2 {
     e[0].classList.add('today');
   }
   dateOrdinal(date) {
-    const numberOrdinal = {
-      0: 'th',
-      1: 'st',
-      2: 'nd',
-      3: 'rd',
-      4: 'th',
-      5: 'th',
-      6: 'th',
-      7: 'th',
-      8: 'th',
-      9: 'th',
-    };
+    const numberOrdinal = [ 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
     let i;
     if (date >= 30) {
       i = date - 30;
