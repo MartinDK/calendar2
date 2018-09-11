@@ -2,10 +2,6 @@
 class Calendar2 {
   constructor() {
 
-    // labels for the days of the week
-    this.daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    // months array in order
-    this.monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     // the days of the week for each month, in order
     this.daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     
@@ -20,9 +16,8 @@ class Calendar2 {
     const calendar2 = new Calendar2();
     const firstOfMonth = new Date(calendar2.year, calendar2.month, 1);
     const monthLength = calendar2.daysInMonth[calendar2.month];
-    const monthName = calendar2.monthsName[calendar2.month];
     const dateOrdinal = calendar2.dateOrdinal(calendar2.date);
-    const dateString = calendar2.createReadableDate( calendar2.todayObj, dateOrdinal, monthName);
+    const dateString = calendar2.createReadableDate( calendar2.todayObj, dateOrdinal);
 
 
     calendar2.monthArray = calendar2.initMonthArray(monthLength, firstOfMonth);
@@ -41,8 +36,14 @@ class Calendar2 {
 
     return monthArray;
   }
-  createReadableDate(dateObj, dateOrdinal, monthName) {
-    return `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${dateObj.getDate()}<sup>${dateOrdinal}</sup>&nbsp;${monthName}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
+  createReadableDate(dateObj, dateOrdinal) {
+    // labels for the days of the week
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    // months array in order
+    const monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+
+    return `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${dateObj.getDate()}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
   }
   createMonthHTML(monthArray, readableDate) {
 
