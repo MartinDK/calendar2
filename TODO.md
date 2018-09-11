@@ -1,3 +1,4 @@
+- [ ] merge makeReadablDate() and dateOrdinal()
 - [ ] make monthArray Private
 - [ ] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
 - [ ] Add date range selection

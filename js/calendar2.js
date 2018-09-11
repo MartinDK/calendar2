@@ -20,7 +20,7 @@ class Calendar2 {
     const calendar2 = new Calendar2();
     const firstOfMonth = new Date(calendar2.year, calendar2.month, 1);
     const monthLength = calendar2.daysInMonth[calendar2.month];
-    const monthName = calendar2.monthsName[calendar2.getMonth];
+    const monthName = calendar2.monthsName[calendar2.month];
     const dateOrdinal = calendar2.dateOrdinal(calendar2.date);
     const dateString = calendar2.createReadableDate( calendar2.todayObj, dateOrdinal, monthName);
 
