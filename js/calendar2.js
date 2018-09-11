@@ -16,8 +16,7 @@ class Calendar2 {
     const calendar2 = new Calendar2();
     const firstOfMonth = new Date(calendar2.year, calendar2.month, 1);
     const monthLength = calendar2.daysInMonth[calendar2.month];
-    const dateOrdinal = calendar2.dateOrdinal(calendar2.date);
-    const dateString = calendar2.createReadableDate( calendar2.todayObj, dateOrdinal);
+    const dateString = calendar2.createReadableDate( calendar2.todayObj);
 
 
     calendar2.monthArray = calendar2.initMonthArray(monthLength, firstOfMonth);
@@ -36,14 +35,28 @@ class Calendar2 {
 
     return monthArray;
   }
-  createReadableDate(dateObj, dateOrdinal) {
+  createReadableDate(dateObj) {
     // labels for the days of the week
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    // months array in order
     const monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const numberOrdinal = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+    const date = dateObj.getDate();
+    const day = dateObj.getDay();
+    
+    let i;
+    if (date >= 30) {
+      i = date - 30;
+    } else if (date >= 20) {
+      i = date - 20;
+    } else if (date > 9 && date < 20) {
+      i = 0;
+    } else {
+      i = date;
+    }
 
+    const dateOrdinal = numberOrdinal[i]
 
-    return `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${dateObj.getDate()}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
+    return `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
   }
   createMonthHTML(monthArray, readableDate) {
 
@@ -76,21 +89,5 @@ class Calendar2 {
   highlightToday(date) {
     let e = document.querySelectorAll(`#id-${date}`);
     e[0].classList.add('today');
-  }
-  dateOrdinal(date) {
-    const numberOrdinal = [ 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
-    let i;
-    if (date >= 30) {
-      i = date - 30;
-    } else if (date >= 20) {
-      i = date - 20;
-    } else if (date > 9 && date < 20 ) {
-      i = 0;
-    } else {
-      i = date;
-    }
-    
-    return numberOrdinal[i];
-
   }
 }

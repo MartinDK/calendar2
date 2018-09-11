@@ -1,10 +1,10 @@
-- [ ] merge makeReadablDate() and dateOrdinal()
-- [ ] readable date should read = _Tuesday_ 11th September 2018
 - [ ] make monthArray Private
 - [ ] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
 - [ ] Add date range selection
 - [ ] Add buttons to change month
 - [ ] 
+- [x] merge makeReadablDate() and dateOrdinal()
+- [x] readable date should read = _Tue_ 11th September 2018
 - [x] Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
 - [x] Highlight today
 - [x] Create month Object that contains each day of the month
