@@ -1,7 +1,7 @@
-- [ ] make monthArray Private
 - [ ] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
-- [ ] Add date range selection
 - [ ] Add buttons to change month
+- [ ] Add date range selection
+- [ ] make monthArray Private
 - [ ] 
 - [x] merge makeReadablDate() and dateOrdinal()
 - [x] readable date should read = _Tue_ 11th September 2018
