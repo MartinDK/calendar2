@@ -16,13 +16,12 @@ class Calendar2 {
     const calendar2 = new Calendar2();
     const firstOfMonth = new Date(calendar2.year, calendar2.month, 1);
     const monthLength = calendar2.daysInMonth[calendar2.month];
-    const dateString = calendar2.createReadableDate( calendar2.todayObj);
-
-
+    const dateString = calendar2.readableDate( calendar2.todayObj);
+    // Create HTML
     calendar2.monthArray = calendar2.initMonthArray(monthLength, firstOfMonth);
     calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, dateString);
     // Output
-    calendar2.writeCalendarHTML(id, calendar2.calendarHTML);
+    calendar2.writeMonthHTML(id, calendar2.calendarHTML);
     calendar2.highlightToday(calendar2.date);
   }
   initMonthArray(monthLength, firstOfMonth) {
@@ -35,14 +34,14 @@ class Calendar2 {
 
     return monthArray;
   }
-  createReadableDate(dateObj) {
-    // labels for the days of the week
+  readableDate(dateObj) {
+
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const numberOrdinal = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
     const date = dateObj.getDate();
     const day = dateObj.getDay();
-    
+
     let i;
     if (date >= 30) {
       i = date - 30;
@@ -56,7 +55,7 @@ class Calendar2 {
 
     const dateOrdinal = numberOrdinal[i]
 
-    return `<table class="calendar2 calendar-table"> <tbody ><tr><th colspan="10" >${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
+    return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" >${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
   }
   createMonthHTML(monthArray, readableDate) {
 
@@ -83,7 +82,7 @@ class Calendar2 {
 
     return html;
   }
-  writeCalendarHTML(id, html) {
+  writeMonthHTML(id, html) {
     document.getElementById(id).insertAdjacentHTML('beforeend', html);
   }
   highlightToday(date) {
