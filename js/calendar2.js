@@ -45,19 +45,19 @@ class Calendar2 {
 
     // the days of the week for each month, in order
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    const firstOfMonth = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
-    const monthLength = daysInMonth[firstOfMonth.getMonth()];
+    const firstDayOfMonth = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
+    const monthLength = daysInMonth[firstDayOfMonth.getMonth()];
     let monthArray = [];
 
     monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
     monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
-    monthArray[0].firstOfMonth = firstOfMonth.getDay();
+    monthArray[0].firstDayOfMonth = firstDayOfMonth.getDay();
 
     return monthArray;
   }
   createMonthHTML(monthArray, readableDate) {
     
-    const emptyCells = monthArray[0].firstOfMonth - 1;
+    const emptyCells = monthArray[0].firstDayOfMonth - 1;
     
     let html = readableDate;
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
