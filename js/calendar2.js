@@ -1,10 +1,6 @@
 // Create a new calendar
 class Calendar2 {
-  constructor() {
-
-    // the days of the week for each month, in order
-    this.daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    
+  constructor() {    
     this.todayObj = new Date();
     this.date = this.todayObj.getDate();
     this.month = this.todayObj.getMonth();
@@ -15,33 +11,22 @@ class Calendar2 {
   static createCalendar(id) { 
     const calendar2 = new Calendar2();
     const firstOfMonth = new Date(calendar2.year, calendar2.month, 1);
-    const monthLength = calendar2.daysInMonth[calendar2.month];
     const dateString = calendar2.readableDate( calendar2.todayObj);
     // Create HTML
-    calendar2.monthArray = calendar2.initMonthArray(monthLength, firstOfMonth);
+    calendar2.monthArray = calendar2.initMonthArray(firstOfMonth);
     calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, dateString);
     // Output
     calendar2.writeMonthHTML(id, calendar2.calendarHTML);
     calendar2.highlightToday(calendar2.date);
   }
-  initMonthArray(monthLength, firstOfMonth) {
-
-    let monthArray;
-
-    monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
-    monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
-    monthArray[0].firstOfMonth = firstOfMonth.getDay();
-
-    return monthArray;
-  }
   readableDate(dateObj) {
-
+    
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const numberOrdinal = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
     const date = dateObj.getDate();
     const day = dateObj.getDay();
-
+    
     let i;
     if (date >= 30) {
       i = date - 30;
@@ -52,13 +37,26 @@ class Calendar2 {
     } else {
       i = date;
     }
-
+    
     const dateOrdinal = numberOrdinal[i]
-
+    
     return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" >${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
   }
-  createMonthHTML(monthArray, readableDate) {
+  initMonthArray(firstOfMonth) {
 
+    // the days of the week for each month, in order
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    const monthLength = daysInMonth[firstOfMonth.getMonth()];  
+    let monthArray = [];
+
+    monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
+    monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
+    monthArray[0].firstOfMonth = firstOfMonth.getDay();
+
+    return monthArray;
+  }
+  createMonthHTML(monthArray, readableDate) {
+    
     const emptyCells = monthArray[0].firstOfMonth - 1;
     
     let html = readableDate;
