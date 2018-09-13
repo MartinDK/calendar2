@@ -10,10 +10,9 @@ class Calendar2 {
   }
   static createCalendar(id) { 
     const calendar2 = new Calendar2();
-    const firstOfMonth = new Date(calendar2.year, calendar2.month, 1);
     const dateString = calendar2.readableDate( calendar2.todayObj);
     // Create HTML
-    calendar2.monthArray = calendar2.initMonthArray(firstOfMonth);
+    calendar2.monthArray = calendar2.initMonthArray(calendar2.todayObj);
     calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, dateString);
     // Output
     calendar2.writeMonthHTML(id, calendar2.calendarHTML);
@@ -42,11 +41,12 @@ class Calendar2 {
     
     return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" >${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
   }
-  initMonthArray(firstOfMonth) {
+  initMonthArray(dateObj) {
 
     // the days of the week for each month, in order
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    const monthLength = daysInMonth[firstOfMonth.getMonth()];  
+    const firstOfMonth = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
+    const monthLength = daysInMonth[firstOfMonth.getMonth()];
     let monthArray = [];
 
     monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
