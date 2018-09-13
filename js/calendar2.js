@@ -10,10 +10,9 @@ class Calendar2 {
   }
   static createCalendar(id) { 
     const calendar2 = new Calendar2();
-    const dateString = calendar2.readableDate( calendar2.todayObj);
     // Create HTML
     calendar2.monthArray = calendar2.initMonthArray(calendar2.todayObj);
-    calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, dateString);
+    calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, calendar2.todayObj);
     // Output
     calendar2.writeMonthHTML(id, calendar2.calendarHTML);
     calendar2.highlightToday(calendar2.date);
@@ -55,11 +54,11 @@ class Calendar2 {
 
     return monthArray;
   }
-  createMonthHTML(monthArray, readableDate) {
+  createMonthHTML(monthArray, dateObj) {
     
     const emptyCells = monthArray[0].firstDayOfMonth - 1;
     
-    let html = readableDate;
+    let html = this.readableDate(dateObj);
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
     
     for (let i = 0; i < emptyCells; i += 1) {
