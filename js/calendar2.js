@@ -43,14 +43,14 @@ class Calendar2 {
   }
   initMonthArray(dateObj) {
 
-    // the days of the week for each month, in order
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const firstDayOfMonth = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
     const monthLength = daysInMonth[firstDayOfMonth.getMonth()];
     let monthArray = [];
-
+    // Init array length
     monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
     monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
+    // First day of the week index e.g 0:Mon, 1:Tue, 2:Wed
     monthArray[0].firstDayOfMonth = firstDayOfMonth.getDay();
 
     return monthArray;
