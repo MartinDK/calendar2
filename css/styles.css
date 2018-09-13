@@ -8,6 +8,7 @@ body {
 table {
   background-color: #f9fcff;
   margin: 0;
+  width: 333px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16,15 +17,15 @@ table {
 
 th {
   background-color: #ddeeff;
-  padding: 5px;
+  padding: 5px 0;
   font-weight: 600;
 }
 
 td {
   font-family: sans-serif;
   text-align: center;
-  width: 30px;
-  padding: 5px;
+  width: 33px;
+  padding: 5px 0;
 }
 
 /* weekend */
