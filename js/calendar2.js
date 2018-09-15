@@ -8,14 +8,17 @@ class Calendar2 {
     this.monthArray = []; // access with getter setter
     this.calendarHTML = ""; // access with getter setter
   }
-  static createCalendar(id) { 
-    const calendar2 = new Calendar2();
+  static createCalendar(id) {
+
+    let calendar2 = new Calendar2();
     // Create HTML
     calendar2.monthArray = calendar2.initMonthArray(calendar2.todayObj);
     calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, calendar2.todayObj);
     // Output
     calendar2.writeMonthHTML(id, calendar2.calendarHTML);
     calendar2.highlightDate(calendar2.date);
+    
+    return calendar2
   }
   readableDate(dateObj) {
     
@@ -38,7 +41,7 @@ class Calendar2 {
     
     const dateOrdinal = numberOrdinal[i]
     
-    return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" >${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</th ></tr>`;
+    return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" ><span class="calendar-title">${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span></th ></tr>`;
   }
   initMonthArray(dateObj) {
 

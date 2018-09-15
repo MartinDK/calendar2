@@ -16,11 +16,11 @@
 	<script src="js/events2.js"></script>
 	<script type="text/javascript">
 		// Create Calendars
-		Calendar2.createCalendar('calendar2');
+		let calObj = Calendar2.createCalendar('calendar2');
 		Calendar2.createCalendar('calendar');
 		// Add Events
-		Events.createEvents("#calendar2");
-		Events.createEvents("#calendar");
+		Events.createEvents("#calendar2", calObj);
+		// Events.createEvents("#calendar");
 
 	</script>
 </body>
