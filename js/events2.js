@@ -17,8 +17,11 @@ class Events {
     el.insertAdjacentHTML('beforeend', '<button id="month-increase">&nbsp;-\>&nbsp;</button>');
     let increaseMonthButton = document.querySelector(`${selector} #month-increase`);
     let decreaseMonthButton = document.querySelector(`${selector} #month-decrease`);
-    increaseMonthButton.addEventListener('click', () => console.log(`${selector} inc ${this.month +=1}`));
-    decreaseMonthButton.addEventListener('click', () => console.log(`${selector} dec ${this.month -=1}`));
+    increaseMonthButton.addEventListener('click', () => this.adjustDate(selector, 1));
+    decreaseMonthButton.addEventListener('click', () => this.adjustDate(selector, -1));
+  }
+  adjustDate(selector, x){
+    console.log(`${selector} inc ${this.month += x}`)
   }
 
   // Create Events
