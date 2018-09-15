@@ -42,7 +42,7 @@ class Events {
       document.querySelector(`${selector} #id-${this.todayObj.getDate()}`).classList.add('today');
     } else {
       let el = document.querySelector(`${selector} .today`);
-      el ? el.classList.remove('today') : console.log(e);
+      el ? el.classList.remove('today') : console.log("not today");
     }
   }
   // Create Events
