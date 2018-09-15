@@ -54,15 +54,14 @@ class Events {
     };
   }
   // Event handler
-  trigger(e, el){ return el.classList.contains(e); } // true if (el)ement contains e
+  trigger(select, el){ return el.classList.contains(select); } // true if (el)ement contains e
 
   eventHandler(el){
-    console.log(el)
-    this.trigger('today', el) ? this.togglToday(el) : this.togglSelect(el);
+    this.trigger('today', el) ? this.togglToday(el) : console.log("not today");
     this.trigger('selected', el) ? this.togglSelect(el) : this.togglSelect(el);
   }
   // Events
-  togglToday(el){ return this.trigger("today", el) ? console.log(`goodbye`) : console.log(`hello`) };
+  togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
   togglSelect(el){ return this.trigger("selected", el) ? el.classList.remove('selected') : el.classList.add('selected') };
 }
 
