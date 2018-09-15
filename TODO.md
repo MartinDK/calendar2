@@ -1,7 +1,8 @@
-- [ ] Add buttons to change month
+- [ ] Fix calendar start day when changing months
 - [ ] Add date range selection
 - [ ] make monthArray Private
 - [ ] 
+- [X] Add buttons to change month
 - [x] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
 - [x] merge makeReadablDate() and dateOrdinal()
 - [x] readable date should read = _Tue_ 11th September 2018
