@@ -4,7 +4,16 @@ body {
   font-weight: 100;
   background-color: pink;
 }
-
+button#month-decrease {
+  float: left;
+  padding: 3px;
+  margin-left: 5px;
+}
+button#month-increase {
+  float: right;
+  padding: 3px;
+  margin-right: 5px;
+}
 table {
   background-color: #f9fcff;
   margin: 0;

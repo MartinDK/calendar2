@@ -15,13 +15,12 @@
 	<script src="js/calendar2.js"></script>
 	<script src="js/events2.js"></script>
 	<script type="text/javascript">
-		// Calendar 2
+		// Create Calendars
 		Calendar2.createCalendar('calendar2');
-		// Calendar 1
 		Calendar2.createCalendar('calendar');
 		// Add Events
-		Events.createEvents(".calendar2 td.calendar-day");
-		Events.createEvents(".calendar #day");
+		Events.createEvents("#calendar2");
+		Events.createEvents("#calendar");
 
 	</script>
 </body>
