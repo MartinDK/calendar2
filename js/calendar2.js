@@ -16,7 +16,7 @@ class Calendar2 {
     calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, calendar2.todayObj);
     // Output
     calendar2.writeMonthHTML(id, calendar2.calendarHTML);
-    calendar2.highlightDate(calendar2.date);
+    calendar2.highlightDate(id, calendar2.date);
     
     return calendar2
   }
@@ -85,8 +85,8 @@ class Calendar2 {
   writeMonthHTML(id, html) {
     document.getElementById(id).insertAdjacentHTML('beforeend', html);
   }
-  highlightDate(date) {
-    let e = document.querySelectorAll(`#id-${date}`);
+  highlightDate(id, date) {
+    let e = document.querySelectorAll(`#${id} #id-${date}`);
     e[0].classList.add('today');
   }
 }

@@ -26,10 +26,10 @@ class Events {
     el.insertAdjacentHTML('beforeend', '<button id="month-increase">&nbsp;-\>&nbsp;</button>');
     let increaseMonthButton = document.querySelector(`${selector} #month-increase`);
     let decreaseMonthButton = document.querySelector(`${selector} #month-decrease`);
-    decreaseMonthButton.addEventListener('click', () => this.adjustDate(selector, -1));
-    increaseMonthButton.addEventListener('click', () => this.adjustDate(selector, 1));
+    decreaseMonthButton.addEventListener('click', () => this.changeMonth(selector, -1));
+    increaseMonthButton.addEventListener('click', () => this.changeMonth(selector, 1));
   }
-  adjustDate(selector, x){
+  changeMonth(selector, x){
     let calendarTitle;
     
     this.month += x;
@@ -54,10 +54,10 @@ class Events {
     };
   }
   // Event handler
-  trigger(select, el){ return el.classList.contains(select); } // true if (el)ement contains e
+  trigger(thisClass, el){ return el.classList.contains(thisClass); } // true if el contains thisClass
 
   eventHandler(el){
-    this.trigger('today', el) ? this.togglToday(el) : this.e;
+    this.trigger('today', el) ? this.togglToday(el) : console.log('do nothing');
     this.trigger('selected', el) ? this.togglSelect(el) : this.togglSelect(el);
   }
   // Events
