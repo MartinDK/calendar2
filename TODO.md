@@ -1,6 +1,7 @@
+- [ ] Remove selected days when changing months
 - [ ] Fix calendar start day when changing months
 - [ ] Add date range selection
-- [ ] make monthArray Private
+- [ ] Make monthArray Private
 - [ ] 
 - [X] Add buttons to change month
 - [x] FIX: make table cells even sized i.e different sizes in Firefox and Safari???

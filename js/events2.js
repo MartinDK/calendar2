@@ -41,11 +41,15 @@ class Events {
     if (this.todayObj.getMonth() === (new Date().getMonth())) {
       document.querySelector(`${selector} #id-${this.todayObj.getDate()}`).classList.add('today');
     } else {
-      let el = document.querySelector(`${selector} .today`);
-      el ? el.classList.remove('today') : console.log("not today");
+      let elToday = document.querySelector(`${selector} .today`);
+      let elSelected = document.querySelectorAll(`${selector} .selected`);
+      elSelected.forEach(el => {
+        el.classList.remove('selected');
+      });
+      elToday ? elToday.classList.remove('today') : console.log("not today");
     }
   }
-  // Create Events
+  // Create Events  
   addEvents(selector) {
     const el = document.querySelectorAll(`${selector} td.calendar-day`);
 
