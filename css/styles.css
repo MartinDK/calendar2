@@ -21,6 +21,7 @@ button#month-increase {
 }
 table {
   background-color: #f9fcff;
+  border-spacing: 0;
   margin: 0;
   width: 333px;
   position: absolute;
@@ -38,8 +39,11 @@ th {
 td {
   font-family: sans-serif;
   text-align: center;
-  width: 33px;
+  width: 43px;
+  height: 34px;
   padding: 5px 0;
+  box-sizing: border-box;
+  border: solid 1px white;
 }
 
 /* weekend */
@@ -93,6 +97,7 @@ h1 {
   border-color: #eb0808;
   border-width: 3px;
   border-style: solid;
+  height: 34px;
 }
 
 .today:hover {
