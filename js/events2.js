@@ -23,7 +23,6 @@ class Events {
   }
   updateEvents(selector, calObj){
     document.querySelector(`#${selector}`).removeChild(document.querySelector(`#${selector}`).firstChild);
-    // let calEvents = new Events;
     this.calObj = calObj;
     this.addEvents(selector);
     this.addButtonss(selector);
@@ -43,7 +42,8 @@ class Events {
     this.month += changeMonth;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
     this.calObj.setupMonth(selector, this.dateObj);
-    
+    this.updateEvents(selector, this.calObj);
+
     if (this.dateObj.getMonth() === (new Date().getMonth())) {
       document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
     } else {
@@ -54,7 +54,6 @@ class Events {
       });
       elToday ? elToday.classList.remove('today') : elToday;
     }
-    this.updateEvents(selector, this.calObj);
   }
   // Add Events to date cells 
   addEvents(selector) {
@@ -68,8 +67,8 @@ class Events {
   trigger(thisClass, el){ return el.classList.contains(thisClass); } // true if el contains thisClass
 
   eventHandler(el){
-    this.trigger('today', el) ? this.togglToday(el) : console.log('do nothing');
-    this.trigger('selected', el) ? this.togglSelect(el) : this.togglSelect(el);
+    this.togglToday(el);
+    this.togglSelect(el);
   }
   // Events
   togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
