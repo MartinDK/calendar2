@@ -1,3 +1,4 @@
+- [ ] Fix hello goodbye
 - [ ] Add date range selection
 - [ ] Make monthArray Private
 - [ ] 
