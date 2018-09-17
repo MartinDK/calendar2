@@ -43,8 +43,6 @@ class Events {
     
     this.month += changeMonth;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
-    console.log(this.dateObj)
-    console.log(selector)
     this.calObj.setupMonth(selector, this.dateObj);
 
     calendarTitle = this.dateObj.toLocaleDateString('en-GB', this.options);
