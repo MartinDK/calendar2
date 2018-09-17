@@ -80,7 +80,7 @@ span.calendar-month-ord {
   left: 25%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: blue;
+  background-color: #5ab8ff;
 }
 
 .right {
@@ -90,7 +90,7 @@ span.calendar-month-ord {
   left: 75%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: red;
+  background-color: #f65959;
 }
 
 .calendar-header-day {
