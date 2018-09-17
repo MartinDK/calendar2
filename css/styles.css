@@ -1,3 +1,10 @@
+.ruler {
+  position: absolute;
+  width: 100%;
+  top: 327px;
+  border-top: solid 1px black;
+  z-index: 2;
+}
 body {
   color: #444;
   font-family: sans-serif;
@@ -9,7 +16,7 @@ button {
       margin: 0 5px;
       border-radius: 0;
       color: #666;
-      background: #fffffe;
+      background: #ffffff00;
       font-size: 100%;
       border: none;
 }
@@ -60,7 +67,10 @@ span {
   display: inline-block;
 }
 span.calendar-month {
-  line-height: 1.56;
+  padding-top: 9px;
+}
+span.calendar-month-ord {
+  line-height: 1.9;
 }
 
 .left {

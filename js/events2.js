@@ -30,8 +30,8 @@ class Events {
   // Buttons
   addButtonss(selector) {
     let el = document.querySelector(`#${selector} th`)
-    el.insertAdjacentHTML('afterbegin', '<button id="month-decrease">&nbsp;\<-&nbsp;</button>');
-    el.insertAdjacentHTML('beforeend', '<button id="month-increase">&nbsp;-\>&nbsp;</button>');
+    el.insertAdjacentHTML('afterbegin', '<button id="month-decrease"><img src="img/arrow-left-circle.svg"></button>');
+    el.insertAdjacentHTML('beforeend', '<button id="month-increase"><img src="img/arrow-right-circle.svg"></button>');
     let increaseMonthButton = document.querySelector(`#${selector} #month-increase`);
     let decreaseMonthButton = document.querySelector(`#${selector} #month-decrease`);
     decreaseMonthButton.addEventListener('click', () => this.changeMonth(selector, -1));
