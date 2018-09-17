@@ -39,14 +39,10 @@ class Events {
     increaseMonthButton.addEventListener('click', () => this.changeMonth(selector, 1));
   }
   changeMonth(selector, changeMonth){
-    let calendarTitle;
     
     this.month += changeMonth;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
     this.calObj.setupMonth(selector, this.dateObj);
-
-    calendarTitle = this.dateObj.toLocaleDateString('en-GB', this.options);
-    document.querySelector(`#${selector} .calendar-title`).textContent = calendarTitle;
     
     if (this.dateObj.getMonth() === (new Date().getMonth())) {
       document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
