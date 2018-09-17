@@ -3,55 +3,68 @@ class Events {
   constructor() {
     this.e = '';
     this.todayObj = new Date();
-    this.obj = {};
-    this.date = this.todayObj.getDate();
-    this.month = this.todayObj.getMonth();
-    this.year = this.todayObj.getFullYear();
+    this.dateObj = this.todayObj;
+    this.calObj = {};
+    this.date = this.dateObj.getDate();
+    this.month = this.dateObj.getMonth();
+    this.year = this.dateObj.getFullYear();
     this.options = {
       year: 'numeric',
       month: 'long',
     };
 
   }
-  static createEvents(selector, obj) {
+  static createEvents(selector, calObj) {
     let calEvents = new Events;
-    calEvents.obj = obj;
+    calEvents.dateObj = calEvents.todayObj;
+    calEvents.calObj = calObj;
     calEvents.addEvents(selector);
     calEvents.addButtonss(selector);
   }
+  updateEvents(selector, calObj){
+    document.querySelector(`#${selector}`).removeChild(document.querySelector(`#${selector}`).firstChild);
+    // let calEvents = new Events;
+    this.calObj = calObj;
+    this.addEvents(selector);
+    this.addButtonss(selector);
+  }
   // Buttons
   addButtonss(selector) {
-    let el = document.querySelector(`${selector} th`)
+    let el = document.querySelector(`#${selector} th`)
     el.insertAdjacentHTML('afterbegin', '<button id="month-decrease">&nbsp;\<-&nbsp;</button>');
     el.insertAdjacentHTML('beforeend', '<button id="month-increase">&nbsp;-\>&nbsp;</button>');
-    let increaseMonthButton = document.querySelector(`${selector} #month-increase`);
-    let decreaseMonthButton = document.querySelector(`${selector} #month-decrease`);
+    let increaseMonthButton = document.querySelector(`#${selector} #month-increase`);
+    let decreaseMonthButton = document.querySelector(`#${selector} #month-decrease`);
     decreaseMonthButton.addEventListener('click', () => this.changeMonth(selector, -1));
     increaseMonthButton.addEventListener('click', () => this.changeMonth(selector, 1));
   }
-  changeMonth(selector, x){
+  changeMonth(selector, changeMonth){
     let calendarTitle;
     
-    this.month += x;
-    this.todayObj = new Date(Date.UTC(this.year, this.month, this.date));
+    this.month += changeMonth;
+    this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
+    console.log(this.dateObj)
+    console.log(selector)
+    this.calObj.setupMonth(selector, this.dateObj);
+
+    calendarTitle = this.dateObj.toLocaleDateString('en-GB', this.options);
+    document.querySelector(`#${selector} .calendar-title`).textContent = calendarTitle;
     
-    calendarTitle = this.todayObj.toLocaleDateString('en-GB', this.options);
-    document.querySelector(`${selector} .calendar-title`).textContent = calendarTitle;
-    
-    if (this.todayObj.getMonth() === (new Date().getMonth())) {
-      document.querySelector(`${selector} #id-${this.todayObj.getDate()}`).classList.add('today');
+    if (this.dateObj.getMonth() === (new Date().getMonth())) {
+      document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
     } else {
       let elToday = document.querySelector(`${selector} .today`);
       let elSelected = document.querySelectorAll(`${selector} .selected`);
       elSelected.forEach(el => {
         el.classList.remove('selected');
       });
-      elToday ? elToday.classList.remove('today') : console.log("not today");
+      elToday ? elToday.classList.remove('today') : elToday;
     }
+    this.updateEvents(selector, this.calObj);
   }
-  // Create Events  
+  // Add Events to date cells 
   addEvents(selector) {
-    const el = document.querySelectorAll(`${selector} td.calendar-day`);
+    const el = document.querySelectorAll(`#${selector} td.calendar-day`);
 
     for (let i = 0; i < el.length; i += 1) {
       el[i].addEventListener('click', () => this.eventHandler(el[i]));

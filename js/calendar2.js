@@ -1,24 +1,29 @@
 // Create a new calendar
 class Calendar2 {
-  constructor() {    
+  constructor() {  
+    this.elementID = '';  
     this.todayObj = new Date();
     this.date = this.todayObj.getDate();
     this.month = this.todayObj.getMonth();
     this.year = this.todayObj.getFullYear();
     this.monthArray = []; // access with getter setter
-    this.calendarHTML = ""; // access with getter setter
+    this.monthHTML = ""; // access with getter setter
   }
   static createCalendar(id) {
 
     let calendar2 = new Calendar2();
+    calendar2.elementID = id;
     // Create HTML
-    calendar2.monthArray = calendar2.initMonthArray(calendar2.todayObj);
-    calendar2.calendarHTML = calendar2.createMonthHTML(calendar2.monthArray, calendar2.todayObj);
-    // Output
-    calendar2.writeMonthHTML(id, calendar2.calendarHTML);
-    calendar2.highlightDate(id, calendar2.date);
+    calendar2.setupMonth(id, calendar2.todayObj)
     
     return calendar2
+  }
+  setupMonth(elementID, date) {
+    this.monthArray = this.initMonthArray(date);
+    this.monthHTML = this.createMonthHTML(this.monthArray, date);
+    // Output
+    this.writeMonthHTML(elementID, this.monthHTML);
+    this.highlightDate(elementID, this.date);
   }
   readableDate(dateObj) {
     
@@ -53,24 +58,33 @@ class Calendar2 {
     monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
     monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
     // First day of the week index e.g 0:Mon, 1:Tue, 2:Wed
-    monthArray[0].firstDayOfMonth = firstDayOfMonth.getDay();
-
+    monthArray[0].firstDayOfMonth = firstDayOfMonth.getDay() ? firstDayOfMonth.getDay() : firstDayOfMonth.getDate()+6;
     return monthArray;
   }
   createMonthHTML(monthArray, dateObj) {
-    
-    const emptyCells = monthArray[0].firstDayOfMonth - 1;
-    
+        
     let html = this.readableDate(dateObj);
+
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
+    html += this.createDaysInMonthHTML(monthArray);
+    html += '</table>';
+
+    return html;
+  }
+  createDaysInMonthHTML(monthArray) {
     
+    let emptyCells = monthArray[0].firstDayOfMonth - 1;
+    let html = '';
+
     for (let i = 0; i < emptyCells; i += 1) {
       html += '<td></td>';
     }
     for (let i = 0; i < monthArray.length; i += 1) {
       const day = monthArray[i].day;
       const cell = emptyCells + day;
-      if (cell === 1) {
+      if (cell === 0) {
+        html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
+      } else if (cell === 1) {
         html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
       } else if (cell % 7) {
         html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
@@ -78,12 +92,10 @@ class Calendar2 {
         html += `<td class="calendar-day" id="id-${day}">${day}</td></tr><tr>`;
       }
     }
-    html += '</table>';
-
     return html;
   }
   writeMonthHTML(id, html) {
-    document.getElementById(id).insertAdjacentHTML('beforeend', html);
+    document.querySelector(`#${id}`).insertAdjacentHTML('beforeend', html);
   }
   highlightDate(id, date) {
     let e = document.querySelectorAll(`#${id} #id-${date}`);
