@@ -1,18 +1,20 @@
 // Create a new calendar
 class Calendar2 {
   constructor() {  
-    this.elementID = '';  
     this.todayObj = new Date();
     this.date = this.todayObj.getDate();
     this.month = this.todayObj.getMonth();
     this.year = this.todayObj.getFullYear();
     this.monthArray = []; // access with getter setter
     this.monthHTML = ""; // access with getter setter
+    this.options = {
+      year: 'numeric',
+      month: 'long',
+    };
   }
   static createCalendar(id) {
 
     let calendar2 = new Calendar2();
-    calendar2.elementID = id;
     // Create HTML
     calendar2.setupMonth(id, calendar2.todayObj)
     
@@ -45,11 +47,16 @@ class Calendar2 {
     }
     
     const dateOrdinal = numberOrdinal[i]
+    let a = dateObj.toLocaleDateString('en-GB', this.options);
+    let b = this.todayObj.toLocaleDateString('en-GB', this.options);
+
+    if (a == b) {
+      return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" ><span class="calendar-title">${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span></th ></tr>`;
+    }
     
-    return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" ><span class="calendar-title">${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span></th ></tr>`;
+    return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" ><span class="calendar-month">${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span></th ></tr>`;
   }
   initMonthArray(dateObj) {
-
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const firstDayOfMonth = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
     const monthLength = daysInMonth[firstDayOfMonth.getMonth()];
@@ -57,8 +64,9 @@ class Calendar2 {
     // Init array length
     monthArray = Array.apply(null, { length: monthLength }).map(Number.call, Number);
     monthArray = monthArray.map(x => x = {day: x+1}); // Adjust first day 0=>1
-    // First day of the week index e.g 0:Mon, 1:Tue, 2:Wed
+    // First day of the week index e.g 1:Mon, 2:Tue, 3:Wed and 0:Sun
     monthArray[0].firstDayOfMonth = firstDayOfMonth.getDay() ? firstDayOfMonth.getDay() : firstDayOfMonth.getDate()+6;
+
     return monthArray;
   }
   createMonthHTML(monthArray, dateObj) {

@@ -24,10 +24,6 @@ table {
   border-spacing: 0;
   margin: 0;
   width: 333px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 th {
@@ -60,21 +56,31 @@ h1 {
   font-size: 1.5em;
   font-weight: 400;
 }
+span {
+  display: inline-block;
+}
+span.calendar-month {
+  line-height: 1.56;
+}
 
 .left {
   position: absolute;
-  width: 50%;
-  right: 50%;
+  width: 333px;
+  height: 272px;
+  left: 25%;
   top: 50%;
-  background-color: red;
+  transform: translate(-50%, -50%);
+  background-color: blue;
 }
 
 .right {
   position: absolute;
-  width: 50%;
-  left: 50%;
+  width: 333px;
+  height: 272px;
+  left: 75%;
   top: 50%;
-  background-color: blue;
+  transform: translate(-50%, -50%);
+  background-color: red;
 }
 
 .calendar-header-day {
