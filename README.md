@@ -3,11 +3,11 @@ Calendar2 is written in JavaScript.
 Calendar 2 Features:
 - Display current month.
 - Show todays date in readable form.
-- Highlight today's.
+- Highlight today. 
 
 Events Features:
-- Change months.
-- Select dates.
+- Change month.
+- Select date.
 
 Planned features:
 - Select date range.
