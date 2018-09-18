@@ -12,8 +12,8 @@ body {
   background-color: pink;
 }
 button {
-      padding: 3px 0;
-      margin: 0 5px;
+      padding: 0;
+      margin: 2px 5px 0;
       border-radius: 0;
       color: #666;
       background: #ffffff00;
