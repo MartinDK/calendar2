@@ -44,7 +44,7 @@ class Events {
     this.calObj.setupMonth(selector, this.dateObj);
     this.updateEvents(selector, this.calObj);
 
-    if (this.dateObj.getMonth() === (new Date().getMonth())) {
+    if (this.dateObj.getMonth() === (this.todayObj.getMonth()) && (this.dateObj.getFullYear() === this.todayObj.getFullYear)){
       document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
     } else {
       let elToday = document.querySelector(`${selector} .today`);
