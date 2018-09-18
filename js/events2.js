@@ -17,6 +17,7 @@ class Events {
   static createEvents(selector, calObj) {
     let calEvents = new Events;
     calEvents.dateObj = calEvents.todayObj;
+    calEvents.selector = selector;
     calEvents.calObj = calObj;
     calEvents.addEvents(selector);
     calEvents.addButtonss(selector);
@@ -69,6 +70,12 @@ class Events {
   eventHandler(el){
     el.classList.contains('today') ? this.togglToday(el) : console.log('not today');
     this.togglSelect(el);
+    this.selectedDay(el);
+  }
+  selectedDay(el) {
+    document.querySelector(`#${this.selector} .selected-date`).textContent = el.id;
+    // console.log(document.querySelector(`#${this.selector} .selected-date`).classList);
+    console.log(el.id);
   }
   // Events
   togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
