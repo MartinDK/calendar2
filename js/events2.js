@@ -76,6 +76,7 @@ class Events {
   }
   selectedDay(el) {
     let dateEl = document.querySelector(`#${this.selector} .selected-date`)
+    let dateStr = (el.id).substring(3,6);
     dateStr = new Date(Date.UTC(this.year, this.month, dateStr));
     dateEl.textContent = dateStr.toLocaleDateString('en-GB', this.options);
   }
