@@ -23,7 +23,7 @@ class Events {
     calEvents.addButtonss(selector);
   }
   updateEvents(selector, calObj){
-    document.querySelector(`#${selector}`).removeChild(document.querySelector(`#${selector}`).firstChild);
+    document.querySelector(`#${selector} .calendar2`).remove(document.querySelector(`#${selector} .calendar2`));
     this.calObj = calObj;
     this.addEvents(selector);
     this.addButtonss(selector);
