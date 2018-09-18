@@ -31,7 +31,7 @@ class Events {
   addButtonss(selector) {
     let el = document.querySelector(`#${selector} th`)
     el.insertAdjacentHTML('afterbegin', '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>');
-    el.insertAdjacentHTML('beforeend', '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg alt="right arrow"></button>');
+    el.insertAdjacentHTML('beforeend', '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg" alt="right arrow"></button>');
     let increaseMonthButton = document.querySelector(`#${selector} #month-increase`);
     let decreaseMonthButton = document.querySelector(`#${selector} #month-decrease`);
     decreaseMonthButton.addEventListener('click', () => this.changeMonth(selector, -1));

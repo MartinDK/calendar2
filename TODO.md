@@ -1,7 +1,7 @@
-- [ ] Fix hello goodbye
 - [ ] Add date range selection
 - [ ] Make monthArray Private
 - [ ] 
+- [x] Fix hello goodbye
 - [x] Fix calendar start day when changing months
 - [x] Remove selected days when changing months
 - [X] Add buttons to change month
