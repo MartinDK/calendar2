@@ -11,6 +11,8 @@ class Events {
     this.options = {
       year: 'numeric',
       month: 'long',
+      day: 'numeric',
+      weekday: 'short',
     };
 
   }
@@ -73,7 +75,12 @@ class Events {
     this.selectedDay(el);
   }
   selectedDay(el) {
-    document.querySelector(`#${this.selector} .selected-date`).textContent = el.id;
+    let dateEl = document.querySelector(`#${this.selector} .selected-date`)
+    let str = el.id;
+    let dateStr = str.substring(3,6);
+    let xx = new Date(Date.UTC(this.year, this.month, dateStr));
+    dateStr = `${dateStr}/${this.month}/${this.year}`;
+    dateEl.textContent = xx.toLocaleDateString('en-GB', this.options);
     // console.log(document.querySelector(`#${this.selector} .selected-date`).classList);
     console.log(el.id);
   }
@@ -81,4 +88,3 @@ class Events {
   togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
   togglSelect(el){ return this.trigger("selected", el) ? el.classList.remove('selected') : el.classList.add('selected') };
 }
-
