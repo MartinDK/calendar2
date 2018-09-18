@@ -67,7 +67,7 @@ class Events {
   trigger(thisClass, el){ return el.classList.contains(thisClass); } // true if el contains thisClass
 
   eventHandler(el){
-    this.togglToday(el);
+    el.classList.contains('today') ? this.togglToday(el) : console.log('not today');
     this.togglSelect(el);
   }
   // Events

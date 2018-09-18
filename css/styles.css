@@ -109,17 +109,17 @@ span.calendar-month-ord {
 }
 
 .today {
-  background-color: #ffdd00;
+  background-color: #ffdd004a;
   font-weight: 600;
   border-radius: 10%;
-  border-color: #eb0808;
+  border-color: #eb900882;
   border-width: 3px;
   border-style: solid;
   height: 34px;
 }
 
 .today:hover {
-  background-color: #ccb103;
+  background-color: #ffdd0085;
 }
 
 .today.selected {
