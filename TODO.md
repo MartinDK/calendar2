@@ -6,7 +6,7 @@
 - [x] Remove selected days when changing months
 - [X] Add buttons to change month
 - [x] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
-- [x] merge makeReadablDate() and dateOrdinal()
+- [x] merge makeReadableDate() and dateOrdinal()
 - [x] readable date should read = _Tue_ 11th September 2018
 - [x] Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
 - [x] Highlight today

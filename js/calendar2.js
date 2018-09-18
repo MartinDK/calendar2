@@ -50,7 +50,7 @@ class Calendar2 {
     let a = dateObj.toLocaleDateString('en-GB', this.options);
     let b = this.todayObj.toLocaleDateString('en-GB', this.options);
 
-    if (a == b) {
+    if (a === b) {
       return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" ><span class="calendar-month-ord">${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span></th ></tr>`;
     }
     
