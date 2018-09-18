@@ -78,11 +78,8 @@ class Events {
     let dateEl = document.querySelector(`#${this.selector} .selected-date`)
     let str = el.id;
     let dateStr = str.substring(3,6);
-    let xx = new Date(Date.UTC(this.year, this.month, dateStr));
-    dateStr = `${dateStr}/${this.month}/${this.year}`;
-    dateEl.textContent = xx.toLocaleDateString('en-GB', this.options);
-    // console.log(document.querySelector(`#${this.selector} .selected-date`).classList);
-    console.log(el.id);
+    dateStr = new Date(Date.UTC(this.year, this.month, dateStr));
+    dateEl.textContent = dateStr.toLocaleDateString('en-GB', this.options);
   }
   // Events
   togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
