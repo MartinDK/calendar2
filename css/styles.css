@@ -31,6 +31,7 @@ table {
   border-spacing: 0;
   margin: 0;
   width: 333px;
+  min-height: 247px
 }
 
 th {
@@ -65,6 +66,7 @@ h1 {
 }
 span {
   display: inline-block;
+  min-height: 24px;
 }
 span.calendar-month {
   padding-top: 9px;
@@ -76,7 +78,7 @@ span.calendar-month-ord {
 .left {
   position: absolute;
   width: 333px;
-  height: 272px;
+  height: 281px;
   left: 25%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -86,7 +88,7 @@ span.calendar-month-ord {
 .right {
   position: absolute;
   width: 333px;
-  height: 272px;
+  height: 281px;
   left: 75%;
   top: 50%;
   transform: translate(-50%, -50%);
