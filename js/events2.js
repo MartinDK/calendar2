@@ -61,17 +61,6 @@ class Events {
       elToday ? elToday.classList.remove('today') : elToday;
     }
   }
-  // Add Events to date cells 
-  addEvents(selector) {
-    const el = document.querySelectorAll(`#${selector} td.calendar-day`);
-
-    for (let i = 0; i < el.length; i += 1) {
-      el[i].addEventListener('click', () => this.eventHandler(el[i]));
-    };
-  }
-  // Event handler
-  trigger(thisClass, el){ return el.classList.contains(thisClass); } // true if el contains thisClass
-
   eventHandler(el){
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
@@ -85,16 +74,16 @@ class Events {
   selectedDay(el) {
     let dateStr = (el.id).substring(3,6);
     let selectedDate = new Date(Date.UTC(this.year, this.month, dateStr));
-
+    
     dateStr = this.convertDatetoStr(selectedDate);
-
+    
     this.selectedDays = this.selectedDays.filter( date => {
       return date !== dateStr;
     })
     if ( this.trigger('selected', el)) {
       this.selectedDays.push(dateStr);
     }
-
+    
     console.log(this.selectedDays);
   }
   addSelectedDay() {
@@ -103,7 +92,7 @@ class Events {
     const spanHeight = 32
     let calendarHeight = 313 - spanHeight;
     let selectedSpans = dateEl.querySelectorAll('span');
-
+    
     selectedSpans.forEach(thisSpan => {
       thisSpan.remove();
     });
@@ -114,7 +103,24 @@ class Events {
       calEl.style.height = `${calendarHeight}px`
     });
   }
+  // Add Events to date cells 
+  addEvents(selector) {
+    const el = document.querySelectorAll(`#${selector} td.calendar-day`);
+  
+    for (let i = 0; i < el.length; i += 1) {
+      el[i].addEventListener('click', () => this.eventHandler(el[i]));
+    };
+  }
+  // Event handler
+  trigger(thisClass, el){
+    // true if el contains thisClass
+    return el.classList.contains(thisClass); 
+  } 
   // Events
-  togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
-  togglSelect(el){ return this.trigger("selected", el) ? el.classList.remove('selected') : el.classList.add('selected') };
+  togglToday(el){ 
+    return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`)
+  };
+  togglSelect(el){ 
+    return this.trigger("selected", el) ? el.classList.remove('selected') : el.classList.add('selected')
+  };
 }
