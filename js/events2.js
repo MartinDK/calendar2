@@ -2,6 +2,7 @@
 class Events {
   constructor() {
     this.e = '';
+    this.selector = '';
     this.todayObj = new Date();
     this.dateObj = this.todayObj;
     this.calObj = {};
@@ -14,6 +15,7 @@ class Events {
       day: 'numeric',
       weekday: 'short',
     };
+    this.selectedDays = [];
 
   }
   static createEvents(selector, calObj) {
@@ -71,15 +73,47 @@ class Events {
   trigger(thisClass, el){ return el.classList.contains(thisClass); } // true if el contains thisClass
 
   eventHandler(el){
-    el.classList.contains('today') ? this.togglToday(el) : console.log('not today');
+    el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
     this.selectedDay(el);
+    this.addSelectedDay();
+  }
+  convertDatetoStr(date) {
+    const dateStr = date.toLocaleDateString('en-GB', this.options);
+    return dateStr
   }
   selectedDay(el) {
-    let dateEl = document.querySelector(`#${this.selector} .selected-date`)
     let dateStr = (el.id).substring(3,6);
-    dateStr = new Date(Date.UTC(this.year, this.month, dateStr));
-    dateEl.textContent = dateStr.toLocaleDateString('en-GB', this.options);
+    let selectedDate = new Date(Date.UTC(this.year, this.month, dateStr));
+
+    dateStr = this.convertDatetoStr(selectedDate);
+
+    this.selectedDays = this.selectedDays.filter( date => {
+      return date !== dateStr;
+    })
+    if ( this.trigger('selected', el)) {
+      this.selectedDays.push(dateStr);
+    }
+
+    console.log(this.selectedDays);
+  }
+  addSelectedDay() {
+    let dateEl = document.querySelector(`#${this.selector} .selected-date`);
+    let calEl = document.getElementById(this.selector);
+    let calHeight = 313-34;
+    let oldSpans = dateEl.querySelectorAll('span');
+    oldSpans.forEach(thisSpan => {
+      thisSpan.remove();
+    });
+    
+    this.selectedDays.forEach( el => {
+      dateEl.insertAdjacentHTML('beforeend', `<span class="ccc">${el}</span>`);
+      calHeight += 34;
+      calEl.style.height = `${calHeight}px`
+    });
+
+    console.log(oldSpans)
+    console.log(calEl)
   }
   // Events
   togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };

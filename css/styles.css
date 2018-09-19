@@ -28,6 +28,17 @@ button#month-increase {
   float: right;
 }
 table {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
   background-color: #f9fcff;
   border-spacing: 0;
   margin: 0;
@@ -75,7 +86,9 @@ span.calendar-month {
 span.calendar-month-ord {
   line-height: 1.9;
 }
-
+span.ccc {
+  display: block;
+}
 .left {
   position: absolute;
   width: 333px;

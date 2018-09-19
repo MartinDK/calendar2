@@ -1,8 +1,8 @@
-- [ ] Display selected day in text box
 - [ ] Fill in empty cells with next or previous month
 - [ ] Add date range selection
 - [ ] Make monthArray Private
 - [ ] 
+- [x] Display selected day in text box
 - [x] Fix hello goodbye
 - [x] Fix calendar start day when changing months
 - [x] Remove selected days when changing months
