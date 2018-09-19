@@ -98,22 +98,21 @@ class Events {
     console.log(this.selectedDays);
   }
   addSelectedDay() {
-    let dateEl = document.querySelector(`#${this.selector} .selected-date`);
-    let calEl = document.getElementById(this.selector);
-    let calHeight = 313-34;
-    let oldSpans = dateEl.querySelectorAll('span');
-    oldSpans.forEach(thisSpan => {
+    const dateEl = document.querySelector(`#${this.selector} .selected-date`);
+    const calEl = document.getElementById(this.selector);
+    const spanHeight = 32
+    let calendarHeight = 313 - spanHeight;
+    let selectedSpans = dateEl.querySelectorAll('span');
+
+    selectedSpans.forEach(thisSpan => {
       thisSpan.remove();
     });
     
     this.selectedDays.forEach( el => {
-      dateEl.insertAdjacentHTML('beforeend', `<span class="ccc">${el}</span>`);
-      calHeight += 34;
-      calEl.style.height = `${calHeight}px`
+      dateEl.insertAdjacentHTML('beforeend', `<span class="selected-list-item">${el}</span>`);
+      calendarHeight += spanHeight;
+      calEl.style.height = `${calendarHeight}px`
     });
-
-    console.log(oldSpans)
-    console.log(calEl)
   }
   // Events
   togglToday(el){ return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`) };
