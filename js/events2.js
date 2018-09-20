@@ -6,14 +6,19 @@ class Events {
     this.todayObj = new Date();
     this.dateObj = this.todayObj;
     this.calObj = {};
+    this.calEl = {};
     this.date = this.dateObj.getDate();
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
-    this.options = {
+    this.fullDate = {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       weekday: 'short',
+    };
+    this.monthYear = {
+      year: 'numeric',
+      month: 'long',
     };
     this.selectedDays = [];
 
@@ -24,31 +29,37 @@ class Events {
     calEvents.selector = selector;
     calEvents.calObj = calObj;
     calEvents.addEvents(selector);
-    calEvents.addButtonss(selector);
+    calEvents.addButtons(selector);
   }
-  updateEvents(selector, calObj){
+  updateEvents(selector){
     let removeOldCal = document.querySelector(`#${selector} .calendar2`);
     removeOldCal.remove(removeOldCal);
-    this.calObj = calObj;
     this.addEvents(selector);
-    this.addButtonss(selector);
+    this.addButtons(selector);
+  }
+  formatDate(dateObj, formatOptions) {
+    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    let dateFormatted = dateUTC.toLocaleDateString('en-GB', formatOptions);
+
+    return dateFormatted;
   }
   // Buttons
-  addButtonss(selector) {
+  addButtons(selector) {
     let el = document.querySelector(`#${selector} th`)
     el.insertAdjacentHTML('afterbegin', '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>');
     el.insertAdjacentHTML('beforeend',  '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg" alt="right arrow"></button>');
-    let nextMonthButton = document.querySelector(`#${selector} #month-increase`);
-    let previousMonthButton = document.querySelector(`#${selector} #month-decrease`);
-    previousMonthButton.addEventListener('click', () => this.changeMonth(selector, -1));
-    nextMonthButton.addEventListener('click', () => this.changeMonth(selector, 1));
+    let nextMonthButtonEl = document.querySelector(`#${selector} #month-increase`);
+    let previousMonthButtonEl = document.querySelector(`#${selector} #month-decrease`);
+    previousMonthButtonEl.addEventListener('click', () => this.changeMonth(selector, -1));
+    nextMonthButtonEl.addEventListener('click', () => this.changeMonth(selector, 1));
   }
-  changeMonth(selector, changeMonth){
+  changeMonth(selector, increaseDecreaseMonth){
     
-    this.month += changeMonth;
+    this.month += increaseDecreaseMonth;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
+
     this.calObj.setupMonth(selector, this.dateObj);
-    this.updateEvents(selector, this.calObj);
+    this.updateEvents(selector);
 
     if (this.dateObj.getMonth() === (this.todayObj.getMonth()) && (this.dateObj.getFullYear() === this.todayObj.getFullYear)){
       document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
@@ -67,24 +78,18 @@ class Events {
     this.selectedDay(el);
     this.addSelectedDay();
   }
-  convertDatetoStr(date) {
-    const dateStr = date.toLocaleDateString('en-GB', this.options);
-    return dateStr
-  }
   selectedDay(el) {
     let dateStr = (el.id).substring(3,6);
     let selectedDate = new Date(Date.UTC(this.year, this.month, dateStr));
     
-    dateStr = this.convertDatetoStr(selectedDate);
+    dateStr = this.formatDate(selectedDate, this.fullDate);
     
     this.selectedDays = this.selectedDays.filter( date => {
       return date !== dateStr;
     })
     if ( this.trigger('selected', el)) {
       this.selectedDays.push(dateStr);
-    }
-    
-    console.log(this.selectedDays);
+    }    
   }
   addSelectedDay() {
     const dateEl = document.querySelector(`#${this.selector} .selected-date`);
