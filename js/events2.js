@@ -16,52 +16,55 @@ class Events {
       day: 'numeric',
       weekday: 'short',
     };
-    this.monthYear = {
+    this.monthYearFormat = {
       year: 'numeric',
       month: 'long',
     };
     this.selectedDays = [];
-
+    this.htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
+    this.htmlRightArrow = '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg" alt="right arrow"></button>';
   }
   static createEvents(selector, calObj) {
     let calEvents = new Events;
     calEvents.dateObj = calEvents.todayObj;
     calEvents.selector = selector;
     calEvents.calObj = calObj;
-    calEvents.addEvents(selector);
-    calEvents.addButtons(selector);
+    calEvents.addEvents();
+    calEvents.addButtons();
   }
-  updateEvents(selector){
+  updateEvents(){
+    const selector = this.selector;
     let removeOldCal = document.querySelector(`#${selector} .calendar2`);
     removeOldCal.remove(removeOldCal);
-    this.addEvents(selector);
-    this.addButtons(selector);
+    this.addEvents();
+    this.addButtons();
   }
   formatDate(dateObj, formatOptions) {
     let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
-    let dateFormatted = dateUTC.toLocaleDateString('en-GB', formatOptions);
+    let formattedDateStr = dateUTC.toLocaleDateString('en-GB', formatOptions);
 
-    return dateFormatted;
+    return formattedDateStr;
   }
   // Buttons
-  addButtons(selector) {
-    let el = document.querySelector(`#${selector} th`)
-    el.insertAdjacentHTML('afterbegin', '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>');
-    el.insertAdjacentHTML('beforeend',  '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg" alt="right arrow"></button>');
+  addButtons() {
+    const selector = this.selector;
+    let el = document.querySelector(`#${selector} th`);
+
+    el.insertAdjacentHTML('afterbegin', this.htmlLeftArrow );
+    el.insertAdjacentHTML('beforeend',  this.htmlRightArrow );
     let nextMonthButtonEl = document.querySelector(`#${selector} #month-increase`);
     let previousMonthButtonEl = document.querySelector(`#${selector} #month-decrease`);
-    previousMonthButtonEl.addEventListener('click', () => this.changeMonth(selector, -1));
-    nextMonthButtonEl.addEventListener('click', () => this.changeMonth(selector, 1));
+    previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
+    nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
-  changeMonth(selector, increaseDecreaseMonth){
-    
+  changeMonth(increaseDecreaseMonth){
+    const selector = this.selector;
     this.month += increaseDecreaseMonth;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
-
     this.calObj.setupMonth(selector, this.dateObj);
-    this.updateEvents(selector);
+    this.updateEvents();
 
-    if (this.dateObj.getMonth() === (this.todayObj.getMonth()) && (this.dateObj.getFullYear() === this.todayObj.getFullYear)){
+    if (this.formatDate(this.dateObj, this.monthYearFormat) === this.formatDate(this.todayObj, this.monthYearFormat)) {
       document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
     } else {
       let elToday = document.querySelector(`${selector} .today`);
@@ -109,7 +112,9 @@ class Events {
     });
   }
   // Add Events to date cells 
-  addEvents(selector) {
+  addEvents() {
+    
+    const selector = this.selector;
     const el = document.querySelectorAll(`#${selector} td.calendar-day`);
   
     for (let i = 0; i < el.length; i += 1) {
