@@ -86,7 +86,7 @@ span.calendar-month {
 span.calendar-month-ord {
   line-height: 1.9;
 }
-span.ccc {
+span.selected-list-item {
   display: block;
 }
 .left {
