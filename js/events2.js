@@ -54,8 +54,8 @@ class Events {
 
     el.insertAdjacentHTML('afterbegin', this.htmlLeftArrow );
     el.insertAdjacentHTML('beforeend',  this.htmlRightArrow );
-    let nextMonthButtonEl = document.querySelector(`#${selector} #month-increase`);
-    let previousMonthButtonEl = document.querySelector(`#${selector} #month-decrease`);
+    let nextMonthButtonEl = this.calEl.querySelector(`#month-increase`);
+    let previousMonthButtonEl = this.calEl.querySelector(`#month-decrease`);
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
