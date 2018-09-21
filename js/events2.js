@@ -35,24 +35,13 @@ class Events {
   }
   addEvents(){
     this.dateEvents();
-    this.addButtons();
+    this.buttonEvents();
   }
   formatDate(dateObj, formatOptions) {
     let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
     let formattedDateStr = dateUTC.toLocaleDateString('en-GB', formatOptions);
 
     return formattedDateStr;
-  }
-  // Buttons
-  addButtons() {
-    let el = this.calEl.querySelector(`th`);
-
-    el.insertAdjacentHTML('afterbegin', this.htmlLeftArrow );
-    el.insertAdjacentHTML('beforeend',  this.htmlRightArrow );
-    let nextMonthButtonEl = el.querySelector(`#month-increase`);
-    let previousMonthButtonEl = el.querySelector(`#month-decrease`);
-    previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
-    nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
   removePreviousMonth(el) {
     let removeOldCal = el.querySelector(`.calendar2`);
@@ -67,25 +56,15 @@ class Events {
     this.removePreviousMonth(this.calEl)
     this.addCurrentMonth(this.selector, this.dateObj);
     this.addEvents();
-
-    if (this.formatDate(this.dateObj, this.monthYearFormat) === this.formatDate(this.todayObj, this.monthYearFormat)) {
-      this.calEl.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
-    } else {
-      let elToday = this.calEl.querySelector(`.today`);
-      let elSelected = this.calEl.querySelectorAll(`.selected`);
-      elSelected.forEach(el => {
-        el.classList.remove('selected');
-      });
-      elToday ? elToday.classList.remove('today') : elToday;
-    }
+    this.clearSelection(this.calEl, this.todayObj, this.dateObj);
   }
   eventHandler(el){
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
-    this.selectedDay(el);
-    this.addToSelectList();
+    this.selectDates(el);
+    this.addToSelectionList();
   }
-  selectedDay(el) {
+  selectDates(el) {
     let dateStr = (el.id).substring(3,6);
     let selectedDate = new Date(Date.UTC(this.year, this.month, dateStr));
     
@@ -98,7 +77,24 @@ class Events {
       this.selectedDays.push(dateStr);
     }    
   }
-  addToSelectList() {
+  clearSelection(el, todayObj, dateObj) {
+    const currentMonth = this.formatDate(todayObj, this.monthYearFormat);
+    const selectedMonth = this.formatDate(dateObj, this.monthYearFormat);
+
+    if ( selectedMonth === currentMonth ) {
+    	el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
+    } else {
+      // not today
+    	let elToday = el.querySelector(`.today`);
+    	let elSelected = el.querySelectorAll(`.selected`);
+    	elSelected.forEach(el => {
+    		el.classList.remove('selected');
+      });
+      // remove today highlight
+    	elToday ? elToday.classList.remove('today') : elToday;
+    }
+  }
+  addToSelectionList() {
     const dateEl = this.calEl.querySelector(`.selected-date`);
     const selectedSpans = this.calEl.querySelectorAll('.selected-list-item');
     const spanHeight = 32
@@ -122,6 +118,16 @@ class Events {
     for (let i = 0; i < el.length; i += 1) {
       el[i].addEventListener('click', () => this.eventHandler(el[i]));
     };
+  }
+  buttonEvents() {
+    let el = this.calEl.querySelector(`th`);
+
+    el.insertAdjacentHTML('afterbegin', this.htmlLeftArrow);
+    el.insertAdjacentHTML('beforeend', this.htmlRightArrow);
+    let nextMonthButtonEl = el.querySelector(`#month-increase`);
+    let previousMonthButtonEl = el.querySelector(`#month-decrease`);
+    previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
+    nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
   // Event handler
   trigger(thisClass, el){
