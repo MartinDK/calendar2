@@ -78,7 +78,7 @@ class Events {
     this.selectedDays = this.selectedDays.filter( date => {
       return date !== dateStr;
     })
-    if ( this.trigger('selected', el)) {
+    if ( this.eventStates('selected', el)) {
       this.selectedDays.push(dateStr);
     }    
   }
@@ -135,14 +135,14 @@ class Events {
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
-  trigger(thisClass, el){
+  eventStates(thisClass, el){
     // true if el contains thisClass
     return el.classList.contains(thisClass); 
   } 
   togglToday(el){ 
-    return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`)
+    return this.eventStates("selected", el) ? console.log(`goodbye`) : console.log(`hello`)
   };
   togglSelect(el){ 
-    return this.trigger("selected", el) ? el.classList.remove('selected') : el.classList.add('selected')
+    return this.eventStates("selected", el) ? el.classList.remove('selected') : el.classList.add('selected')
   };
 }
