@@ -28,9 +28,9 @@ class Events {
     let calEvents = new Events;
     calEvents.dateObj = calEvents.todayObj;
     calEvents.selector = selector;
-    calEvents.calEl = document.getElementById(this.selector);
-
+    calEvents.calEl = document.querySelector(`#${selector}`);
     calEvents.calObj = calObj;
+
     calEvents.addEvents();
     calEvents.addButtons();
   }
@@ -97,11 +97,10 @@ class Events {
     }    
   }
   addToSelectList() {
+    const dateEl = this.calEl.querySelector(`.selected-date`);
+    const selectedSpans = this.calEl.querySelectorAll('span');
     const spanHeight = 32
     let calendarHeight = 313 - spanHeight;
-    const calEl = document.querySelector(`#${this.selector}`);
-    const dateEl = calEl.querySelector(`.selected-date`);
-    let selectedSpans = calEl.querySelectorAll('span');
 
     selectedSpans.forEach(thisSpan => {
       thisSpan.remove();
@@ -110,7 +109,7 @@ class Events {
     this.selectedDays.forEach( el => {
       dateEl.insertAdjacentHTML('beforeend', `<span class="selected-list-item">${el}</span>`);
       calendarHeight += spanHeight;
-      calEl.style.height = `${calendarHeight}px`
+      this.calEl.style.height = `${calendarHeight}px`
     });
   }
   // Add Events to date cells 
