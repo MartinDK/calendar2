@@ -36,7 +36,7 @@ class Events {
   }
   updateEvents(){
     const selector = this.selector;
-    let removeOldCal = document.querySelector(`#${selector} .calendar2`);
+    let removeOldCal = this.calEl.querySelector(`#${selector} .calendar2`);
     removeOldCal.remove(removeOldCal);
     this.addEvents();
     this.addButtons();
@@ -49,13 +49,12 @@ class Events {
   }
   // Buttons
   addButtons() {
-    const selector = this.selector;
-    let el = document.querySelector(`#${selector} th`);
+    let el = this.calEl.querySelector(`th`);
 
     el.insertAdjacentHTML('afterbegin', this.htmlLeftArrow );
     el.insertAdjacentHTML('beforeend',  this.htmlRightArrow );
-    let nextMonthButtonEl = this.calEl.querySelector(`#month-increase`);
-    let previousMonthButtonEl = this.calEl.querySelector(`#month-decrease`);
+    let nextMonthButtonEl = el.querySelector(`#month-increase`);
+    let previousMonthButtonEl = el.querySelector(`#month-decrease`);
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
@@ -67,7 +66,7 @@ class Events {
     this.updateEvents();
 
     if (this.formatDate(this.dateObj, this.monthYearFormat) === this.formatDate(this.todayObj, this.monthYearFormat)) {
-      document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
+      this.calEl.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
     } else {
       let elToday = this.calEl.querySelector(`.today`);
       let elSelected = this.calEl.querySelectorAll(`.selected`);
@@ -98,7 +97,7 @@ class Events {
   }
   addToSelectList() {
     const dateEl = this.calEl.querySelector(`.selected-date`);
-    const selectedSpans = this.calEl.querySelectorAll('span');
+    const selectedSpans = this.calEl.querySelectorAll('.selected-list-item');
     const spanHeight = 32
     let calendarHeight = 313 - spanHeight;
 
