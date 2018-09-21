@@ -69,8 +69,8 @@ class Events {
     if (this.formatDate(this.dateObj, this.monthYearFormat) === this.formatDate(this.todayObj, this.monthYearFormat)) {
       document.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
     } else {
-      let elToday = document.querySelector(`${selector} .today`);
-      let elSelected = document.querySelectorAll(`${selector} .selected`);
+      let elToday = this.calEl.querySelector(`.today`);
+      let elSelected = this.calEl.querySelectorAll(`.selected`);
       elSelected.forEach(el => {
         el.classList.remove('selected');
       });
@@ -115,8 +115,7 @@ class Events {
   // Add Events to date cells 
   addEvents() {
     
-    const selector = this.selector;
-    const el = document.querySelectorAll(`#${selector} td.calendar-day`);
+    const el = this.calEl.querySelectorAll(`td.calendar-day`);
   
     for (let i = 0; i < el.length; i += 1) {
       el[i].addEventListener('click', () => this.eventHandler(el[i]));
