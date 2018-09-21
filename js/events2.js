@@ -10,18 +10,7 @@ class Events {
     this.date = this.dateObj.getDate();
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
-    this.fullDate = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      weekday: 'short',
-    };
-    this.monthYearFormat = {
-
-    };
     this.selectedDays = [];
-    this.htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
-    this.htmlRightArrow = '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg" alt="right arrow"></button>';
   }
   static createEvents(selector, calObj) {
     let calEvents = new Events;
@@ -136,12 +125,14 @@ class Events {
     };
   }
   buttonEvents() {
-    let el = this.calEl.querySelector(`th`);
+    const htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
+    const htmlRightArrow = '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg" alt="right arrow"></button>';
+    const el = this.calEl.querySelector(`th`);
 
-    el.insertAdjacentHTML('afterbegin', this.htmlLeftArrow);
-    el.insertAdjacentHTML('beforeend', this.htmlRightArrow);
-    let nextMonthButtonEl = el.querySelector(`#month-increase`);
-    let previousMonthButtonEl = el.querySelector(`#month-decrease`);
+    el.insertAdjacentHTML('afterbegin', htmlLeftArrow);
+    el.insertAdjacentHTML('beforeend', htmlRightArrow);
+    const nextMonthButtonEl = el.querySelector(`#month-increase`);
+    const previousMonthButtonEl = el.querySelector(`#month-decrease`);
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
