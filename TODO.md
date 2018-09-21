@@ -1,3 +1,4 @@
+- [ ] Move events into event handler
 - [ ] Fill in empty cells with next or previous month
 - [ ] Add date range selection
 - [ ] Make monthArray Private
