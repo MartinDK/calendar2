@@ -28,6 +28,8 @@ class Events {
     let calEvents = new Events;
     calEvents.dateObj = calEvents.todayObj;
     calEvents.selector = selector;
+    calEvents.calEl = document.getElementById(this.selector);
+
     calEvents.calObj = calObj;
     calEvents.addEvents();
     calEvents.addButtons();
@@ -79,7 +81,7 @@ class Events {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
     this.selectedDay(el);
-    this.addSelectedDay();
+    this.addToSelectList();
   }
   selectedDay(el) {
     let dateStr = (el.id).substring(3,6);
@@ -94,13 +96,13 @@ class Events {
       this.selectedDays.push(dateStr);
     }    
   }
-  addSelectedDay() {
-    const dateEl = document.querySelector(`#${this.selector} .selected-date`);
-    const calEl = document.getElementById(this.selector);
+  addToSelectList() {
     const spanHeight = 32
     let calendarHeight = 313 - spanHeight;
-    let selectedSpans = dateEl.querySelectorAll('span');
-    
+    const calEl = document.querySelector(`#${this.selector}`);
+    const dateEl = calEl.querySelector(`.selected-date`);
+    let selectedSpans = calEl.querySelectorAll('span');
+
     selectedSpans.forEach(thisSpan => {
       thisSpan.remove();
     });
