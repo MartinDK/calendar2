@@ -2,7 +2,7 @@
 class Calendar2 {
   constructor() {  
     this.todayObj = new Date();
-    this.calEl = {};
+    // this.calEl = {};
     this.date = this.todayObj.getDate();
     this.month = this.todayObj.getMonth();
     this.year = this.todayObj.getFullYear();
@@ -15,15 +15,15 @@ class Calendar2 {
   }
   static createCalendar(id) {
 
-    let calendar2 = new Calendar2();
-    this.calEl = document.querySelector(`#${id}`);
-
-    // Create HTML
-    calendar2.setupMonth(this.calEl, calendar2.todayObj)
+    let calendar2html = new Calendar2();
+    const calEl = document.querySelector(`#${id}`);
     
-    return calendar2
+    // Create HTML
+    calendar2html.setup(calEl, calendar2html.todayObj)
+    
+    return calendar2html
   }
-  setupMonth(el, date) {
+  setup(el, date) {
     this.monthArray = this.initMonthArray(date);
     this.monthHTML = this.createMonthHTML(this.monthArray, date);
     // Output
@@ -78,12 +78,12 @@ class Calendar2 {
     html += '<table class="calendar2 calendar-table" ><tbody><tr><th colspan ="10">';
     html += this.readableDate(dateObj);
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
-    html += this.createDaysInMonthHTML(monthArray);
+    html += this.createDatesInMonthHTML(monthArray);
     html += '</table>';
 
     return html;
   }
-  createDaysInMonthHTML(monthArray) {
+  createDatesInMonthHTML(monthArray) {
     
     let emptyCells = monthArray[0].firstDayOfMonth - 1;
     let html = '';

@@ -48,7 +48,7 @@ class Events {
     removeOldCal.remove(removeOldCal);
   }
   addCurrentMonth(el, dateObj) {
-    this.calObj.setupMonth(el, dateObj);
+    this.calObj.setup(el, dateObj);
   }
   changeMonth(increaseDecreaseMonth){
     this.month += increaseDecreaseMonth;
