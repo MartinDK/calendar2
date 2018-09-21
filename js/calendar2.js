@@ -28,7 +28,6 @@ class Calendar2 {
     this.monthHTML = this.createMonthHTML(this.monthArray, date);
     // Output
     this.writeMonthHTML(el, this.monthHTML);
-    console.log(el)
     this.highlightDate(el, this.date);
   }
   readableDate(dateObj) {
@@ -78,7 +77,6 @@ class Calendar2 {
 
     html += '<table class="calendar2 calendar-table" ><tbody><tr><th colspan ="10">';
     html += this.readableDate(dateObj);
-    html += '</th ></tr > ';
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
     html += this.createDaysInMonthHTML(monthArray);
     html += '</table>';
@@ -113,7 +111,6 @@ class Calendar2 {
   }
   highlightDate(el, date) {
     let e = el.querySelectorAll(`#id-${date}`);
-        console.log(e)
     e[0].classList.add('today');
   }
 }
