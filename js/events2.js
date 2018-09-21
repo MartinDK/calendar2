@@ -17,8 +17,7 @@ class Events {
       weekday: 'short',
     };
     this.monthYearFormat = {
-      year: 'numeric',
-      month: 'long',
+
     };
     this.selectedDays = [];
     this.htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
@@ -37,9 +36,27 @@ class Events {
     this.dateEvents();
     this.buttonEvents();
   }
-  formatDate(dateObj, formatOptions) {
+  fullDateFormat(dateObj) {
+    const fullDateFormat = {
+    	year: 'numeric',
+    	month: 'long',
+    	day: 'numeric',
+    	weekday: 'short',
+    };
+    
     let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
-    let formattedDateStr = dateUTC.toLocaleDateString('en-GB', formatOptions);
+    let formattedDateStr = dateUTC.toLocaleDateString('en-GB', fullDateFormat);
+
+    return formattedDateStr;
+  }
+  monthYearFormat(dateObj) {
+    const monthYearFormat = {
+      year: 'numeric',
+      month: 'long',
+    }
+
+    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    let formattedDateStr = dateUTC.toLocaleDateString('en-GB', monthYearFormat);
 
     return formattedDateStr;
   }
@@ -68,7 +85,7 @@ class Events {
     let dateStr = (el.id).substring(3,6);
     let selectedDate = new Date(Date.UTC(this.year, this.month, dateStr));
     
-    dateStr = this.formatDate(selectedDate, this.fullDate);
+    dateStr = this.fullDateFormat(selectedDate);
     
     this.selectedDays = this.selectedDays.filter( date => {
       return date !== dateStr;
@@ -78,8 +95,8 @@ class Events {
     }    
   }
   clearSelection(el, todayObj, dateObj) {
-    const currentMonth = this.formatDate(todayObj, this.monthYearFormat);
-    const selectedMonth = this.formatDate(dateObj, this.monthYearFormat);
+    const currentMonth = this.monthYearFormat(todayObj);
+    const selectedMonth = this.monthYearFormat(dateObj);
 
     if ( selectedMonth === currentMonth ) {
     	el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
