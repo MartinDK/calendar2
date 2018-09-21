@@ -35,9 +35,6 @@ class Events {
     calEvents.addButtons();
   }
   updateEvents(){
-    const selector = this.selector;
-    let removeOldCal = this.calEl.querySelector(`#${selector} .calendar2`);
-    removeOldCal.remove(removeOldCal);
     this.addEvents();
     this.addButtons();
   }
@@ -58,11 +55,18 @@ class Events {
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
+  removePreviousMonth(el) {
+    let removeOldCal = el.querySelector(`.calendar2`);
+    removeOldCal.remove(removeOldCal);
+  }
+  addCurrentMonth(selector, dateObj) {
+    this.calObj.setupMonth(selector, dateObj);
+  }
   changeMonth(increaseDecreaseMonth){
-    const selector = this.selector;
     this.month += increaseDecreaseMonth;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
-    this.calObj.setupMonth(selector, this.dateObj);
+    this.removePreviousMonth(this.calEl)
+    this.addCurrentMonth(this.selector, this.dateObj);
     this.updateEvents();
 
     if (this.formatDate(this.dateObj, this.monthYearFormat) === this.formatDate(this.todayObj, this.monthYearFormat)) {
