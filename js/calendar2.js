@@ -2,6 +2,7 @@
 class Calendar2 {
   constructor() {  
     this.todayObj = new Date();
+    this.calEl = {};
     this.date = this.todayObj.getDate();
     this.month = this.todayObj.getMonth();
     this.year = this.todayObj.getFullYear();
@@ -15,17 +16,20 @@ class Calendar2 {
   static createCalendar(id) {
 
     let calendar2 = new Calendar2();
+    this.calEl = document.querySelector(`#${id}`);
+
     // Create HTML
-    calendar2.setupMonth(id, calendar2.todayObj)
+    calendar2.setupMonth(this.calEl, calendar2.todayObj)
     
     return calendar2
   }
-  setupMonth(elementID, date) {
+  setupMonth(el, date) {
     this.monthArray = this.initMonthArray(date);
     this.monthHTML = this.createMonthHTML(this.monthArray, date);
     // Output
-    this.writeMonthHTML(elementID, this.monthHTML);
-    this.highlightDate(elementID, this.date);
+    this.writeMonthHTML(el, this.monthHTML);
+    console.log(el)
+    this.highlightDate(el, this.date);
   }
   readableDate(dateObj) {
     
@@ -51,10 +55,10 @@ class Calendar2 {
     let b = this.todayObj.toLocaleDateString('en-GB', this.options);
 
     if (a === b) {
-      return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" ><span class="calendar-month-ord">${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span></th ></tr>`;
+      return `<span class="calendar-month-ord">${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span>`;
     }
     
-    return `<table class="calendar2 calendar-table"><tbody ><tr><th colspan="10" ><span class="calendar-month">${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span></th ></tr>`;
+    return `<span class="calendar-month">${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span>`;
   }
   initMonthArray(dateObj) {
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -70,9 +74,11 @@ class Calendar2 {
     return monthArray;
   }
   createMonthHTML(monthArray, dateObj) {
-        
-    let html = this.readableDate(dateObj);
+    let html = ""
 
+    html += '<table class="calendar2 calendar-table" ><tbody><tr><th colspan ="10">';
+    html += this.readableDate(dateObj);
+    html += '</th ></tr > ';
     html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
     html += this.createDaysInMonthHTML(monthArray);
     html += '</table>';
@@ -102,11 +108,12 @@ class Calendar2 {
     }
     return html;
   }
-  writeMonthHTML(id, html) {
-    document.querySelector(`#${id}`).insertAdjacentHTML('beforeend', html);
+  writeMonthHTML(el, html) {
+    el.insertAdjacentHTML('beforeend', html);
   }
-  highlightDate(id, date) {
-    let e = document.querySelectorAll(`#${id} #id-${date}`);
+  highlightDate(el, date) {
+    let e = el.querySelectorAll(`#id-${date}`);
+        console.log(e)
     e[0].classList.add('today');
   }
 }

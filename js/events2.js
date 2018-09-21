@@ -47,14 +47,14 @@ class Events {
     let removeOldCal = el.querySelector(`.calendar2`);
     removeOldCal.remove(removeOldCal);
   }
-  addCurrentMonth(selector, dateObj) {
-    this.calObj.setupMonth(selector, dateObj);
+  addCurrentMonth(el, dateObj) {
+    this.calObj.setupMonth(el, dateObj);
   }
   changeMonth(increaseDecreaseMonth){
     this.month += increaseDecreaseMonth;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
     this.removePreviousMonth(this.calEl)
-    this.addCurrentMonth(this.selector, this.dateObj);
+    this.addCurrentMonth(this.calEl, this.dateObj);
     this.addEvents();
     this.clearSelection(this.calEl, this.todayObj, this.dateObj);
   }
