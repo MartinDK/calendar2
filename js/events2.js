@@ -110,7 +110,6 @@ class Events {
       this.calEl.style.height = `${calendarHeight}px`
     });
   }
-  // Add Events to date cells 
   dateEvents() {
     
     const el = this.calEl.querySelectorAll(`td.calendar-day`);
@@ -129,12 +128,10 @@ class Events {
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
-  // Event handler
   trigger(thisClass, el){
     // true if el contains thisClass
     return el.classList.contains(thisClass); 
   } 
-  // Events
   togglToday(el){ 
     return this.trigger("selected", el) ? console.log(`goodbye`) : console.log(`hello`)
   };
