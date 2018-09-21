@@ -2,7 +2,6 @@
 class Events {
   constructor() {
     this.e = '';
-    this.selector = '';
     this.todayObj = new Date();
     this.dateObj = this.todayObj;
     this.calObj = {};
@@ -14,8 +13,8 @@ class Events {
   }
   static createEvents(selector, calObj) {
     let calEvents = new Events;
+    
     calEvents.dateObj = calEvents.todayObj;
-    calEvents.selector = selector;
     calEvents.calEl = document.querySelector(`#${selector}`);
     calEvents.calObj = calObj;
 
