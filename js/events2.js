@@ -32,10 +32,9 @@ class Events {
     calEvents.calObj = calObj;
 
     calEvents.addEvents();
-    calEvents.addButtons();
   }
-  updateEvents(){
-    this.addEvents();
+  addEvents(){
+    this.dateEvents();
     this.addButtons();
   }
   formatDate(dateObj, formatOptions) {
@@ -67,7 +66,7 @@ class Events {
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
     this.removePreviousMonth(this.calEl)
     this.addCurrentMonth(this.selector, this.dateObj);
-    this.updateEvents();
+    this.addEvents();
 
     if (this.formatDate(this.dateObj, this.monthYearFormat) === this.formatDate(this.todayObj, this.monthYearFormat)) {
       this.calEl.querySelector(`#${selector} #id-${this.dateObj.getDate()}`).classList.add('today');
@@ -116,7 +115,7 @@ class Events {
     });
   }
   // Add Events to date cells 
-  addEvents() {
+  dateEvents() {
     
     const el = this.calEl.querySelectorAll(`td.calendar-day`);
   
