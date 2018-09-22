@@ -78,7 +78,6 @@ class Calendar2 {
     emptyCellsArray = emptyCellsArray.map(x => x = { day: '' }); // Adjust first day 0=>1
 
     let calendarArray = emptyCellsArray.concat(monthArray);
-    // console.log(calendarArray);
 
     return calendarArray;
   }
@@ -108,33 +107,26 @@ class Calendar2 {
   createDatesInMonthHTML(monthArray) {
     let html = '<tr>';
     
-    console.log(monthArray);
-    
     for (let i = 1; i < monthArray.length; i += 1) {
       const day = monthArray[i].day;
-      // console.log(monthArray[i].day);
-      const cell = day;
       if (day === '') {
-        html += `<td class="calendar-day" id="empty-${day}"></td>`;
+        html += `<td class="calendar-day blank"></td>`;
       }  else if (i % 7 === 0) {
-        console.log(i, html)
-        html += `<td class="calendar-day" id="id-${day}">${day}</td></tr><tr>`;
-      } else if (i % 7 !== 0) {
-        html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
-      } else if (i === 6) {
-        html += `</tr>`;
+        html += `<td class="calendar-day" id="id-${day}">${day}</td></tr>`;
+      } else if (i % 7 === 1) {
+        html += `<tr><td class="calendar-day" id="id-${day}">${day}</td>`;
       } else {
         html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
-      }
+      };
     }
-    // console.log(html);
-    return html;
+    
+    return html += `</td>`;
   }
   writeMonthHTML(el, html) {
     el.insertAdjacentHTML('beforeend', html);
   }
   highlightDate(el, date) {
     let e = el.querySelectorAll(`#id-${date}`);
-    // e[0].classList.add('today');
+    e[0].classList.add('today');
   }
 }
