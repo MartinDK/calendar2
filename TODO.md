@@ -1,5 +1,6 @@
+- [ ] Use template literals and map() to generate html
 - [ ] Move events into event handler
-- [ ] Fill in empty cells with next or previous month
+- [ ] Fill in empty cells with next or previous month dates
 - [ ] Add date range selection
 - [ ] Make monthArray Private
 - [ ] 
