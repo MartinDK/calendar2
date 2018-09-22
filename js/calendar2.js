@@ -75,18 +75,30 @@ class Calendar2 {
   createMonthHTML(monthArray, dateObj) {
     let html = ""
 
-    html += '<table class="calendar2 calendar-table" ><tbody><tr><th colspan ="10">';
-    html += this.readableDate(dateObj);
-    html += '<tr class="calendar-header"><td class="calendar-header-day">Mon</td><td class="calendar-header-day">Tue</td><td class="calendar-header-day">Wed</td><td class="calendar-header-day">Thu</td><td class="calendar-header-day">Fri</td><td class="calendar-header-day">Sat</td><td class="calendar-header-day">Sun</td></tr><tr>';
-    html += this.createDatesInMonthHTML(monthArray);
-    html += '</table>';
+    html += `
+    <table class="calendar2 calendar-table" >
+      <tbody>
+        <tr>
+          <th colspan ="10">${this.readableDate(dateObj)}</th>
+        </tr>
+        <tr class="calendar-header">
+          <td class="calendar-header-day">Mon</td>
+          <td class="calendar-header-day">Tue</td>
+          <td class="calendar-header-day">Wed</td>
+          <td class="calendar-header-day">Thu</td>
+          <td class="calendar-header-day">Fri</td>
+          <td class="calendar-header-day">Sat</td>
+          <td class="calendar-header-day">Sun</td>
+        </tr>
+          ${this.createDatesInMonthHTML(monthArray)}
+    </table>`;
 
     return html;
   }
   createDatesInMonthHTML(monthArray) {
     
     let emptyCells = monthArray[0].firstDayOfMonth - 1;
-    let html = '';
+    let html = '<tr>';
 
     for (let i = 0; i < emptyCells; i += 1) {
       html += '<td></td>';
@@ -101,7 +113,7 @@ class Calendar2 {
       } else if (cell % 7) {
         html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
       } else {
-        html += `<td class="calendar-day" id="id-${day}">${day}</td></tr><tr>`;
+        html += `<td class="calendar-day" id="id-${day}">${day}</td></tr>`;
       }
     }
     return html;
