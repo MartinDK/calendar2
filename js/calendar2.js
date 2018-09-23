@@ -54,10 +54,10 @@ class Calendar2 {
     let b = this.todayObj.toLocaleDateString('en-GB', this.options);
 
     if (a === b) {
-      return `<span class="calendar-month-ord">${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span>`;
+      return `${daysOfWeek[day]}&nbsp;${date}<sup>${dateOrdinal}</sup>&nbsp;${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}`;
     }
     
-    return `<span class="calendar-month">${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}</span>`;
+    return `${monthsName[dateObj.getMonth()]}&nbsp;${dateObj.getFullYear()}`;
   }
   createArray(arrayLength){
     return Array.apply(null, {length: arrayLength}).map(Number.call, Number);
@@ -85,42 +85,29 @@ class Calendar2 {
     let html = ""
 
     html += `
-    <table class="calendar2 calendar-table" >
-      <tbody>
-        <tr>
-          <th colspan ="10">${this.readableDate(todayObj)}</th>
-        </tr>
-        <tr class="calendar-header">
-          <td class="calendar-header-day">Mon</td>
-          <td class="calendar-header-day">Tue</td>
-          <td class="calendar-header-day">Wed</td>
-          <td class="calendar-header-day">Thu</td>
-          <td class="calendar-header-day">Fri</td>
-          <td class="calendar-header-day">Sat</td>
-          <td class="calendar-header-day">Sun</td>
-        </tr>
+    <div class="calendar2" >
+        <div class="calendar title">
+          <h1 id="calendar-title">${this.readableDate(todayObj)}</h1>
+        </div>
+        <div class="calendar days">
+          <div class="calendar cell day">Mon</div>
+          <div class="calendar cell day">Tue</div>
+          <div class="calendar cell day">Wed</div>
+          <div class="calendar cell day">Thu</div>
+          <div class="calendar cell day">Fri</div>
+          <div class="calendar cell day">Sat</div>
+          <div class="calendar cell day">Sun</div>
+        </div>
           ${this.createDatesInMonthHTML(monthArray)}
-    </table>`;
+    </div>`;
 
     return html;
   }
   createDatesInMonthHTML(monthArray) {
-    let html = '<tr>';
-    
-    for (let i = 1; i < monthArray.length; i += 1) {
-      const day = monthArray[i].day;
-      if (day === '') {
-        html += `<td class="calendar-day blank"></td>`;
-      }  else if (i % 7 === 0) {
-        html += `<td class="calendar-day" id="id-${day}">${day}</td></tr>`;
-      } else if (i % 7 === 1) {
-        html += `<tr><td class="calendar-day" id="id-${day}">${day}</td>`;
-      } else {
-        html += `<td class="calendar-day" id="id-${day}">${day}</td>`;
-      };
-    }
-    
-    return html += `</td>`;
+    const emptyCellHtml = `<div class="calendar cell date blank"></div>`
+    let html = monthArray.map( item => item.day === '' ? emptyCellHtml : `<div class="calendar cell date" id="id-${item.day}">${item.day}</div>`).join('');
+
+    return html;
   }
   writeMonthHTML(el, html) {
     el.insertAdjacentHTML('beforeend', html);

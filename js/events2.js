@@ -126,7 +126,7 @@ class Events {
   buttonEvents() {
     const htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
     const htmlRightArrow = '<button id="month-increase" aria-label="next month"><img src="img/arrow-right-circle.svg" alt="right arrow"></button>';
-    const el = this.calEl.querySelector(`th`);
+    const el = this.calEl.querySelector(`.calendar.title`);
 
     el.insertAdjacentHTML('afterbegin', htmlLeftArrow);
     el.insertAdjacentHTML('beforeend', htmlRightArrow);

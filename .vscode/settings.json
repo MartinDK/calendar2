@@ -6,7 +6,8 @@
   "workbench.colorCustomizations": {
     "editor.selectionBackground": "#65392d",
     "editor.findMatchBackground": "#ffcc6637",
-    "editor.wordHighlightStrongBackground": "#66e8ff18",
-    
+    "editor.wordHighlightBackground": "#3353686d",
+    "editor.wordHighlightStrongBackground": "#7f6a0297",
+    "editor.selectionHighlightBackground": "#023367",
   }
 }
