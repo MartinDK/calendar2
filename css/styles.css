@@ -24,7 +24,6 @@ button {
 button#month-decrease {
 }
 button#month-increase {
-  float: right;
 }
 .calendar2 {
   -webkit-touch-callout: none;
@@ -39,18 +38,17 @@ button#month-increase {
   /* Internet Explorer/Edge */
   user-select: none;
 }
-
 /* weekend */
 .calendar2 .calendar.day:nth-child(1n +6) {
   color: #eb0808;
 }
-.calendar2 .calendar.cell:nth-child(3n+2) {
+.calendar2 .calendar.cell:nth-child(7n + 2) {
   color: #eb0808;
+  height: 33px;
 }
-
-tr>td:nth-child(1n +6).selected {
-  background-color: #c51515;
-  color: #ecb6b6;
+.calendar2 .calendar.cell:nth-child(7n + 1) {
+  color: #eb0808;
+  height: 33px;
 }
 
 #calendar-title {
@@ -72,7 +70,7 @@ span.selected-list-item {
 }
 .left {
   position: absolute;
-  width: 280px;
+  width: 301px;
   height: 313px;
   left: 25%;
   top: 50%;
@@ -82,7 +80,7 @@ span.selected-list-item {
 
 .right {
   position: absolute;
-  width: 280px;
+  width: 301px;
   height: 313px;
   left: 75%;
   top: 50%;
@@ -92,11 +90,12 @@ span.selected-list-item {
 .calendar2 {
   display: flex;
   flex-wrap: wrap;
+  justify-content: left;
 }
 .calendar2 .cell,
 .calendar2 .day {
   height: 35px;
-  width: 40px;
+  width: 43px;
   flex-direction: column;
   display: flex;
   justify-content: space-around;
@@ -111,8 +110,8 @@ span.selected-list-item {
 }
 .calendar.days {
   display: flex;
-  justify-content: space-between;
-  width: 280px;
+  justify-content: left;
+  width: 100%;
 }
 .calendar.day {
   background-color: #e4f2ff;
@@ -126,9 +125,6 @@ span.selected-list-item {
   background-color: #ffdd004a;
   font-weight: 600;
   border-radius: 10%;
-  border-color: #eb900882;
-  border-width: 3px;
-  border-style: solid;
   height: 34px;
 }
 

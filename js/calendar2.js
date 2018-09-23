@@ -101,7 +101,7 @@ class Calendar2 {
     return html;
   }
   createDatesInMonthHTML(monthArray) {
-    const emptyCellHtml = `<div class="calendar cell blank"></div>`
+    const emptyCellHtml = `<div class="calendar cell blank">x</div>`
     let html = monthArray.map( item => item.day === '' ? emptyCellHtml : `<div class="calendar cell date" id="id-${item.day}">${item.day}</div>`).join('');
 
     return html;
