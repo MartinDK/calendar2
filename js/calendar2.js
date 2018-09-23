@@ -73,7 +73,7 @@ class Calendar2 {
     const firstDay = firstDayOfMonth.getDay() ? firstDayOfMonth.getDay() : firstDayOfMonth.getDate()+6;
     // Init empty arrays
     let monthArray = this.createArray(monthLength);
-    let emptyCellsArray = this.createArray(firstDay);
+    let emptyCellsArray = this.createArray(firstDay-1);
     // Fill arrays with 
     monthArray = monthArray.map(x => x = { day: x + 1 }); // Adjust first day 0=>1
     emptyCellsArray = emptyCellsArray.map(x => x = { day: '' }); // Adjust first day 0=>1
@@ -87,13 +87,13 @@ class Calendar2 {
           <h1 id="calendar-title">${this.readableDate(todayObj)}</h1>
         </div>
         <div class="calendar days">
-          <div class="calendar cell day">Mon</div>
-          <div class="calendar cell day">Tue</div>
-          <div class="calendar cell day">Wed</div>
-          <div class="calendar cell day">Thu</div>
-          <div class="calendar cell day">Fri</div>
-          <div class="calendar cell day">Sat</div>
-          <div class="calendar cell day">Sun</div>
+          <div class="calendar day">Mon</div>
+          <div class="calendar day">Tue</div>
+          <div class="calendar day">Wed</div>
+          <div class="calendar day">Thu</div>
+          <div class="calendar day">Fri</div>
+          <div class="calendar day">Sat</div>
+          <div class="calendar day">Sun</div>
         </div>
           ${this.createDatesInMonthHTML(monthArray)}
     </div>`;
