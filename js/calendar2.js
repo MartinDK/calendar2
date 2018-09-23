@@ -71,20 +71,17 @@ class Calendar2 {
     const monthLength = daysInMonth[month];
     // Make Monday the first day of the week index e.g 1:Mon, 2:Tue, 3:Wed and 0:Sun
     const firstDay = firstDayOfMonth.getDay() ? firstDayOfMonth.getDay() : firstDayOfMonth.getDate()+6;
-    // Init arrays
+    // Init empty arrays
     let monthArray = this.createArray(monthLength);
-    monthArray = monthArray.map(x => x = { day: x + 1 }); // Adjust first day 0=>1
     let emptyCellsArray = this.createArray(firstDay);
+    // Fill arrays with 
+    monthArray = monthArray.map(x => x = { day: x + 1 }); // Adjust first day 0=>1
     emptyCellsArray = emptyCellsArray.map(x => x = { day: '' }); // Adjust first day 0=>1
 
-    let calendarArray = emptyCellsArray.concat(monthArray);
-
-    return calendarArray;
+    return emptyCellsArray.concat(monthArray);
   }
   createMonthHTML(monthArray, todayObj) {
-    let html = ""
-
-    html += `
+    let html = `
     <div class="calendar2" >
         <div class="calendar title">
           <h1 id="calendar-title">${this.readableDate(todayObj)}</h1>
