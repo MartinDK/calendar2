@@ -26,7 +26,7 @@ button#month-decrease {
 button#month-increase {
   float: right;
 }
-table {
+.calendar2 {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -38,31 +38,13 @@ table {
   -ms-user-select: none;
   /* Internet Explorer/Edge */
   user-select: none;
-  background-color: #f9fcff;
-  border-spacing: 0;
-  margin: 0;
-  width: 333px;
-  min-height: 249px
-}
-
-th {
-  background-color: #ddeeff;
-  padding: 5px 0;
-  font-weight: 600;
-}
-
-td {
-  font-family: sans-serif;
-  text-align: center;
-  width: 43px;
-  height: 34px;
-  padding: 5px 0;
-  box-sizing: border-box;
-  border: solid 1px white;
 }
 
 /* weekend */
 .calendar2 .calendar.day:nth-child(1n +6) {
+  color: #eb0808;
+}
+.calendar2 .calendar.cell:nth-child(3n+2) {
   color: #eb0808;
 }
 
@@ -111,7 +93,8 @@ span.selected-list-item {
   display: flex;
   flex-wrap: wrap;
 }
-.calendar2 .cell {
+.calendar2 .cell,
+.calendar2 .day {
   height: 35px;
   width: 40px;
   flex-direction: column;
