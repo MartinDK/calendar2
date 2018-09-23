@@ -117,7 +117,7 @@ class Events {
   }
   dateEvents() {
     
-    const el = this.calEl.querySelectorAll(`td.calendar-day`);
+    const el = this.calEl.querySelectorAll(`.calendar.date`);
   
     for (let i = 0; i < el.length; i += 1) {
       el[i].addEventListener('click', () => this.eventHandler(el[i]));
