@@ -55,8 +55,8 @@ class Events {
   addCurrentMonth(el, dateObj) {
     this.calObj.setup(el, dateObj);
   }
-  changeMonth(increaseDecreaseMonth){
-    this.month += increaseDecreaseMonth;
+  changeMonth(i){
+    this.month += i;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
     this.removePreviousMonth(this.calEl)
     this.addCurrentMonth(this.calEl, this.dateObj);
@@ -140,9 +140,9 @@ class Events {
     return el.classList.contains(thisClass); 
   } 
   togglToday(el){ 
-    return this.eventStates("selected", el) ? console.log(`goodbye`) : console.log(`hello`)
+    return this.eventStates("selected", el) ? console.log(`goodbye`) : console.log(`hello`);
   };
   togglSelect(el){ 
-    return this.eventStates("selected", el) ? el.classList.remove('selected') : el.classList.add('selected')
+    return el.classList.toggle('selected');
   };
 }
