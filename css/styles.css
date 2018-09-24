@@ -53,11 +53,9 @@ body {
 }
 .calendar2 .calendar.cell:nth-child(7n + 2) {
   color: #eb0808;
-  height: 33px;
 }
 .calendar2 .calendar.cell:nth-child(7n + 1) {
   color: #eb0808;
-  height: 33px;
 }
 span.calendar-month {
   padding-top: 9px;
