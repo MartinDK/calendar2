@@ -31,56 +31,31 @@ body {
   background-color: #f65959;
 }
 .calendar2 {
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Safari */
-  -khtml-user-select: none;
-  /* Konqueror HTML */
-  -moz-user-select: none;
-  /* Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
   user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 .calendar2 h1 {
   font-size: 1.1em;
   font-weight: 400;
 }
 /* weekend */
-.calendar2 .calendar.day:nth-child(1n +6) {
+.calendar.day:nth-child(1n +6) {
   color: #eb0808;
 }
-.calendar2 .calendar.cell:nth-child(7n + 2) {
+.calendar.cell:nth-child(7n + 2) {
   color: #eb0808;
 }
-.calendar2 .calendar.cell:nth-child(7n + 1) {
+.calendar.cell:nth-child(7n + 1) {
   color: #eb0808;
 }
-span.calendar-month {
-  padding-top: 9px;
-}
-span.calendar-month-ord {
-  line-height: 1.9;
-}
-span.selected-list-item {
-  display: block;
-}
-.calendar2 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-}
-.calendar2 .cell,
-.calendar2 .day {
-  height: 35px;
-  width: 43px;
-  flex-direction: column;
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-}
-.calendar2 .calendar.header {
+.calendar.header {
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -102,6 +77,15 @@ button#month-increase {}
   display: flex;
   justify-content: left;
   width: 100%;
+}
+.calendar2 .cell,
+.calendar2 .day {
+  height: 35px;
+  width: 43px;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
 }
 .calendar.day {
   background-color: #e4f2ff;
@@ -128,7 +112,14 @@ button#month-increase {}
 .calendar.selected:hover {
   background-color: #c71212;
 }
-.calendar.selected-date {
+.calendar.selected:nth-child(7n + 2) {
+  color: #ea9292;
+}
+
+.calendar.selected:nth-child(7n + 1) {
+  color: #ea9292;
+}
+.selected-dates-list {
   position: absolute;
   bottom: 0;
   color: white;
@@ -138,9 +129,12 @@ button#month-increase {}
   width: 100%;
   box-sizing: border-box;
 }
- .left .selected-date {
+ .left .selected-dates-list {
   background: #1e90ff;
 }
- .right .selected-date {
+ .right .selected-date-list {
   background: #dc4f4f;
+}
+span.selected-date-item {
+  display: block;
 }

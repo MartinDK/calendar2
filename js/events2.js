@@ -67,7 +67,7 @@ class Events {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
     this.selectDates(el);
-    this.addToSelectionList();
+    this.addToSelectedDates();
   }
   selectDates(el) {
     let dateStr = (el.id).substring(3,6);
@@ -99,9 +99,9 @@ class Events {
     	elToday ? elToday.classList.remove('today') : elToday;
     }
   }
-  addToSelectionList() {
-    const dateEl = this.calEl.querySelector(`.selected-date`);
-    const selectedSpans = this.calEl.querySelectorAll('.selected-list-item');
+  addToSelectedDates() {
+    const dateEl = this.calEl.querySelector(`.selected-dates-list`);
+    const selectedSpans = this.calEl.querySelectorAll('.selected-date-item');
     const spanHeight = 32
     let calendarHeight = 313 - spanHeight;
 
@@ -110,7 +110,7 @@ class Events {
     });
     
     this.selectedDays.forEach( el => {
-      dateEl.insertAdjacentHTML('beforeend', `<span class="selected-list-item">${el}</span>`);
+      dateEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${el}</span>`);
       calendarHeight += spanHeight;
       this.calEl.style.height = `${calendarHeight}px`
     });
