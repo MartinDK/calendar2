@@ -79,15 +79,12 @@ class Calendar2 {
     emptyCellsArray = emptyCellsArray.map(x => x = { day: '' }); // Adjust first day 0=>1
 
     let calCell = emptyCellsArray.concat(monthArray);
-    console.log(calCell.length)
+
     if (calCell.length < 35) {
-      
       let emptyCellsArray = this.createArray(35 - calCell.length);
       emptyCellsArray = emptyCellsArray.map(x => x = { day: '' });
       calCell = calCell.concat(emptyCellsArray);
-
     } else if (calCell.length > 35) {
-      
       let emptyCellsArray = this.createArray(42 - calCell.length);
       emptyCellsArray = emptyCellsArray.map(x => x = { day: '' });
       calCell = calCell.concat(emptyCellsArray);

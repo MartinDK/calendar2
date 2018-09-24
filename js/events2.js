@@ -103,7 +103,7 @@ class Events {
     const dateEl = this.calEl.querySelector(`.selected-dates-list`);
     const selectedSpans = this.calEl.querySelectorAll('.selected-date-item');
     const spanHeight = 32
-    let calendarHeight = 313 - spanHeight;
+    let calendarHeight = 335 - spanHeight;
 
     selectedSpans.forEach(thisSpan => {
       thisSpan.remove();

@@ -15,7 +15,7 @@ body {
 .left {
   position: absolute;
   width: 301px;
-  height: 313px;
+  height: 335px;
   left: 25%;
   top: 50%;
   transform: translate(-50%, -50%);
