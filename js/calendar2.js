@@ -83,7 +83,7 @@ class Calendar2 {
   createMonthHTML(monthArray, todayObj) {
     let html = `
     <div class="calendar2" >
-        <div class="calendar title">
+        <div class="calendar header">
           <h1 id="calendar-title">${this.readableDate(todayObj)}</h1>
         </div>
         <div class="calendar days">
