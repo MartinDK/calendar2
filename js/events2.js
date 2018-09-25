@@ -77,8 +77,13 @@ class Events {
     let month = dateUTC.getMonth()
     
     if (this.dates[this.year][this.month]) {
+      // should use converted dates - fullYear and month
+      console.log("year and month exists")
       let x = this.dates[this.year][this.month];
       x.push({ [dateStr]: dateUTC })
+      this.dates[this.year][this.month] = x;
+
+      // this.dates = x;
     } else if ( this.dates[this.year] && this.month < 12 ) {
       this.dates[this.year][this.month] = [] 
       this.dates[this.year][this.month].push({ [dateStr]:dateUTC })
@@ -92,7 +97,7 @@ class Events {
       // console.log(`${dateUTC.getFullYear()} ${dateUTC.getMonth()} ${dateUTC.getDate()}`)
       // let month = dateUTC.getFullYear()
       this.dates[dateUTC.getFullYear()] = { [dateUTC.getMonth()]: [ dateUTC.getDate() ]}
-      console.log(this.dates)
+      // console.log(this.dates)
     }
     
     console.log(this.dates)
