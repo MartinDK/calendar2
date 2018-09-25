@@ -10,6 +10,7 @@ class Events {
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
     this.selectedDays = [];
+    this.dates = { [this.year]: { [this.month]: [] } };
   }
   static createEvents(selector, calObj) {
     let calEvents = new Events;
@@ -71,15 +72,38 @@ class Events {
   }
   selectDates(el) {
     let dateStr = (el.id).substring(3,6);
-    let selectedDate = new Date(Date.UTC(this.year, this.month, dateStr));
+    let dateUTC = new Date(Date.UTC(this.year, this.month, dateStr));
+    let fullYear = dateUTC.getFullYear()
+    let month = dateUTC.getMonth()
     
-    dateStr = this.fullDateFormat(selectedDate);
+    if (this.dates[this.year][this.month]) {
+      let x = this.dates[this.year][this.month];
+      x.push({ [dateStr]: dateUTC })
+    } else if ( this.dates[this.year] && this.month < 12 ) {
+      this.dates[this.year][this.month] = [] 
+      this.dates[this.year][this.month].push({ [dateStr]:dateUTC })
+    } else if ( this.dates[fullYear] ) {
+      console.log('year exists')
+      console.log(fullYear)
+      this.dates[this.year][this.month] = [] 
+      this.dates[this.year][this.month].push({ [dateStr]:dateUTC })
+    } else if ( this.month > 11) {
+      console.log("new year")
+      // console.log(`${dateUTC.getFullYear()} ${dateUTC.getMonth()} ${dateUTC.getDate()}`)
+      // let month = dateUTC.getFullYear()
+      this.dates[dateUTC.getFullYear()] = { [dateUTC.getMonth()]: [ dateUTC.getDate() ]}
+      console.log(this.dates)
+    }
+    
+    console.log(this.dates)
+    dateStr = this.fullDateFormat(dateUTC);
     
     this.selectedDays = this.selectedDays.filter( date => {
       return date !== dateStr;
     })
     if ( this.eventStates('selected', el)) {
       this.selectedDays.push(dateStr);
+      // console.log(this.dates)
     }    
   }
   clearSelection(el, todayObj, dateObj) {
