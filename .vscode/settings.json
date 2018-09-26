@@ -2,7 +2,7 @@
   "eslint.enable": false,
   "editor.fontSize": 16,
   "terminal.integrated.fontSize": 14,
-  "window.zoomLevel": -0.2,
+  "window.zoomLevel": 0,
   "workbench.colorCustomizations": {
     "editor.selectionBackground": "#65392d",
     "editor.findMatchBackground": "#ffcc6637",

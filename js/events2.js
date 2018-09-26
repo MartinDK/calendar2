@@ -71,37 +71,34 @@ class Events {
     this.addToSelectedDates();
   }
   selectDates(el) {
-    let dateStr = (el.id).substring(3,6);
-    let dateUTC = new Date(Date.UTC(this.year, this.month, dateStr));
-    let fullYear = dateUTC.getFullYear()
+    let dateStr = '';
+    let thisDate = (el.id).substring(3,6);
+    let dateUTC = new Date(Date.UTC(this.year, this.month, thisDate));
+    let thisYear = dateUTC.getFullYear()
     let thisMonth = dateUTC.getMonth()
  
     if ( this.dates.empty === "" ) {
       console.log("empty")
-      this.dates = { [fullYear]:{[thisMonth]: []} };
+      this.dates = { [thisYear]:{[thisMonth]: [{ [dateStr]: dateUTC }]} };
       console.log(this.dates)
-    } else {
-      console.log("not empty")
-    }
-
-    if (this.dates[fullYear] === undefined) {
+    } else if (this.dates[thisYear] === undefined) {
 
       console.log("year and month undefined")
 
-      this.dates[fullYear] = { [thisMonth]: [{ [dateStr]: dateUTC }] };
+      this.dates[thisYear] = { [thisMonth]: [{ [dateStr]: dateUTC }] };
 
-    } else if (this.dates[fullYear][thisMonth]) {
+    } else if (this.dates[thisYear][thisMonth]) {
 
       console.log("year and month exists")
 
-      this.dates[fullYear][thisMonth].push({ [dateStr]: dateUTC });
+      this.dates[thisYear][thisMonth].push({ [dateStr]: dateUTC });
 
-    } else if ( this.dates[fullYear] ) {
+    } else if ( this.dates[thisYear] ) {
 
       console.log('year exists')
 
-      this.dates[fullYear][thisMonth] = [];
-      this.dates[fullYear][thisMonth].push({ [dateStr]:dateUTC });
+      this.dates[thisYear][thisMonth] = [];
+      this.dates[thisYear][thisMonth].push({ [dateStr]:dateUTC });
 
     } else {
 
@@ -112,14 +109,16 @@ class Events {
     console.log(this.dates)
 
     dateStr = this.fullDateFormat(dateUTC);
-    
+
+    // Remove selected date from list
     this.selectedDays = this.selectedDays.filter( date => {
       return date !== dateStr;
     })
-
-    if ( this.eventStates('selected', el)) {
+    // Add selected date to list
+    if ( this.eventState('selected', el)) {
       this.selectedDays.push(dateStr);
     }
+    console.log(this.selectedDays)
   }
   clearSelection(el, todayObj, dateObj) {
     const currentMonth = this.monthYearFormat(todayObj);
@@ -174,12 +173,12 @@ class Events {
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
-  eventStates(thisClass, el){
+  eventState(thisClass, el){
     // true if el contains thisClass
     return el.classList.contains(thisClass); 
   } 
   togglToday(el){ 
-    return this.eventStates("selected", el) ? console.log(`goodbye`) : console.log(`hello`);
+    return this.eventState("selected", el) ? console.log(`goodbye`) : console.log(`hello`);
   };
   togglSelect(el){ 
     return el.classList.toggle('selected');
