@@ -88,20 +88,13 @@ class Events {
 
       console.log("year and month undefined")
 
-      this.dates[fullYear] = { [thisMonth]: [{ [dateStr]: dateUTC }] }
+      this.dates[fullYear] = { [thisMonth]: [{ [dateStr]: dateUTC }] };
 
     } else if (this.dates[fullYear][thisMonth]) {
 
       console.log("year and month exists")
 
-      this.dates[fullYear][thisMonth].push({ [dateStr]: dateUTC })
-
-    } else if ( this.dates[fullYear] && this.month < 12 ) {
-
-      console.log("the year is 2018")
-
-      this.dates[this.year][this.month] = [] ;
-      this.dates[this.year][this.month].push({ [dateStr]:dateUTC });
+      this.dates[fullYear][thisMonth].push({ [dateStr]: dateUTC });
 
     } else if ( this.dates[fullYear] ) {
 
@@ -110,11 +103,9 @@ class Events {
       this.dates[fullYear][thisMonth] = [];
       this.dates[fullYear][thisMonth].push({ [dateStr]:dateUTC });
 
-    } else if ( this.month > 11) {
+    } else {
 
-      console.log("new year")
-
-      this.dates[fullYear] = { [month]: [{ [dateStr]: dateUTC }] };
+      console.log("failed all tests")
 
     }
     
