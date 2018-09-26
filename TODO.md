@@ -1,4 +1,5 @@
-- [ ] Use template literals and map() to generate html
+- [ ] Use selectDates() for selected list
+- [x] Use template literals and map() to generate html
 - [ ] Move events into event handler
 - [ ] Fill in empty cells with next or previous month dates
 - [ ] Add date range selection
