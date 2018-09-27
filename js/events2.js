@@ -76,29 +76,43 @@ class Events {
     let dateUTC = new Date(Date.UTC(this.year, this.month, thisDate));
     let thisYear = dateUTC.getFullYear()
     let thisMonth = dateUTC.getMonth()
+
+    // Array search
+    if (this.dates.empty !== ""){
+
+      let x = "empty";
+      this.dates[thisYear][thisMonth].forEach( (date, i) => {
+        date.date == thisDate ? x = i : console.log(i)
+        console.log(date.date == thisDate, i)
+      });
+      // console.log(this.dates)
+      console.log(`x = ${x}`)
+    }
  
     if ( this.dates.empty === "" ) {
+
       console.log("empty")
-      this.dates = { [thisYear]:{[thisMonth]: [{ [dateStr]: dateUTC }]} };
-      console.log(this.dates)
+
+      this.dates = { [thisYear]:{[thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }]} };
+
     } else if (this.dates[thisYear] === undefined) {
 
       console.log("year and month undefined")
 
-      this.dates[thisYear] = { [thisMonth]: [{ [dateStr]: dateUTC }] };
+      this.dates[thisYear] = { [thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }] };
 
     } else if (this.dates[thisYear][thisMonth]) {
 
       console.log("year and month exists")
 
-      this.dates[thisYear][thisMonth].push({ [dateStr]: dateUTC });
+      this.dates[thisYear][thisMonth].push({ date:thisDate, [thisDate]: dateUTC });
 
     } else if ( this.dates[thisYear] ) {
 
       console.log('year exists')
 
       this.dates[thisYear][thisMonth] = [];
-      this.dates[thisYear][thisMonth].push({ [dateStr]:dateUTC });
+      this.dates[thisYear][thisMonth].push({ date:"dateStr", [dateStr]:dateUTC });
 
     } else {
 
@@ -106,7 +120,7 @@ class Events {
 
     }
     
-    console.log(this.dates)
+    // console.log(this.dates)
 
     dateStr = this.fullDateFormat(dateUTC);
 
@@ -118,7 +132,7 @@ class Events {
     if ( this.eventState('selected', el)) {
       this.selectedDays.push(dateStr);
     }
-    console.log(this.selectedDays)
+    // console.log(this.selectedDays)
   }
   clearSelection(el, todayObj, dateObj) {
     const currentMonth = this.monthYearFormat(todayObj);
