@@ -76,17 +76,16 @@ class Events {
     let dateUTC = new Date(Date.UTC(this.year, this.month, thisDate));
     let thisYear = dateUTC.getFullYear()
     let thisMonth = dateUTC.getMonth()
+    let deleteThis = false;
 
-    // Array search
-    if (this.dates.empty !== ""){
+    if ((this.dates.empty !== "") && (this.dates[thisYear] !== undefined) && (this.dates[thisYear][thisMonth] !== undefined)) {
 
-      let x = "empty";
       this.dates[thisYear][thisMonth].forEach( (date, i) => {
-        date.date == thisDate ? x = i : console.log(i)
-        console.log(date.date == thisDate, i)
+        date.date == thisDate ? deleteThis = i : void(0);
       });
-      // console.log(this.dates)
-      console.log(`x = ${x}`)
+
+      deleteThis !== false ? this.dates[thisYear][thisMonth].splice(deleteThis, 1) : void(0);
+      
     }
  
     if ( this.dates.empty === "" ) {
@@ -101,27 +100,25 @@ class Events {
 
       this.dates[thisYear] = { [thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }] };
 
-    } else if (this.dates[thisYear][thisMonth]) {
+    } else if (this.dates[thisYear][thisMonth] && deleteThis === false) {
 
       console.log("year and month exists")
 
       this.dates[thisYear][thisMonth].push({ date:thisDate, [thisDate]: dateUTC });
 
-    } else if ( this.dates[thisYear] ) {
+    } else if ( this.dates[thisYear] && deleteThis === false) {
 
       console.log('year exists')
 
       this.dates[thisYear][thisMonth] = [];
-      this.dates[thisYear][thisMonth].push({ date:"dateStr", [dateStr]:dateUTC });
+      this.dates[thisYear][thisMonth].push({ date:thisDate, [dateStr]:dateUTC });
 
     } else {
 
-      console.log("failed all tests")
+      console.log("item deselected")
 
     }
     
-    // console.log(this.dates)
-
     dateStr = this.fullDateFormat(dateUTC);
 
     // Remove selected date from list
@@ -132,7 +129,6 @@ class Events {
     if ( this.eventState('selected', el)) {
       this.selectedDays.push(dateStr);
     }
-    // console.log(this.selectedDays)
   }
   clearSelection(el, todayObj, dateObj) {
     const currentMonth = this.monthYearFormat(todayObj);
