@@ -49,18 +49,16 @@ class Events {
 
     return formattedDateStr;
   }
-  removePreviousMonth(el) {
+  replaceMonth(el, dateObj) {
     let removeOldCal = el.querySelector(`.calendar2`);
     removeOldCal.remove(removeOldCal);
-  }
-  addCurrentMonth(el, dateObj) {
+
     this.calObj.setup(el, dateObj);
   }
   changeMonth(i){
     this.month += i;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
-    this.removePreviousMonth(this.calEl)
-    this.addCurrentMonth(this.calEl, this.dateObj);
+    this.replaceMonth(this.calEl, this.dateObj);
     this.addEvents();
     this.clearSelection(this.calEl, this.todayObj, this.dateObj);
   }
@@ -129,6 +127,8 @@ class Events {
     if ( this.eventState('selected', el)) {
       this.selectedDays.push(dateStr);
     }
+
+    console.log(this.dates);
   }
   clearSelection(el, todayObj, dateObj) {
     const currentMonth = this.monthYearFormat(todayObj);
