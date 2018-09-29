@@ -127,8 +127,22 @@ class Events {
     if ( this.eventState('selected', el)) {
       this.selectedDays.push(dateStr);
     }
+    for (const year in this.dates) {
+      if (this.dates.hasOwnProperty(year)) {
+        const element = this.dates[year];
 
-    console.log(this.dates);
+        for (const month in element) {
+          if (element.hasOwnProperty(8)) {
+            const elementX = element[8];
+            console.log('elementX')
+            console.log(elementX)
+          }
+        }
+        console.log(element)
+      }
+    }
+
+    // console.log(this.dates[thisYear][thisMonth]);
   }
   clearSelection(el, todayObj, dateObj) {
     const currentMonth = this.monthYearFormat(todayObj);
