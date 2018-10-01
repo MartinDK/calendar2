@@ -10,7 +10,7 @@ class Events {
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
     this.selectedDays = [];
-    this.dates = { empty:"" };
+    this.dates = {};
   }
   static createEvents(selector, calObj) {
     let calEvents = new Events;
@@ -78,17 +78,24 @@ class Events {
     let thisMonth = dateUTC.getMonth()
     let deleteThis = false;
 
-    if ((this.dates.empty !== "") && (this.dates[thisYear] !== undefined) && (this.dates[thisYear][thisMonth] !== undefined)) {
+    if ((this.dates !== undefined) && (this.dates[thisYear] !== undefined) && (this.dates[thisYear][thisMonth] !== undefined)) {
 
-      this.dates[thisYear][thisMonth].forEach( (date, i) => {
-        date.date == thisDate ? deleteThis = i : void(0);
-      });
+      for (const key in this.dates) {
+        if (this.dates.hasOwnProperty(key)) {
+          const element = this.dates[key];
+          console.log(element)
+        }
+      }
+      // this.dates[thisYear][thisMonth].forEach( (date, i) => {
+      //   // date.date == thisDate ? deleteThis = i : void(0);
+      //   console.log(date)
+      // });
 
       deleteThis !== false ? this.dates[thisYear][thisMonth].splice(deleteThis, 1) : void(0);
       
     }
  
-    if ( this.dates.empty === "" ) {
+    if ( this.dates === undefined ) {
 
       console.log("empty")
 
@@ -98,27 +105,26 @@ class Events {
 
       console.log("year and month undefined")
 
-      this.dates[thisYear] = { [thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }] };
+      this.dates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
 
     } else if (this.dates[thisYear][thisMonth] && deleteThis === false) {
 
       console.log("year and month exists")
 
-      this.dates[thisYear][thisMonth].push({ date:thisDate, [thisDate]: dateUTC });
+      this.dates[thisYear][thisMonth][thisDate] = dateUTC;
 
     } else if ( this.dates[thisYear] && deleteThis === false) {
 
       console.log('year exists')
 
-      this.dates[thisYear][thisMonth] = [];
-      this.dates[thisYear][thisMonth].push({ date:thisDate, [dateStr]:dateUTC });
+      this.dates[thisYear][thisMonth] = {[thisDate]:dateUTC };
 
     } else {
 
       console.log("item deselected")
 
     }
-    
+    console.log(this.dates)
     dateStr = this.fullDateFormat(dateUTC);
 
     // Remove selected date from list
