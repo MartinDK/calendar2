@@ -78,22 +78,7 @@ class Events {
     let thisMonth = dateUTC.getMonth()
     let deleteThis = false;
 
-    if ((this.dates !== undefined) && (this.dates[thisYear] !== undefined) && (this.dates[thisYear][thisMonth] !== undefined)) {
 
-      for (const key in this.dates) {
-        if (this.dates.hasOwnProperty(key)) {
-          const element = this.dates[key];
-          console.log(element)
-        }
-      }
-      // this.dates[thisYear][thisMonth].forEach( (date, i) => {
-      //   // date.date == thisDate ? deleteThis = i : void(0);
-      //   console.log(date)
-      // });
-
-      deleteThis !== false ? this.dates[thisYear][thisMonth].splice(deleteThis, 1) : void(0);
-      
-    }
  
     if ( this.dates === undefined ) {
 
@@ -103,28 +88,51 @@ class Events {
 
     } else if (this.dates[thisYear] === undefined) {
 
-      console.log("year and month undefined")
+      console.log("year undefined")
 
       this.dates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
 
-    } else if (this.dates[thisYear][thisMonth] && deleteThis === false) {
+    } else if (this.dates[thisYear][thisMonth] === undefined) {
 
-      console.log("year and month exists")
+      console.log("month undefined")
+
+      this.dates[thisYear][thisMonth] = {[thisDate]: dateUTC};
+
+    } else if ( this.dates[thisYear][thisMonth][thisDate] === undefined ) {
+
+      console.log('year and month exists')
 
       this.dates[thisYear][thisMonth][thisDate] = dateUTC;
-
-    } else if ( this.dates[thisYear] && deleteThis === false) {
-
-      console.log('year exists')
-
-      this.dates[thisYear][thisMonth] = {[thisDate]:dateUTC };
 
     } else {
 
       console.log("item deselected")
 
+      delete this.dates[thisYear][thisMonth][thisDate];
+
     }
-    console.log(this.dates)
+
+    // Years in this.dates
+    for (const year in this.dates) {
+      if (this.dates.hasOwnProperty(year)) {
+        const yearObj = this.dates[year];
+        // Month in this.dates.year
+        for (const month in yearObj) {
+          if (yearObj.hasOwnProperty(month)) {
+            const monthObj = yearObj[month];
+            // Dates in this.dates.year.month
+            for (const date in monthObj) {
+              if (monthObj.hasOwnProperty(date)) {
+                const dateObj = monthObj[date];
+                console.log(`date ${date} ${month} ${year}`)
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // console.log(this.dates)
     dateStr = this.fullDateFormat(dateUTC);
 
     // Remove selected date from list
