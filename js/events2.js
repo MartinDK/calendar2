@@ -20,6 +20,7 @@ class Events {
     calEvents.calEl = document.querySelector(`#${selector}`);
     calEvents.calObj = calObj;
 
+    calEvents.initList();
     calEvents.addEvents();
   }
   addEvents(){
@@ -152,6 +153,7 @@ class Events {
   initList() {
     const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
     this.calendarHeight = 295;
+    this.calEl.style.height = `${this.calendarHeight}px`;
 
     selectedItems.forEach(thisSpan => {
       thisSpan.remove();
@@ -164,7 +166,7 @@ class Events {
     
     selectedListEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${str}</span>`);
     this.calendarHeight += this.spanHeight;
-    this.calEl.style.height = `${this.calendarHeight}px`
+    this.calEl.style.height = `${this.calendarHeight}px`;
 
   }
   dateEvents() {

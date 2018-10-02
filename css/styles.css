@@ -44,7 +44,6 @@ body {
   font-size: 1.1em;
   font-weight: 400;
 }
-/* weekend */
 .calendar.day:nth-child(1n +6) {
   color: #eb0808;
 }
@@ -114,7 +113,6 @@ button#month-increase {}
 .calendar.selected:nth-child(7n + 2) {
   color: #ea9292;
 }
-
 .calendar.selected:nth-child(7n + 1) {
   color: #ea9292;
 }
