@@ -77,49 +77,49 @@ class Events {
     let thisYear = dateUTC.getFullYear()
     let thisMonth = dateUTC.getMonth()
  
-    if ( this.selectDates === undefined ) {
+    if ( this.selectedDates === undefined ) {
 
       console.log("empty")
 
-      this.selectDates = { [thisYear]:{[thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }]} };
+      this.selectedDates = { [thisYear]:{[thisMonth]: {[thisDate]: dateUTC} }};
 
-    } else if (this.selectDates[thisYear] === undefined) {
+    } else if (this.selectedDates[thisYear] === undefined) {
 
       // console.log("year undefined")
 
-      this.selectDates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
+      this.selectedDates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
 
-    } else if (this.selectDates[thisYear][thisMonth] === undefined) {
+    } else if (this.selectedDates[thisYear][thisMonth] === undefined) {
 
       // console.log("month undefined")
 
-      this.selectDates[thisYear][thisMonth] = {[thisDate]: dateUTC};
+      this.selectedDates[thisYear][thisMonth] = {[thisDate]: dateUTC};
 
-    } else if ( this.selectDates[thisYear][thisMonth][thisDate] === undefined ) {
+    } else if ( this.selectedDates[thisYear][thisMonth][thisDate] === undefined ) {
 
       // console.log('year and month exists')
 
-      this.selectDates[thisYear][thisMonth][thisDate] = dateUTC;
+      this.selectedDates[thisYear][thisMonth][thisDate] = dateUTC;
 
     } else {
 
       // console.log("item deselected")
 
-      delete this.selectDates[thisYear][thisMonth][thisDate];
+      delete this.selectedDates[thisYear][thisMonth][thisDate];
 
     }
 
     this.initList();
 
-    // Years in this.selectDates
-    for (const year in this.selectDates) {
-      if (this.selectDates.hasOwnProperty(year)) {
-        const yearObj = this.selectDates[year];
-        // Month in this.selectDates.year
+    // Years in this.selectedDates
+    for (const year in this.selectedDates) {
+      if (this.selectedDates.hasOwnProperty(year)) {
+        const yearObj = this.selectedDates[year];
+        // Month in this.selectedDates.year
         for (const month in yearObj) {
           if (yearObj.hasOwnProperty(month)) {
             const monthObj = yearObj[month];
-            // Dates in this.selectDates.year.month
+            // Dates in this.selectedDates.year.month
             for (const date in monthObj) {
               if (monthObj.hasOwnProperty(date)) {
                 const dateObj = monthObj[date];
