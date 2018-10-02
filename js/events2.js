@@ -10,6 +10,8 @@ class Events {
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
     this.selectedDays = {};
+    this.spanHeight = 32;
+    this.calendarHeight = 295;
   }
   static createEvents(selector, calObj) {
     let calEvents = new Events;
@@ -82,29 +84,31 @@ class Events {
 
     } else if (this.selectDates[thisYear] === undefined) {
 
-      console.log("year undefined")
+      // console.log("year undefined")
 
       this.selectDates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
 
     } else if (this.selectDates[thisYear][thisMonth] === undefined) {
 
-      console.log("month undefined")
+      // console.log("month undefined")
 
       this.selectDates[thisYear][thisMonth] = {[thisDate]: dateUTC};
 
     } else if ( this.selectDates[thisYear][thisMonth][thisDate] === undefined ) {
 
-      console.log('year and month exists')
+      // console.log('year and month exists')
 
       this.selectDates[thisYear][thisMonth][thisDate] = dateUTC;
 
     } else {
 
-      console.log("item deselected")
+      // console.log("item deselected")
 
       delete this.selectDates[thisYear][thisMonth][thisDate];
 
     }
+
+    this.initList();
 
     // Years in this.selectDates
     for (const year in this.selectDates) {
@@ -119,7 +123,6 @@ class Events {
               if (monthObj.hasOwnProperty(date)) {
                 const dateObj = monthObj[date];
                 dateStr = this.fullDateFormat(dateObj);
-                console.log(`date ${date} ${month} ${year}`)
                 this.addToSelectedDates(dateStr);
               }
             }
@@ -127,9 +130,6 @@ class Events {
         }
       }
     }
-
-
-    // console.log(this.dates[thisYear][thisMonth]);
 
   }
   clearSelection(el, todayObj, dateObj) {
@@ -149,20 +149,22 @@ class Events {
     	elToday ? elToday.classList.remove('today') : elToday;
     }
   }
-  addToSelectedDates(el) {
-    const dateEl = this.calEl.querySelector(`.selected-dates-list`);
-    const selectedSpans = this.calEl.querySelectorAll('.selected-date-item');
-    const spanHeight = 32
-    let calendarHeight = 335 - spanHeight;
+  initList() {
+    const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
+    this.calendarHeight = 295;
+
+    selectedItems.forEach(thisSpan => {
+      thisSpan.remove();
+    });
+  }
+  addToSelectedDates(str) {
+    const selectedListEl = this.calEl.querySelector(`.selected-dates-list`);
+
+    console.log(str)
     
-    console.log(el)
-    // selectedSpans.forEach(thisSpan => {
-    //   thisSpan.remove();
-    // });
-    
-    dateEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${el}</span>`);
-    calendarHeight += spanHeight;
-    this.calEl.style.height = `${calendarHeight}px`
+    selectedListEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${str}</span>`);
+    this.calendarHeight += this.spanHeight;
+    this.calEl.style.height = `${this.calendarHeight}px`
 
   }
   dateEvents() {
