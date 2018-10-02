@@ -9,8 +9,7 @@ class Events {
     this.date = this.dateObj.getDate();
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
-    this.selectedDays = [];
-    this.dates = { empty:"" };
+    this.selectedDays = {};
   }
   static createEvents(selector, calObj) {
     let calEvents = new Events;
@@ -66,7 +65,7 @@ class Events {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
     this.selectDates(el);
-    this.addToSelectedDates();
+    // this.addToSelectedDates();
   }
   selectDates(el) {
     let dateStr = '';
@@ -74,75 +73,64 @@ class Events {
     let dateUTC = new Date(Date.UTC(this.year, this.month, thisDate));
     let thisYear = dateUTC.getFullYear()
     let thisMonth = dateUTC.getMonth()
-    let deleteThis = false;
-
-    if ((this.dates.empty !== "") && (this.dates[thisYear] !== undefined) && (this.dates[thisYear][thisMonth] !== undefined)) {
-
-      this.dates[thisYear][thisMonth].forEach( (date, i) => {
-        date.date == thisDate ? deleteThis = i : void(0);
-      });
-
-      deleteThis !== false ? this.dates[thisYear][thisMonth].splice(deleteThis, 1) : void(0);
-      
-    }
  
-    if ( this.dates.empty === "" ) {
+    if ( this.selectDates === undefined ) {
 
       console.log("empty")
 
-      this.dates = { [thisYear]:{[thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }]} };
+      this.selectDates = { [thisYear]:{[thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }]} };
 
-    } else if (this.dates[thisYear] === undefined) {
+    } else if (this.selectDates[thisYear] === undefined) {
 
-      console.log("year and month undefined")
+      console.log("year undefined")
 
-      this.dates[thisYear] = { [thisMonth]: [{ date:thisDate, [thisDate]: dateUTC }] };
+      this.selectDates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
 
-    } else if (this.dates[thisYear][thisMonth] && deleteThis === false) {
+    } else if (this.selectDates[thisYear][thisMonth] === undefined) {
 
-      console.log("year and month exists")
+      console.log("month undefined")
 
-      this.dates[thisYear][thisMonth].push({ date:thisDate, [thisDate]: dateUTC });
+      this.selectDates[thisYear][thisMonth] = {[thisDate]: dateUTC};
 
-    } else if ( this.dates[thisYear] && deleteThis === false) {
+    } else if ( this.selectDates[thisYear][thisMonth][thisDate] === undefined ) {
 
-      console.log('year exists')
+      console.log('year and month exists')
 
-      this.dates[thisYear][thisMonth] = [];
-      this.dates[thisYear][thisMonth].push({ date:thisDate, [dateStr]:dateUTC });
+      this.selectDates[thisYear][thisMonth][thisDate] = dateUTC;
 
     } else {
 
       console.log("item deselected")
 
-    }
-    
-    dateStr = this.fullDateFormat(dateUTC);
+      delete this.selectDates[thisYear][thisMonth][thisDate];
 
-    // Remove selected date from list
-    this.selectedDays = this.selectedDays.filter( date => {
-      return date !== dateStr;
-    })
-    // Add selected date to list
-    if ( this.eventState('selected', el)) {
-      this.selectedDays.push(dateStr);
     }
-    for (const year in this.dates) {
-      if (this.dates.hasOwnProperty(year)) {
-        const element = this.dates[year];
 
-        for (const month in element) {
-          if (element.hasOwnProperty(8)) {
-            const elementX = element[8];
-            console.log('elementX')
-            console.log(elementX)
+    // Years in this.selectDates
+    for (const year in this.selectDates) {
+      if (this.selectDates.hasOwnProperty(year)) {
+        const yearObj = this.selectDates[year];
+        // Month in this.selectDates.year
+        for (const month in yearObj) {
+          if (yearObj.hasOwnProperty(month)) {
+            const monthObj = yearObj[month];
+            // Dates in this.selectDates.year.month
+            for (const date in monthObj) {
+              if (monthObj.hasOwnProperty(date)) {
+                const dateObj = monthObj[date];
+                dateStr = this.fullDateFormat(dateObj);
+                console.log(`date ${date} ${month} ${year}`)
+                this.addToSelectedDates(dateStr);
+              }
+            }
           }
         }
-        console.log(element)
       }
     }
 
+
     // console.log(this.dates[thisYear][thisMonth]);
+
   }
   clearSelection(el, todayObj, dateObj) {
     const currentMonth = this.monthYearFormat(todayObj);
@@ -161,21 +149,21 @@ class Events {
     	elToday ? elToday.classList.remove('today') : elToday;
     }
   }
-  addToSelectedDates() {
+  addToSelectedDates(el) {
     const dateEl = this.calEl.querySelector(`.selected-dates-list`);
     const selectedSpans = this.calEl.querySelectorAll('.selected-date-item');
     const spanHeight = 32
     let calendarHeight = 335 - spanHeight;
-
-    selectedSpans.forEach(thisSpan => {
-      thisSpan.remove();
-    });
     
-    this.selectedDays.forEach( el => {
-      dateEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${el}</span>`);
-      calendarHeight += spanHeight;
-      this.calEl.style.height = `${calendarHeight}px`
-    });
+    console.log(el)
+    // selectedSpans.forEach(thisSpan => {
+    //   thisSpan.remove();
+    // });
+    
+    dateEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${el}</span>`);
+    calendarHeight += spanHeight;
+    this.calEl.style.height = `${calendarHeight}px`
+
   }
   dateEvents() {
     
