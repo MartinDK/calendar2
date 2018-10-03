@@ -9,7 +9,7 @@ class Events {
     this.date = this.dateObj.getDate();
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
-    this.selectedDays = {};
+    this.selectedDates = {};
     this.spanHeight = 32;
     this.calendarHeight = 295;
   }
@@ -20,7 +20,7 @@ class Events {
     calEvents.calEl = document.querySelector(`#${selector}`);
     calEvents.calObj = calObj;
 
-    calEvents.initSelectedDatesHtml();
+    calEvents.initSelectedListHtml();
     calEvents.addEvents();
   }
   addEvents() {
@@ -64,12 +64,37 @@ class Events {
     this.addEvents();
     this.clearSelection(this.calEl, this.todayObj, this.dateObj);
   }
+  highlightSelected(el, selectedDateObj) {
+
+    let thisYear = selectedDateObj.getFullYear();
+    let thisMonth = selectedDateObj.getMonth();
+
+    if (this.selectedDates !== undefined && this.selectedDates[thisYear] !== undefined && this.selectedDates[thisYear][thisMonth] !== undefined) {
+
+      let thisSelected = this.selectedDates[thisYear][thisMonth];
+
+      for (const date in thisSelected) {
+        if (thisSelected.hasOwnProperty(date)) {
+
+          const dateObj = thisSelected[date];
+          const id = dateObj.getDate();
+
+          el.querySelector(`#id-${id}`).classList.add('selected');
+
+        }
+      }
+    } else {
+
+      console.log('no selection this month')
+
+    }
+  }
   eventHandler(el) {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
-    this.selectDates(el);
+    this.selectDate(el);
   }
-  selectDates(el) {
+  selectDate(el) {
     let thisDate = (el.id).substring(3,6);
     let dateUTC = new Date(Date.UTC(this.year, this.month, thisDate));
     let thisYear = dateUTC.getFullYear()
@@ -107,29 +132,37 @@ class Events {
 
     }
 
-    this.initSelectedDatesHtml();
-    this.createSelectedDatesList();
+    this.initSelectedListHtml();
+    this.createSelectedList();
 
   }
   clearSelection(el, todayObj, dateObj) {
     // clear selected dates not in this month, add selections for current month view
     const currentMonth = this.monthYearFormat(todayObj);
     const selectedMonth = this.monthYearFormat(dateObj);
-
+    
     if ( selectedMonth === currentMonth ) {
-    	el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
+      
+      el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
+      console.log(dateObj)
+      this.highlightSelected(el, dateObj);
+
     } else {
+      
       // not today
     	let elToday = el.querySelector(`.today`);
     	let elSelected = el.querySelectorAll(`.selected`);
-    	elSelected.forEach(el => {
+      
+      elSelected.forEach(el => {
     		el.classList.remove('selected');
       });
+      
       // remove today highlight
-    	elToday ? elToday.classList.remove('today') : elToday;
+      elToday ? elToday.classList.remove('today') : elToday;
+      this.highlightSelected(el, dateObj);
     }
   }
-  initSelectedDatesHtml() {
+  initSelectedListHtml() {
     const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
     this.calendarHeight = 295;
     this.calEl.style.height = `${this.calendarHeight}px`;
@@ -138,7 +171,7 @@ class Events {
       thisSpan.remove();
     });
   }
-  createSelectedDatesList() {
+  createSelectedList() {
 
     let dateStr = '';
 
@@ -160,7 +193,7 @@ class Events {
 
                 const dateObj = monthObj[date];
                 dateStr = this.fullDateFormat(dateObj);
-                this.addToSelectedDatesHtml(dateStr);
+                this.addToSelectedListHtml(dateStr);
               }
             }
           }
@@ -168,7 +201,7 @@ class Events {
       }
     }
   }
-  addToSelectedDatesHtml(str) {
+  addToSelectedListHtml(str) {
     const selectedListEl = this.calEl.querySelector(`.selected-dates-list`);
 
     selectedListEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${str}</span>`);
