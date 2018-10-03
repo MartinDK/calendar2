@@ -112,6 +112,7 @@ class Events {
 
   }
   clearSelection(el, todayObj, dateObj) {
+    // clear selected dates not in this month, add selections for current month view
     const currentMonth = this.monthYearFormat(todayObj);
     const selectedMonth = this.monthYearFormat(dateObj);
 
@@ -144,14 +145,19 @@ class Events {
     // Years in this.selectedDates
     for (const year in this.selectedDates) {
       if (this.selectedDates.hasOwnProperty(year)) {
+        
         const yearObj = this.selectedDates[year];
+
         // Month in this.selectedDates.year
         for (const month in yearObj) {
           if (yearObj.hasOwnProperty(month)) {
+
             const monthObj = yearObj[month];
+            
             // Dates in this.selectedDates.year.month
             for (const date in monthObj) {
               if (monthObj.hasOwnProperty(date)) {
+
                 const dateObj = monthObj[date];
                 dateStr = this.fullDateFormat(dateObj);
                 this.addToSelectedDatesHtml(dateStr);
