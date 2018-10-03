@@ -20,7 +20,7 @@ class Events {
     calEvents.calEl = document.querySelector(`#${selector}`);
     calEvents.calObj = calObj;
 
-    calEvents.initList();
+    calEvents.initSelectedDatesHtml();
     calEvents.addEvents();
   }
   addEvents(){
@@ -68,10 +68,9 @@ class Events {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
     this.selectDates(el);
-    // this.addToSelectedDates();
+    // this.addToSelectedDatesHtml();
   }
   selectDates(el) {
-    let dateStr = '';
     let thisDate = (el.id).substring(3,6);
     let dateUTC = new Date(Date.UTC(this.year, this.month, thisDate));
     let thisYear = dateUTC.getFullYear()
@@ -79,7 +78,7 @@ class Events {
  
     if ( this.selectedDates === undefined ) {
 
-      console.log("empty")
+      // console.log("empty")
 
       this.selectedDates = { [thisYear]:{[thisMonth]: {[thisDate]: dateUTC} }};
 
@@ -109,28 +108,8 @@ class Events {
 
     }
 
-    this.initList();
-
-    // Years in this.selectedDates
-    for (const year in this.selectedDates) {
-      if (this.selectedDates.hasOwnProperty(year)) {
-        const yearObj = this.selectedDates[year];
-        // Month in this.selectedDates.year
-        for (const month in yearObj) {
-          if (yearObj.hasOwnProperty(month)) {
-            const monthObj = yearObj[month];
-            // Dates in this.selectedDates.year.month
-            for (const date in monthObj) {
-              if (monthObj.hasOwnProperty(date)) {
-                const dateObj = monthObj[date];
-                dateStr = this.fullDateFormat(dateObj);
-                this.addToSelectedDates(dateStr);
-              }
-            }
-          }
-        }
-      }
-    }
+    this.initSelectedDatesHtml();
+    this.createSelectedDatesList();
 
   }
   clearSelection(el, todayObj, dateObj) {
@@ -150,7 +129,7 @@ class Events {
     	elToday ? elToday.classList.remove('today') : elToday;
     }
   }
-  initList() {
+  initSelectedDatesHtml() {
     const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
     this.calendarHeight = 295;
     this.calEl.style.height = `${this.calendarHeight}px`;
@@ -159,11 +138,34 @@ class Events {
       thisSpan.remove();
     });
   }
-  addToSelectedDates(str) {
+  createSelectedDatesList() {
+
+    let dateStr = '';
+
+    // Years in this.selectedDates
+    for (const year in this.selectedDates) {
+      if (this.selectedDates.hasOwnProperty(year)) {
+        const yearObj = this.selectedDates[year];
+        // Month in this.selectedDates.year
+        for (const month in yearObj) {
+          if (yearObj.hasOwnProperty(month)) {
+            const monthObj = yearObj[month];
+            // Dates in this.selectedDates.year.month
+            for (const date in monthObj) {
+              if (monthObj.hasOwnProperty(date)) {
+                const dateObj = monthObj[date];
+                dateStr = this.fullDateFormat(dateObj);
+                this.addToSelectedDatesHtml(dateStr);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  addToSelectedDatesHtml(str) {
     const selectedListEl = this.calEl.querySelector(`.selected-dates-list`);
 
-    console.log(str)
-    
     selectedListEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${str}</span>`);
     this.calendarHeight += this.spanHeight;
     this.calEl.style.height = `${this.calendarHeight}px`;
