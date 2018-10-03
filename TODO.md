@@ -1,8 +1,8 @@
-- [ ] Show selected months in calendar
 - [ ] Fill in empty cells with next or previous month dates
 - [ ] Add date range selection
 - [ ] Make monthArray Private
 - [ ] 
+- [x] Show selected months in calendar
 - [x] Move events into event handler
 - [x] Use template literals and map() to generate html
 - [X] Use selectDates() for selected list
