@@ -68,7 +68,6 @@ class Events {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
     this.selectDates(el);
-    // this.addToSelectedDatesHtml();
   }
   selectDates(el) {
     let thisDate = (el.id).substring(3,6);
