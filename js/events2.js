@@ -23,7 +23,7 @@ class Events {
     calEvents.initSelectedDatesHtml();
     calEvents.addEvents();
   }
-  addEvents(){
+  addEvents() {
     this.dateEvents();
     this.buttonEvents();
   }
@@ -57,14 +57,14 @@ class Events {
 
     this.calObj.setup(el, dateObj);
   }
-  changeMonth(i){
+  changeMonth(i) {
     this.month += i;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
     this.replaceMonth(this.calEl, this.dateObj);
     this.addEvents();
     this.clearSelection(this.calEl, this.todayObj, this.dateObj);
   }
-  eventHandler(el){
+  eventHandler(el) {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
     this.selectDates(el);
@@ -190,14 +190,14 @@ class Events {
     previousMonthButtonEl.addEventListener('click', () => this.changeMonth(-1));
     nextMonthButtonEl.addEventListener('click', () => this.changeMonth(1));
   }
-  eventState(thisClass, el){
+  eventState(thisClass, el) {
     // true if el contains thisClass
     return el.classList.contains(thisClass); 
   } 
-  togglToday(el){ 
+  togglToday(el) { 
     return this.eventState("selected", el) ? console.log(`goodbye`) : console.log(`hello`);
   };
-  togglSelect(el){ 
+  togglSelect(el) { 
     return el.classList.toggle('selected');
   };
 }

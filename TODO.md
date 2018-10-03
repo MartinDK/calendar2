@@ -1,10 +1,11 @@
-- [ ] Use selectDates() for selected list
-- [x] Use template literals and map() to generate html
-- [ ] Move events into event handler
+- [ ] Show selected months in calendar
 - [ ] Fill in empty cells with next or previous month dates
 - [ ] Add date range selection
 - [ ] Make monthArray Private
 - [ ] 
+- [x] Move events into event handler
+- [x] Use template literals and map() to generate html
+- [X] Use selectDates() for selected list
 - [x] Display selected day in text box
 - [x] Fix hello goodbye
 - [x] Fix calendar start day when changing months
