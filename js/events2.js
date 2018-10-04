@@ -26,7 +26,14 @@ class Events {
     this.dateEvents();
     this.buttonEvents();
   }
+  newDateUTC(dateObj) {
+
+    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    
+    return dateUTC;
+  }
   fullDateFormat(dateObj) {
+
     const fullDateFormat = {
     	year: 'numeric',
     	month: 'long',
@@ -34,7 +41,7 @@ class Events {
     	weekday: 'short',
     };
     
-    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    let dateUTC = this.newDateUTC(dateObj)
     let formattedDateStr = dateUTC.toLocaleDateString('en-GB', fullDateFormat);
 
     return formattedDateStr;
@@ -45,7 +52,7 @@ class Events {
       month: 'long',
     }
 
-    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    let dateUTC = this.newDateUTC(dateObj)
     let formattedDateStr = dateUTC.toLocaleDateString('en-GB', monthYearFormat);
 
     return formattedDateStr;
@@ -67,20 +74,21 @@ class Events {
     this.addEvents();
     this.clearSelection(this.calEl, this.todayObj, this.dateObj);
   }
-  highlightSelected(el, selectedDateObj) {
+  highlightSelectedMonth(el, selectedDateObj) {
 
     const {selectedDates} = this;
-    let thisYear = selectedDateObj.getFullYear();
-    let thisMonth = selectedDateObj.getMonth();
-    console.log(selectedDates)
-    if (selectedDates !== undefined && selectedDates[thisYear] !== undefined && selectedDates[thisYear][thisMonth] !== undefined) {
 
-      let thisSelected = selectedDates[thisYear][thisMonth];
+    const thisYear = selectedDateObj.getFullYear();
+    const thisMonth = selectedDateObj.getMonth();
 
-      for (const date in thisSelected) {
-        if (thisSelected.hasOwnProperty(date)) {
+    if (selectedDates[thisYear] !== undefined && selectedDates[thisYear][thisMonth] !== undefined) {
 
-          const dateObj = thisSelected[date];
+      let thisMonthSelected = selectedDates[thisYear][thisMonth];
+
+      for (const date in thisMonthSelected) {
+        if (thisMonthSelected.hasOwnProperty(date)) {
+
+          const dateObj = thisMonthSelected[date];
           const id = dateObj.getDate();
 
           el.querySelector(`#id-${id}`).classList.add('selected');
@@ -101,8 +109,6 @@ class Events {
   selectDate(el) {
 
     const {year: thisYear, month: thisMonth, selectedDates} = this;
-    console.log(thisYear)
-    console.log(this)
 
     let thisDate = (el.id).substring(3,6);
     let dateUTC = new Date(Date.UTC(thisYear, thisMonth, thisDate));
@@ -147,7 +153,7 @@ class Events {
       
       el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
       console.log(dateObj)
-      this.highlightSelected(el, dateObj);
+      this.highlightSelectedMonth(el, dateObj);
 
     } else {
       
@@ -161,7 +167,7 @@ class Events {
       
       // remove today highlight
       elToday ? elToday.classList.remove('today') : elToday;
-      this.highlightSelected(el, dateObj);
+      this.highlightSelectedMonth(el, dateObj);
     }
   }
   initSelectedListHtml() {
