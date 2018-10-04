@@ -19,8 +19,12 @@ class Events {
     calEvents.calEl = document.querySelector(`#${selector}`);
     calEvents.calObj = calObj;
 
-    calEvents.initSelectedListHtml();
-    calEvents.addEvents();
+    calEvents.setupEvents()
+
+  }
+  setupEvents() {
+    this.initSelectedListHtml();
+    this.addEvents();
   }
   addEvents() {
     this.dateEvents();
