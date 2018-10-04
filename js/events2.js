@@ -57,8 +57,12 @@ class Events {
     this.calObj.setup(el, dateObj);
   }
   changeMonth(i) {
+    
     this.month += i;
     this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
+    this.year = this.dateObj.getFullYear();
+    this.month = this.dateObj.getMonth();
+    this.date = this.dateObj.getDate();
     this.replaceMonth(this.calEl, this.dateObj);
     this.addEvents();
     this.clearSelection(this.calEl, this.todayObj, this.dateObj);
@@ -68,7 +72,7 @@ class Events {
     const {selectedDates} = this;
     let thisYear = selectedDateObj.getFullYear();
     let thisMonth = selectedDateObj.getMonth();
-
+    console.log(selectedDates)
     if (selectedDates !== undefined && selectedDates[thisYear] !== undefined && selectedDates[thisYear][thisMonth] !== undefined) {
 
       let thisSelected = selectedDates[thisYear][thisMonth];
@@ -97,6 +101,8 @@ class Events {
   selectDate(el) {
 
     const {year: thisYear, month: thisMonth, selectedDates} = this;
+    console.log(thisYear)
+    console.log(this)
 
     let thisDate = (el.id).substring(3,6);
     let dateUTC = new Date(Date.UTC(thisYear, thisMonth, thisDate));
@@ -108,7 +114,7 @@ class Events {
 
     } else if (selectedDates[thisYear] === undefined) {
 
-      // console.log("year undefined")
+      console.log("year undefined")
       selectedDates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
 
     } else if (selectedDates[thisYear][thisMonth] === undefined) {
