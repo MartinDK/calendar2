@@ -23,6 +23,7 @@ class Events {
     calEvents.addEvents();
   }
   addEvents() {
+    this.clearSelection(this.calEl);
     this.dateEvents();
     this.buttonEvents();
   }
@@ -57,29 +58,28 @@ class Events {
 
     return formattedDateStr;
   }
-  replaceMonth(el, dateObj) {
-    let removeOldCal = el.querySelector(`.calendar2`);
-    removeOldCal.remove(removeOldCal);
-
-    this.calObj.setup(el, dateObj);
-  }
   changeMonth(i) {
     
     this.month += i;
-    this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
+    this.dateObj = this.newDateUTC(new Date(this.year, this.month, this.date));
     this.year = this.dateObj.getFullYear();
     this.month = this.dateObj.getMonth();
     this.date = this.dateObj.getDate();
-    this.replaceMonth(this.calEl, this.dateObj);
+    
+    let removeOldCal = this.calEl.querySelector(`.calendar2`);
+    removeOldCal.remove(removeOldCal);
+
+    this.calObj.setup(this.calEl, this.dateObj);
+
     this.addEvents();
-    this.clearSelection(this.calEl, this.todayObj, this.dateObj);
+
   }
-  highlightSelectedMonth(el, selectedDateObj) {
+  highlightSelectedMonth(el) {
 
-    const {selectedDates} = this;
+    const {selectedDates, dateObj} = this;
 
-    const thisYear = selectedDateObj.getFullYear();
-    const thisMonth = selectedDateObj.getMonth();
+    const thisYear = dateObj.getFullYear();
+    const thisMonth = dateObj.getMonth();
 
     if (selectedDates[thisYear] !== undefined && selectedDates[thisYear][thisMonth] !== undefined) {
 
@@ -144,7 +144,10 @@ class Events {
     this.createSelectedList();
 
   }
-  clearSelection(el, todayObj, dateObj) {
+  clearSelection(el) {
+
+    const {todayObj, dateObj} = this;
+
     // clear selected dates not in this month, add selections for current month view
     const currentMonth = this.monthYearFormat(todayObj);
     const selectedMonth = this.monthYearFormat(dateObj);
@@ -152,23 +155,19 @@ class Events {
     if ( selectedMonth === currentMonth ) {
       
       el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
-      console.log(dateObj)
-      this.highlightSelectedMonth(el, dateObj);
 
     } else {
       
-      // not today
     	let elToday = el.querySelector(`.today`);
-    	let elSelected = el.querySelectorAll(`.selected`);
-      
-      elSelected.forEach(el => {
-    		el.classList.remove('selected');
-      });
-      
-      // remove today highlight
       elToday ? elToday.classList.remove('today') : elToday;
-      this.highlightSelectedMonth(el, dateObj);
+
+    	let elSelected = el.querySelectorAll(`.selected`);
+      elSelected.forEach(el => el.classList.remove('selected'));
+      
     }
+
+    this.highlightSelectedMonth(el);
+
   }
   initSelectedListHtml() {
 
@@ -177,9 +176,8 @@ class Events {
     this.calendarHeight = 295;
     this.calEl.style.height = `${this.calendarHeight}px`;
 
-    selectedItems.forEach(thisSpan => {
-      thisSpan.remove();
-    });
+    selectedItems.forEach(thisSpan => thisSpan.remove());
+    
   }
   createSelectedList() {
 
