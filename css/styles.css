@@ -129,8 +129,8 @@ button#month-increase {}
  .left .selected-dates-list {
   background: #1e90ff;
 }
- .right .selected-date-list {
-  background: #dc4f4f;
+ .right .selected-dates-list {
+  background: #d33e3e;
 }
 span.selected-date-item {
   display: block;

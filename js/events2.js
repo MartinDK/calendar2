@@ -210,7 +210,8 @@ class Events {
   }
   addToSelectedListHtml(str) {
     const selectedListEl = this.calEl.querySelector(`.selected-dates-list`);
-
+    console.log(str)
+    console.log(selectedListEl)
     selectedListEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${str}</span>`);
     this.calendarHeight += this.spanHeight;
     this.calEl.style.height = `${this.calendarHeight}px`;
