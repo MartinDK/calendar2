@@ -126,11 +126,20 @@ button#month-increase {}
   width: 100%;
   box-sizing: border-box;
 }
- .left .selected-dates-list {
+.left .selected-dates-list {
   background: #1e90ff;
 }
- .right .selected-dates-list {
+.right .selected-dates-list {
   background: #d33e3e;
+}
+.right .date:hover {
+  background-color: #c71212;
+}
+.right .selected:hover {
+	background-color: #c71212;
+}
+.right .today:hover {
+	background-color: #ffdd006b;
 }
 span.selected-date-item {
   display: block;
