@@ -13,7 +13,7 @@ class Events {
     this.spanHeight = 32;
     this.calendarHeight = 295;
   }
-  static createEvents(selector, calObj) {
+  static setupEvents(selector, calObj) {
     let calEvents = new Events;
     
     calEvents.dateObj = calEvents.todayObj;
