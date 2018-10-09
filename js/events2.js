@@ -1,7 +1,6 @@
 
 class Events {
   constructor() {
-    this.e = '';
     this.todayObj = new Date();
     this.dateObj = this.todayObj;
     this.calObj = {};
@@ -24,10 +23,18 @@ class Events {
     calEvents.addEvents();
   }
   addEvents() {
+    this.clearSelection(this.calEl);
     this.dateEvents();
     this.buttonEvents();
   }
+  newDateUTC(dateObj) {
+
+    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    
+    return dateUTC;
+  }
   fullDateFormat(dateObj) {
+
     const fullDateFormat = {
     	year: 'numeric',
     	month: 'long',
@@ -35,7 +42,7 @@ class Events {
     	weekday: 'short',
     };
     
-    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    let dateUTC = this.newDateUTC(dateObj)
     let formattedDateStr = dateUTC.toLocaleDateString('en-GB', fullDateFormat);
 
     return formattedDateStr;
@@ -46,37 +53,42 @@ class Events {
       month: 'long',
     }
 
-    let dateUTC = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    let dateUTC = this.newDateUTC(dateObj)
     let formattedDateStr = dateUTC.toLocaleDateString('en-GB', monthYearFormat);
 
     return formattedDateStr;
   }
-  replaceMonth(el, dateObj) {
-    let removeOldCal = el.querySelector(`.calendar2`);
+  changeMonth(i) {
+    
+    this.month += i;
+    this.dateObj = this.newDateUTC(new Date(this.year, this.month, this.date));
+    this.year = this.dateObj.getFullYear();
+    this.month = this.dateObj.getMonth();
+    this.date = this.dateObj.getDate();
+    
+    let removeOldCal = this.calEl.querySelector(`.calendar2`);
     removeOldCal.remove(removeOldCal);
 
-    this.calObj.setup(el, dateObj);
-  }
-  changeMonth(i) {
-    this.month += i;
-    this.dateObj = new Date(Date.UTC(this.year, this.month, this.date));
-    this.replaceMonth(this.calEl, this.dateObj);
+    this.calObj.setup(this.calEl, this.dateObj);
+
     this.addEvents();
-    this.clearSelection(this.calEl, this.todayObj, this.dateObj);
+
   }
-  highlightSelected(el, selectedDateObj) {
+  highlightSelectedMonth(el) {
 
-    let thisYear = selectedDateObj.getFullYear();
-    let thisMonth = selectedDateObj.getMonth();
+    const {selectedDates, dateObj} = this;
 
-    if (this.selectedDates !== undefined && this.selectedDates[thisYear] !== undefined && this.selectedDates[thisYear][thisMonth] !== undefined) {
+    const thisYear = dateObj.getFullYear();
+    const thisMonth = dateObj.getMonth();
 
-      let thisSelected = this.selectedDates[thisYear][thisMonth];
+    if (selectedDates[thisYear] !== undefined && selectedDates[thisYear][thisMonth] !== undefined) {
 
-      for (const date in thisSelected) {
-        if (thisSelected.hasOwnProperty(date)) {
+      let thisMonthSelected = selectedDates[thisYear][thisMonth];
 
-          const dateObj = thisSelected[date];
+      for (const date in thisMonthSelected) {
+        if (thisMonthSelected.hasOwnProperty(date)) {
+
+          const dateObj = thisMonthSelected[date];
           const id = dateObj.getDate();
 
           el.querySelector(`#id-${id}`).classList.add('selected');
@@ -95,40 +107,36 @@ class Events {
     this.selectDate(el);
   }
   selectDate(el) {
+
+    const {year: thisYear, month: thisMonth, selectedDates} = this;
+
     let thisDate = (el.id).substring(3,6);
-    let dateUTC = new Date(Date.UTC(this.year, this.month, thisDate));
-    let thisYear = dateUTC.getFullYear()
-    let thisMonth = dateUTC.getMonth()
+    let dateUTC = new Date(Date.UTC(thisYear, thisMonth, thisDate));
  
-    if ( this.selectedDates === undefined ) {
+    if ( selectedDates === undefined ) {
 
       // console.log("empty")
+      selectedDates = { [thisYear]:{[thisMonth]: {[thisDate]: dateUTC} }};
 
-      this.selectedDates = { [thisYear]:{[thisMonth]: {[thisDate]: dateUTC} }};
+    } else if (selectedDates[thisYear] === undefined) {
 
-    } else if (this.selectedDates[thisYear] === undefined) {
+      console.log("year undefined")
+      selectedDates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
 
-      // console.log("year undefined")
-
-      this.selectedDates[thisYear] = { [thisMonth]: {[thisDate]: dateUTC} };
-
-    } else if (this.selectedDates[thisYear][thisMonth] === undefined) {
+    } else if (selectedDates[thisYear][thisMonth] === undefined) {
 
       // console.log("month undefined")
+      selectedDates[thisYear][thisMonth] = {[thisDate]: dateUTC};
 
-      this.selectedDates[thisYear][thisMonth] = {[thisDate]: dateUTC};
-
-    } else if ( this.selectedDates[thisYear][thisMonth][thisDate] === undefined ) {
+    } else if ( selectedDates[thisYear][thisMonth][thisDate] === undefined ) {
 
       // console.log('year and month exists')
-
-      this.selectedDates[thisYear][thisMonth][thisDate] = dateUTC;
+      selectedDates[thisYear][thisMonth][thisDate] = dateUTC;
 
     } else {
 
       // console.log("item deselected")
-
-      delete this.selectedDates[thisYear][thisMonth][thisDate];
+      delete selectedDates[thisYear][thisMonth][thisDate];
 
     }
 
@@ -136,7 +144,10 @@ class Events {
     this.createSelectedList();
 
   }
-  clearSelection(el, todayObj, dateObj) {
+  clearSelection(el) {
+
+    const {todayObj, dateObj} = this;
+
     // clear selected dates not in this month, add selections for current month view
     const currentMonth = this.monthYearFormat(todayObj);
     const selectedMonth = this.monthYearFormat(dateObj);
@@ -144,32 +155,29 @@ class Events {
     if ( selectedMonth === currentMonth ) {
       
       el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
-      console.log(dateObj)
-      this.highlightSelected(el, dateObj);
 
     } else {
       
-      // not today
     	let elToday = el.querySelector(`.today`);
-    	let elSelected = el.querySelectorAll(`.selected`);
-      
-      elSelected.forEach(el => {
-    		el.classList.remove('selected');
-      });
-      
-      // remove today highlight
       elToday ? elToday.classList.remove('today') : elToday;
-      this.highlightSelected(el, dateObj);
+
+    	let elSelected = el.querySelectorAll(`.selected`);
+      elSelected.forEach(el => el.classList.remove('selected'));
+      
     }
+
+    this.highlightSelectedMonth(el);
+
   }
   initSelectedListHtml() {
+
     const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
+
     this.calendarHeight = 295;
     this.calEl.style.height = `${this.calendarHeight}px`;
 
-    selectedItems.forEach(thisSpan => {
-      thisSpan.remove();
-    });
+    selectedItems.forEach(thisSpan => thisSpan.remove());
+    
   }
   createSelectedList() {
 
