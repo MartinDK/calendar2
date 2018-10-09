@@ -1,6 +1,7 @@
 class Events {
   constructor(selector, calObj) {
 
+		this.selector = selector;
     this.calObj = calObj;
     this.calEl = document.querySelector(`#${selector}`);
 
@@ -8,7 +9,8 @@ class Events {
   eventHandler(el) {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
-    this.selectDate(el);
+		this.selectDate(el);
+		this.selectedListItem(this.calEl);
   }
   buttonEvents() {
     const htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
@@ -28,10 +30,20 @@ class Events {
   } 
   togglToday(el) { 
     return this.eventState("selected", el) ? console.log(`goodbye`) : console.log(`hello`);
-  };
+  }
   togglSelect(el) { 
     return el.classList.toggle('selected');
-  };
+	}
+	selectedListItem(elArray) {
+		const selectedListArr = elArray.querySelectorAll('.selected-date-item');
+
+		selectedListArr.forEach(el => {
+
+			const txt = el.innerText;
+			el.addEventListener('click', () => console.log(txt));
+
+		});
+	}
 }
 class CalendarEvents extends Events {
   constructor(selector, calObj) {
@@ -101,7 +113,7 @@ class CalendarEvents extends Events {
   		}
   	} else {
 
-  		console.log('no selection this month')
+  		// console.log('no selection this month')
 
   	}
   }
@@ -157,7 +169,7 @@ class CalendarEvents extends Events {
 
   	} else if (selectedDates[thisYear] === undefined) {
 
-  		console.log("year undefined")
+  		// console.log("year undefined")
   		selectedDates[thisYear] = {
   			[thisMonth]: {
   				[thisDate]: dateUTC
@@ -228,8 +240,10 @@ class CalendarEvents extends Events {
   	}
   }
   addToSelectedListHtml(str) {
-  	const selectedListEl = this.calEl.querySelector(`.selected-dates-list`);
-  	selectedListEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${str}</span>`);
+  	const selectedListEl = this.calEl.querySelector('.selected-dates-list');
+		
+		selectedListEl.insertAdjacentHTML('beforeend', `<span class="selected-date-item">${str}</span>`);
+
   	this.calendarHeight += this.spanHeight;
   	this.calEl.style.height = `${this.calendarHeight}px`;
 
