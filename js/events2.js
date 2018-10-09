@@ -1,10 +1,10 @@
 
 class Events {
-  constructor() {
+  constructor(selector, calObj) {
     this.todayObj = new Date();
     this.dateObj = this.todayObj;
-    this.calObj = {};
-    this.calEl = {};
+    this.calObj = calObj;
+    this.calEl = document.querySelector(`#${selector}`);
     this.date = this.dateObj.getDate();
     this.month = this.dateObj.getMonth();
     this.year = this.dateObj.getFullYear();
@@ -13,14 +13,13 @@ class Events {
     this.calendarHeight = 295;
   }
   static setupEvents(selector, calObj) {
-    let calEvents = new Events;
-    
-    calEvents.dateObj = calEvents.todayObj;
-    calEvents.calEl = document.querySelector(`#${selector}`);
-    calEvents.calObj = calObj;
 
-    calEvents.initSelectedListHtml();
-    calEvents.addEvents();
+    
+    // calEvents.dateObj = calEvents.todayObj;
+    // calEvents.calEl = document.querySelector(`#${selector}`);
+    // calEvents.calObj = calObj;
+
+
   }
   addEvents() {
     this.clearSelection(this.calEl);
@@ -247,4 +246,18 @@ class Events {
   togglSelect(el) { 
     return el.classList.toggle('selected');
   };
+}
+
+class CalendarEvents extends Events {
+  constructor(selector, calObj) {
+    super(selector, calObj);
+  }
+  static setupCalendarEvents(selector, calObj){
+
+    let calEvents = new Events(selector, calObj);
+    
+    calEvents.initSelectedListHtml();
+    calEvents.addEvents();
+
+  }
 }
