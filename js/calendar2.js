@@ -19,11 +19,11 @@ class Calendar2 {
     const calEl = document.querySelector(`#${id}`);
     
     // Create HTML
-    calendar2html.setup(calEl, calendar2html.todayObj)
+    calendar2html.newCalendar(calEl, calendar2html.todayObj)
     
     return calendar2html
   }
-  setup(el, todayObj) {
+  newCalendar(el, todayObj) {
     this.monthArray = this.initMonthArray(todayObj);
     this.monthHTML = this.createMonthHTML(this.monthArray, todayObj);
     // Output
