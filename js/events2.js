@@ -62,12 +62,12 @@ class CalendarEvents extends Events {
 
     let calEvents = new CalendarEvents(selector, calObj);
     
-    calEvents.initSelectedListHtml();
-    calEvents.addEvents();
-
+    calEvents.startSelection();
+		
   }
-  addEvents() {
-  	this.clearSelection(this.calEl);
+  startSelection() {
+		this.highlightToday(this.calEl);
+		this.selectedDatesInMonth(this.calEl);
   	this.dateEvents();
   	this.buttonEvents();
   }
@@ -79,20 +79,16 @@ class CalendarEvents extends Events {
   	this.month = this.dateObj.getMonth();
   	this.date = this.dateObj.getDate();
 
-  	let removeOldCal = this.calEl.querySelector(`.calendar2`);
-  	removeOldCal.remove(removeOldCal);
+  	this.calEl.querySelector(`.calendar2`).remove();
 
   	this.calObj.setup(this.calEl, this.dateObj);
 
-  	this.addEvents();
+  	this.startSelection();
 
   }
-  highlightSelectedMonth(el) {
+	selectedDatesInMonth(el) {
 
-  	const {
-  		selectedDates,
-  		dateObj
-  	} = this;
+  	const { selectedDates, dateObj } = this;
 
   	const thisYear = dateObj.getFullYear();
   	const thisMonth = dateObj.getMonth();
@@ -117,33 +113,24 @@ class CalendarEvents extends Events {
 
   	}
   }
-  clearSelection(el) {
+  highlightToday(el) {
 
-    const {
-      todayObj,
-      dateObj
-    } = this;
+    const { todayObj, dateObj } = this;
 
     // clear selected dates not in this month, add selections for current month view
     const currentMonth = this.monthYearFormat(todayObj);
-    const selectedMonth = this.monthYearFormat(dateObj);
+		const selectedMonth = this.monthYearFormat(dateObj);
 
     if (selectedMonth === currentMonth) {
 
       el.querySelector(`#id-${dateObj.getDate()}`).classList.add('today');
 
-    } else {
+    } else if (el.querySelector('.today')) {
 
-      let elToday = el.querySelector(`.today`);
-      elToday ? elToday.classList.remove('today') : elToday;
+      el.querySelector('.today').remove('today');
 
-      let elSelected = el.querySelectorAll(`.selected`);
-      elSelected.forEach(el => el.classList.remove('selected'));
-
-    }
-
-    this.highlightSelectedMonth(el);
-
+		}
+		
   }
   selectDate(el) {
 
