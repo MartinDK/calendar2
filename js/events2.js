@@ -10,7 +10,7 @@ class Events {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
 		this.selectDate(el);
-		this.selectedListItem(this.calEl);
+		this.selectListItem(this.calEl);
   }
   buttonEvents() {
     const htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
@@ -34,7 +34,7 @@ class Events {
   togglSelect(el) { 
     return el.classList.toggle('selected');
 	}
-	selectedListItem(elArray) {
+	selectListItem(elArray) {
 		const selectedListArr = elArray.querySelectorAll('.selected-date-item');
 
 		selectedListArr.forEach(el => {
