@@ -21,8 +21,8 @@ class Events {
     el.insertAdjacentHTML('beforeend', htmlRightArrow);
     const nextMonthButtonEl = el.querySelector(`#month-increase`);
     const previousMonthButtonEl = el.querySelector(`#month-decrease`);
-    previousMonthButtonEl.addEventListener('click', () => this.startMonthEvents(-1));
-    nextMonthButtonEl.addEventListener('click', () => this.startMonthEvents(1));
+    previousMonthButtonEl.addEventListener('click', () => this.initCalendarEvents(-1));
+    nextMonthButtonEl.addEventListener('click', () => this.initCalendarEvents(1));
   }
   eventState(thisClass, el) {
     // true if el contains thisClass
@@ -58,18 +58,18 @@ class CalendarEvents extends Events {
     this.spanHeight = 32;
     this.calendarHeight = 295;
   }
-  static setupCalendarEvents(selector, calObj){
+  static createCalendarEvents(selector, calObj){
 
     let calEvents = new CalendarEvents(selector, calObj);
     
-    calEvents.startMonthEvents(0);
+    calEvents.initCalendarEvents(0);
 		
   }
-  startMonthEvents(adjustMonth) {
+  initCalendarEvents(adjustMonth) {
 		this.changeMonth(adjustMonth);
 		this.highlightToday(this.calEl);
-		this.selectedDatesInMonth(this.calEl);
-  	this.dateEvents();
+		this.selectedDatesThisMonth(this.calEl);
+  	this.selectedListEvents();
   	this.buttonEvents();
 	}
 	calculateMonthYear(month) {
@@ -88,7 +88,7 @@ class CalendarEvents extends Events {
   	this.calObj.newCalendar(this.calEl, this.dateObj);
 
   }
-	selectedDatesInMonth(el) {
+	selectedDatesThisMonth(el) {
 
   	const { selectedDates, dateObj } = this;
 
@@ -237,7 +237,7 @@ class CalendarEvents extends Events {
   	this.calEl.style.height = `${this.calendarHeight}px`;
 
   }
-  dateEvents() {
+  selectedListEvents() {
 
   	const el = this.calEl.querySelectorAll(`.calendar.date`);
 
