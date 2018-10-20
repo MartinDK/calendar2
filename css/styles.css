@@ -142,3 +142,7 @@ button {
 span.selected-date-item {
   display: block;
 }
+span.selected-date-item .selected-date-button {
+  float: right;
+  margin-right: 10px;
+}

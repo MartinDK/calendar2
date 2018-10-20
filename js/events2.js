@@ -10,7 +10,7 @@ class Events {
     el.classList.contains('today') ? this.togglToday(el) : void(0);
     this.togglSelect(el);
 		this.selectDate(el);
-		this.selectListItem(this.calEl);
+		this.selectedListEvent(this.calEl);
   }
   buttonEvents() {
     const htmlLeftArrow = '<button id="month-decrease" aria-label="previous month"><img src="img/arrow-left-circle.svg" alt="left arrow"></button>';
@@ -34,13 +34,18 @@ class Events {
   togglSelect(el) { 
     return el.classList.toggle('selected');
 	}
-	selectListItem(elArray) {
+	selectedListEvent(elArray) {
 		const selectedListArr = elArray.querySelectorAll('.selected-date-item');
+		console.log(this.selectedDates)
 
 		selectedListArr.forEach(el => {
 
 			const txt = el.innerText;
-			el.addEventListener('click', () => console.log(txt));
+			el.addEventListener('click', () => {
+				el.classList.remove('selected-date-item');
+				this.initCalendarEvents(0);
+			});
+			el.insertAdjacentHTML('beforeend', '<span class="selected-date-button">X</span>');
 
 		});
 	}
@@ -189,8 +194,8 @@ class CalendarEvents extends Events {
 
   }
   initSelectedListHtml() {
-
-  	const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
+		const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
+		console.log(selectedItems)
 
   	this.calendarHeight = 295;
   	this.calEl.style.height = `${this.calendarHeight}px`;
