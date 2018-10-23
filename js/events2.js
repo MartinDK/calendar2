@@ -43,11 +43,24 @@ class Events {
 			const txt = el.innerText;
 
 			el.addEventListener('click', () => {
-				console.log(el.id);
+
+				console.log(el.id)
+				const year = parseInt(el.id.slice(1,5));
+				const month = parseInt(el.id.slice(5,7));
+				const date = parseInt(el.id.slice(7,9));
+
+				
+				console.log(year, month, date);
+				console.log(this.selectedDates);
+
+				delete this.selectedDates[year][month][date];
+				
 				el.remove('selected-date-item');
+				this.calEl.querySelector(`#id-${date}`).classList.remove('selected');
+
 			});
 			el.insertAdjacentHTML('beforeend', '<span class="selected-date-button">X</span>');
-
+			
 		});
 	}
 }
@@ -202,7 +215,6 @@ class CalendarEvents extends Events {
 	}
 	initSelectedListHtml() {
 		const selectedItems = this.calEl.querySelectorAll('.selected-date-item');
-		console.log(selectedItems)
 
 		this.calendarHeight = 295;
 		this.calEl.style.height = `${this.calendarHeight}px`;
@@ -240,16 +252,23 @@ class CalendarEvents extends Events {
 			}
 		}
 	}
-	addToSelectedListHtml(str) {
+	createDateId(DateStr) {
+		const dateObj = new Date(DateStr);
+		let date = dateObj.getDate();
+		let month = dateObj.getMonth();
+		const year = dateObj.getFullYear();
+
+		if (date < 10) { date = "0" + date };
+		if (month < 10){ month = "0" + month };
+		
+		return `d${year}${month}${date}`;
+	}
+	addToSelectedListHtml(DateStr) {
 		const selectedListEl = this.calEl.querySelector('.selected-dates-list');
 
-		const dateObj = new Date(str);
-		const day = dateObj.getDate();
-		const month = dateObj.getMonth();
-		const year = dateObj.getFullYear();
-		const idString = `d${year}${month}${year}`;
+		const idString = this.createDateId(DateStr);
 
-		selectedListEl.insertAdjacentHTML('beforeend', `<span id="${idString}" class="selected-date-item">${str}</span>`);
+		selectedListEl.insertAdjacentHTML('beforeend', `<span id="${idString}" class="selected-date-item">${DateStr}</span>`);
 
 		this.calendarHeight += this.spanHeight;
 		this.calEl.style.height = `${this.calendarHeight}px`;
