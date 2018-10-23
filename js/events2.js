@@ -41,17 +41,13 @@ class Events {
 		selectedListArr.forEach(el => {
 
 			const txt = el.innerText;
+			const dateStr = el.id
 
 			el.addEventListener('click', () => {
 
-				console.log(el.id)
-				const year = parseInt(el.id.slice(1,5));
-				const month = parseInt(el.id.slice(5,7));
-				const date = parseInt(el.id.slice(7,9));
-
-				
-				console.log(year, month, date);
-				console.log(this.selectedDates);
+				const year = parseInt(dateStr.slice(1,5));
+				const month = parseInt(dateStr.slice(5,7));
+				const date = parseInt(dateStr.slice(7,9));
 
 				delete this.selectedDates[year][month][date];
 				
