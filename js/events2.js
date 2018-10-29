@@ -165,21 +165,9 @@ class CalendarEvents extends Events {
 
 		let thisDate = (el.id).substring(3, 6);
 		let dateUTC = new Date(Date.UTC(thisYear, thisMonth, thisDate));
+		
+		if (selectedDates[thisYear] === undefined) {
 
-		if (selectedDates === undefined) {
-
-			// console.log("empty")
-			selectedDates = {
-				[thisYear]: {
-					[thisMonth]: {
-						[thisDate]: dateUTC
-					}
-				}
-			};
-
-		} else if (selectedDates[thisYear] === undefined) {
-
-			// console.log("year undefined")
 			selectedDates[thisYear] = {
 				[thisMonth]: {
 					[thisDate]: dateUTC
@@ -188,19 +176,16 @@ class CalendarEvents extends Events {
 
 		} else if (selectedDates[thisYear][thisMonth] === undefined) {
 
-			// console.log("month undefined")
 			selectedDates[thisYear][thisMonth] = {
 				[thisDate]: dateUTC
 			};
 
 		} else if (selectedDates[thisYear][thisMonth][thisDate] === undefined) {
 
-			// console.log('year and month exists')
 			selectedDates[thisYear][thisMonth][thisDate] = dateUTC;
 
 		} else {
 
-			// console.log("item deselected")
 			delete selectedDates[thisYear][thisMonth][thisDate];
 
 		}
