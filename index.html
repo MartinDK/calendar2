@@ -5,12 +5,20 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<title>Calendar 2</title>
 	<link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen">
+	<link rel="icon" type="image/png" href="./img/favicon-16x16.png" sizes="16x16">
+	<!-- <link rel="shortcut icon" type="image/png" href="/favicon-16x16.png"> -->
 </head>
 
 <body>
 	<!-- <div class="ruler"></div> -->
-	<div id="calendar" class="left"></div>
-	<div id="calendar2" class="right"></div>
+	<div id="calendar" class="left">
+		<div class="selected-dates-list">
+		</div>
+	</div>
+	<div id="calendar2" class="right">
+		<div class="selected-dates-list">
+		</div>
+	</div>
 	<script src="js/calendar2.js"></script>
 	<script src="js/events2.js"></script>
 	<script type="text/javascript">
@@ -18,8 +26,8 @@
 		let calOne = Calendar2.createCalendar('calendar');
 		let calTwo = Calendar2.createCalendar('calendar2');
 		// Add Events
-		Events.createEvents("calendar", calOne);
-		Events.createEvents("calendar2", calTwo);
+		CalendarEvents.createCalendarEvents("calendar", calOne);
+		CalendarEvents.createCalendarEvents("calendar2", calTwo);
 
 	</script>
 </body>

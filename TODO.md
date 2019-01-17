@@ -1,12 +1,18 @@
-- [ ] Fix hello goodbye
+- [ ] Fill in empty cells with next or previous month dates
 - [ ] Add date range selection
 - [ ] Make monthArray Private
 - [ ] 
+- [x] Show selected months in calendar
+- [x] Move events into event handler
+- [x] Use template literals and map() to generate html
+- [X] Use selectDates() for selected list
+- [x] Display selected day in text box
+- [x] Fix hello goodbye
 - [x] Fix calendar start day when changing months
 - [x] Remove selected days when changing months
 - [X] Add buttons to change month
 - [x] FIX: make table cells even sized i.e different sizes in Firefox and Safari???
-- [x] merge makeReadablDate() and dateOrdinal()
+- [x] merge makeReadableDate() and dateOrdinal()
 - [x] readable date should read = _Tue_ 11th September 2018
 - [x] Add date id to each cell eg. d0, d0, d0 d1, d3, d4 
 - [x] Highlight today

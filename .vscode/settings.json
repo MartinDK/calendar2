@@ -2,8 +2,12 @@
   "eslint.enable": false,
   "editor.fontSize": 16,
   "terminal.integrated.fontSize": 14,
-  "window.zoomLevel": -0.2,
-  "editor.wordHighlightStrongBackground": "#abb2bf00",
-  "editor.selectionBackground": "#5a79bb8b",
-
+  "window.zoomLevel": 0,
+  "workbench.colorCustomizations": {
+    "editor.selectionBackground": "#65392d",
+    "editor.findMatchBackground": "#ffcc6637",
+    "editor.wordHighlightBackground": "#3353686d",
+    "editor.wordHighlightStrongBackground": "#7f6a0297",
+    "editor.selectionHighlightBackground": "#023367",
+  }
 }
